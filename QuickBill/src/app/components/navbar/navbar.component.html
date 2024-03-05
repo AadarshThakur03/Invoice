@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
+  <a class="navbar-brand" href="#">
+    <h1 class="nav-title">QuickBill</h1>
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" id="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="nav-link" href="#">Pricing</a>
+      </li>
+      <li class="nav-item" *ngIf="!isLoggedIn">
+        <a class="nav-link" id="nav-link" routerLink="/login">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="!isLoggedIn">
+        <a class="btn btn-primary" id="nav-btn" routerLink="/register"
+          >Register</a
+        >
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <a class="nav-link" id="nav-link" href="#">Dashboard</a>
+      </li>
+      <li class="nav-item user-div" *ngIf="isLoggedIn">
+        <img
+          class="user-image"
+          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+          alt="User Image"
+        />
+        <a class="nav-link" id="nav-link" href="#">{{
+          currentUser.username
+        }}</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <a class="btn btn-primary" id="nav-btn" (click)="logout()">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
