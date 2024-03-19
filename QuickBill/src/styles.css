@@ -4,3 +4,5 @@
     --primary-color:  #002347 ;
     --secondary-color:  #fa0059;
   }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

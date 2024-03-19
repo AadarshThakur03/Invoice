@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent body from scrolling */
+  }
+  
+  .container-fluid {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .main-container {
+    display: flex;
+    flex: 1;
+    overflow-y: auto; /* Make main content scrollable vertically */
+    padding-top: 64px; /* Adjust to match navbar height */
+  }
+  
+  .display-area {
+    flex: 1;
+  }
+app-navbar{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    height: 4rem;
+    z-index: 2;
+}
+app-sidebar{
+    position: fixed;
+    width: 60px;
+    height: calc(100vh - 4.2rem);
+    background: rgb(255, 255, 255);
+    color: rgb(22, 28, 38);
+    box-shadow: rgba(23, 28, 37, 0.5) 0px 0px 10px 0px;
+    /* box-shadow: 0px 0px 10px  rgba(0,0,0,0.5);
+    background-color: ; */
+    overflow-x: hidden;
+    white-space: nowrap;
+    transition: width 250ms ease-in;
+}
+.black-border{
+    /* border: 1px solid black; */
+}
+.display-area{
+    position: absolute;
+    left: 60px;
+    width: calc(100% - 60px);
+    transition:left 250ms ease-in, width 250ms ease-in;
+}
+.display-area-shrink{
+    width: calc(100% - 250px);
+    left: 250px;
+}
+.app-side-nav-open{
+    width: 250px;
+}

@@ -10,10 +10,15 @@
     font-size: 24px;
     font-weight: 900;
     color: white;
+    margin: 0px;
+}
+.menu-bar{
+    margin-right: 10px;
+    cursor: pointer;
 }
 #nav-link{
     color: white;
-    font-weight: 600;
+    /* font-weight: 600; */
     font-size:16px;
 
 }

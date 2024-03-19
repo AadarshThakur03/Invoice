@@ -26,8 +26,10 @@ export class LoginComponent {
       if (data.status === 'success') {
         this.authService.setLoggedIn(true);
         localStorage.setItem('token', data.token);
-        this.router.navigate(['/user-dashboard']);
+        this.router.navigate(['/user-homepage']);
       }
     });
   }
 }
+
+//interceptor - error success

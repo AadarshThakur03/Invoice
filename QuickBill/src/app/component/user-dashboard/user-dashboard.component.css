@@ -1,0 +1,92 @@
+.container {
+    padding: 20px;
+    
+  }
+  
+  .card {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
+    transition: box-shadow 0.3s ease;
+    /* background-color: rgb(251, 252, 254); */
+    background-color: #fafcff;
+    border: 1px solid #002347;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+  mat-card-title{
+    font-size: 18px;
+  }
+  mat-card-content{
+    margin-top: 10px;
+  }
+  mat-card-actions{
+    margin-top: 20px;
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    right: 0px;
+    padding: 0px 30px;
+  }
+  .card-button{
+    background-color: #f7fbff;
+    color: #fa0059;
+    border-radius: 5px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease;
+    border: 2px solid #fa0059;
+    width: 100%;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .card-content {
+    margin-bottom: 20px;
+  }
+  
+  .card-actions {
+    display: flex;
+    justify-content: center;
+  }
+  
+  button {
+    background-color: #3f51b5;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button.mat-button:hover {
+    background-color: #303f9f;
+  }
+  .details-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .detail {
+    /* or any other alignment you prefer */
+  }
+  
+  .detail p:first-child {
+    font-size: smaller; /* or any other font size you prefer */
+    margin: 0px;
+  }
+
+  .detail p:nth-child(2) {
+    color: black;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0px;
+    margin-bottom: 15px;
+  }

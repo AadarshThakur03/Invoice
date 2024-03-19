@@ -1,0 +1,37 @@
+<div class="side-nav-content border-black">
+  <ul class="nav-list" [ngClass]="{ 'nav-list-open': sideNavStatus }">
+    <li class="profile-item">
+      <img
+        class="user-image"
+        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+        alt="User Image"
+      />
+      <span>
+        <a>Aadarsh</a>
+        <p>adarshthakur210gmail.com</p>
+      </span>
+    </li>
+    <li
+      class="nav-list-item border-black"
+      *ngFor="let item of list"
+      [ngClass]="{
+        active: activeScreen === item.components,
+        'active-collapse': activeScreen === item.components && !sideNavStatus
+      }"
+      (click)="selectScreen(item.components)"
+    >
+      <i
+        class="{{ item.icon }}"
+        [ngClass]="{
+          'active-i': activeScreen === item.components && !sideNavStatus
+        }"
+        style="color: #002347"
+      ></i>
+      <span>
+        <a [ngClass]="{ 'active-a': activeScreen === item.components }">{{
+          item.name
+        }}</a>
+      </span>
+    </li>
+  </ul>
+</div>
