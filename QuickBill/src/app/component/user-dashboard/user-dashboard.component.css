@@ -90,3 +90,48 @@
     margin: 0px;
     margin-bottom: 15px;
   }
+
+  .invoice {
+    margin: auto;
+    max-width: 800px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  .invoice-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .invoice-header h1 {
+    margin: 0;
+  }
+  .invoice-details {
+    margin-bottom: 20px;
+  }
+  .invoice-details table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .invoice-details th, .invoice-details td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  .invoice-items {
+    margin-bottom: 20px;
+  }
+  .invoice-items table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .invoice-items th, .invoice-items td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  .invoice-total {
+    margin-top: 20px;
+    text-align: right;
+  }

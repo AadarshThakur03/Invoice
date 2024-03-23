@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LoginComponent } from '../../screens/login/login.component';
 import { RegisterComponent } from '../../screens/register/register.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,7 +13,6 @@ export class SidebarComponent {
 
   // @Output() screenSelected= new EventEmitter<string>();
   @Output() screenSelected = new EventEmitter<string>();
-  constructor(private router: Router) {}
 
   list = [
     {
@@ -47,7 +45,6 @@ export class SidebarComponent {
     // },
   ];
   selectScreen(component: string) {
-    this.router.navigateByUrl(component);
     this.screenSelected.emit(component);
   }
 }

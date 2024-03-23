@@ -3,4 +3,9 @@
 /* #1E2761, #408EC6, #7A2048  */
 
 /* #fa2571 */
+h1{
+    font: normal !important;
+    letter-spacing: normal;
+    margin: 0px !important;
+}
 
