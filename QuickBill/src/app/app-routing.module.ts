@@ -7,6 +7,7 @@ import { RegisterComponent } from './screens/register/register.component';
 import { LoginComponent } from './screens/login/login.component';
 import { UserHomepageComponent } from './screens/user-homepage/user-homepage.component';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
+import { CreateInvoiceComponent } from './screens/create-invoice/create-invoice.component';
 
 RegisterComponent;
 const appRoutes: Routes = [
@@ -14,6 +15,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'user-homepage', component: UserHomepageComponent },
   { path: 'user-dashboard', component: UserDashboardComponent },
+  { path: 'create-invoice', component: CreateInvoiceComponent },
 
   { path: '', component: HomePageComponent, pathMatch: 'full' },
 ];

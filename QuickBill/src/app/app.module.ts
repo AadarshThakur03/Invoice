@@ -27,6 +27,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { CreateInvoiceComponent } from './screens/create-invoice/create-invoice.component';
 
 
 
@@ -41,7 +42,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     LoginComponent,
     UserHomepageComponent,
     SidebarComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    CreateInvoiceComponent
   ],
   imports: [BrowserModule, AppRoutingModule,HttpClientModule,FormsModule,AppRoutingModule,MatCardModule,MatGridListModule],
   providers: [provideClientHydration(),provideHttpClient(withFetch() ), provideAnimationsAsync()],
