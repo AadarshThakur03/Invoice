@@ -16,7 +16,11 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { IntroSectionComponent } from './home-page/intro-section/intro-section.component';
 import { FeatureSectionComponent } from './home-page/feature-section/feature-section.component';
 import { LoginComponent } from './screens/login/login.component';
-import { HttpClientModule,provideHttpClient ,withFetch} from '@angular/common/http';
+import {
+  HttpClientModule,
+  provideHttpClient,
+  withFetch,
+} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PathLocationStrategy, LocationStrategy } from '@angular/common';
 import { UserHomepageComponent } from './screens/user-homepage/user-homepage.component';
@@ -28,8 +32,6 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CreateInvoiceComponent } from './screens/create-invoice/create-invoice.component';
-
-
 
 @NgModule({
   declarations: [
@@ -43,11 +45,22 @@ import { CreateInvoiceComponent } from './screens/create-invoice/create-invoice.
     UserHomepageComponent,
     SidebarComponent,
     UserDashboardComponent,
-    CreateInvoiceComponent
+    CreateInvoiceComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule,HttpClientModule,FormsModule,AppRoutingModule,MatCardModule,MatGridListModule],
-  providers: [provideClientHydration(),provideHttpClient(withFetch() ), provideAnimationsAsync()],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    AppRoutingModule,
+    MatCardModule,
+    MatGridListModule,
+  ],
+  providers: [
+    provideClientHydration(),
+    provideHttpClient(withFetch()),
+    provideAnimationsAsync(),
+  ],
   bootstrap: [AppComponent],
-  
 })
 export class AppModule {}

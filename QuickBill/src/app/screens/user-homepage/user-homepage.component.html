@@ -15,7 +15,8 @@
       [ngClass]="{ 'display-area-shrink': sideNavStatus }"
     >
       <ng-container *ngIf="selectedComponent">
-        <ng-template [ngComponentOutlet]="selectedComponent"></ng-template>
+        <!-- <ng-template [ngComponentOutlet]="selectedComponent"></ng-template> -->
+        <router-outlet></router-outlet>
       </ng-container>
     </div>
   </main>
