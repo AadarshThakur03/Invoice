@@ -3,46 +3,90 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-create-invoice',
   templateUrl: './create-invoice.component.html',
-  styleUrl: './create-invoice.component.css'
+  styleUrl: './create-invoice.component.css',
 })
 export class CreateInvoiceComponent {
-  businessName: string = 'Your Business Name';
-  phoneNumber: string = '123-456-7890';
-  addressLine1: string = '123 Main St';
-  addressLine2: string = 'Suite 100';
-  city: string = 'City';
-  state: string = 'State';
-  zipCode: string = 'Zip Code';
-  country: string = 'Country';
-  customerName: string = 'Customer Name';
-  customerAddress: string = 'Customer Address';
-  orderNo: string = 'Order No';
-  invoiceNo: string = 'Invoice No';
-  date: string = 'Date';
-  itemDescription: string = 'Item Description';
-  itemCode: string = 'Item Code';
-  quantity: string = 'Quantity';
-  amount: string = 'Amount';
-  taxableAmount: string = 'Taxable Amount';
-  cgst: string = 'CGST';
-  sgst: string = 'SGST';
-  igst: string = 'IGST';
-  subtotal: string = 'Subtotal';
-  total: string = 'Total';
-  gstin: string = 'GSTIN Number';
-  pan: string = 'PAN Number';
-  stateName: string = 'State Name';
-  bankDetails: string = 'Account No - XXXX, IFSC - XXXX';
-  termsConditions: string = 'Terms & Conditions';
-  amountInWords: string = 'Amount in Words';
-  items: any[] = [
-    { description: 'Item Description 1', code: 'Code 1', qty: 1, amount: 10.00 }
-  ];
+  businessName: string = '';
+  mobileNumber: string = '';
+  alternateMobileNumber: string = '';
+  addressLine1: string = '';
+  addressLine2: string = '';
+  customerName: string = '';
+  customerAddress: string = '';
+  cityStateZip: string = '';
+  country: string = '';
+  invoiceNo: string = '';
+  orderNo: string = '';
+  date: string = '';
+  itemDescription1: string = '';
+  itemCode1: string = '';
+  qty1: string = '';
+  amount1: string = '';
+  gstin: string = '';
+  pan: string = '';
+  state: string = '';
+  amountInWords: string = '';
+  accountNo: string = '';
+  ifsc: string = '';
+  termsConditions: string = '';
+  taxableAmount: string = '';
+  taxableAmountValue: string = '';
+  cgstPercentage: string = '';
+  cgstAmount: string = '';
+  sgstPercentage: string = '';
+  sgstAmount: string = '';
+  igstPercentage: string = '';
+  igstAmount: string = '';
+  items: any[] = [{ description: '', code: '', qty: '', amount: '' }];
 
-  constructor() { }
+  constructor() {}
   addItem() {
     this.items.push({ description: '', code: '', qty: 0, amount: 0 });
     console.log(this.items);
-    
+  }
+  showPreview: boolean = false;
+  editInvoice: boolean = true;
+  changeInvoice() {
+    this.editInvoice = true;
+    this.showPreview=false;
+  }
+  submittedInvoice: any = {};
+  submitInvoice() {
+    this.submittedInvoice = {
+      businessName: this.businessName,
+      mobileNumber: this.mobileNumber,
+      alternateMobileNumber: this.alternateMobileNumber,
+      addressLine1: this.addressLine1,
+      addressLine2: this.addressLine2,
+      customerName: this.customerName,
+      customerAddress: this.customerAddress,
+      cityStateZip: this.cityStateZip,
+      country: this.country,
+      invoiceNo: this.invoiceNo,
+      orderNo: this.orderNo,
+      date: this.date,
+      itemDescription1: this.itemDescription1,
+      itemCode1: this.itemCode1,
+      qty1: this.qty1,
+      amount1: this.amount1,
+      gstin: this.gstin,
+      pan: this.pan,
+      state: this.state,
+      amountInWords: this.amountInWords,
+      accountNo: this.accountNo,
+      ifsc: this.ifsc,
+      termsConditions: this.termsConditions,
+      taxableAmount: this.taxableAmount,
+      taxableAmountValue: this.taxableAmountValue,
+      cgstPercentage: this.cgstPercentage,
+      cgstAmount: this.cgstAmount,
+      sgstPercentage: this.sgstPercentage,
+      sgstAmount: this.sgstAmount,
+      igstPercentage: this.igstPercentage,
+      igstAmount: this.igstAmount,
+      items: this.items,
+    };
+    this.showPreview = true;
+    this.editInvoice=false;
   }
 }

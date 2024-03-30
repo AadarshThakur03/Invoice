@@ -9,6 +9,7 @@ import { UserDashboardComponent } from './component/user-dashboard/user-dashboar
 import { CreateInvoiceComponent } from './screens/create-invoice/create-invoice.component';
 
 import { AuthGuard } from './services/auth.guard';
+import { ViewInvoiceComponent } from './screens/view-invoice/view-invoice.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
       { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
       { path: 'user-dashboard', component: UserDashboardComponent },
       { path: 'create-invoice', component: CreateInvoiceComponent },
+      { path: 'view-invoice', component: ViewInvoiceComponent },
 
       // Add more child routes as needed
     ],

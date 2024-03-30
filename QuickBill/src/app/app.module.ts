@@ -32,6 +32,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CreateInvoiceComponent } from './screens/create-invoice/create-invoice.component';
+import { ViewInvoiceComponent } from './screens/view-invoice/view-invoice.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { CreateInvoiceComponent } from './screens/create-invoice/create-invoice.
     SidebarComponent,
     UserDashboardComponent,
     CreateInvoiceComponent,
+    ViewInvoiceComponent,
   ],
   imports: [
     BrowserModule,
