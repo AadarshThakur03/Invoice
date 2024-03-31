@@ -33,7 +33,8 @@
   transition: background-color 1.9s ease;
 }
 .active-i{
-  margin-right: 22px !important;
+  margin-right: 40px !important;
+  margin-left: 13px !important;
 }
 .active-a{
   /* font-weight: 700 !important; */

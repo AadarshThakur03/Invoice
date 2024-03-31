@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { SidebarStateService } from '../../services/activeScreen.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,11 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private sidebarStateService: SidebarStateService
+  ) {}
 
   @Output() sideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = true;
@@ -25,6 +30,7 @@ export class NavbarComponent implements OnInit {
       this.currentUser = user.user;
       console.log(this.currentUser);
     });
+    this.sidebarStateService.activeScreen$.subscribe((screen) => {});
   }
 
   navigateToRegister() {
@@ -44,5 +50,6 @@ export class NavbarComponent implements OnInit {
   }
   logout() {
     this.authService.logout();
+    this.sidebarStateService.setActiveScreen('');
   }
 }

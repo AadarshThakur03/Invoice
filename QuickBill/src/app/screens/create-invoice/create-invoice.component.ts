@@ -38,7 +38,7 @@ export class CreateInvoiceComponent {
   igstPercentage: string = '';
   igstAmount: string = '';
   items: any[] = [{ description: '', code: '', qty: '', amount: '' }];
-
+  isPreviewSelected: boolean = false;
   constructor() {}
   addItem() {
     this.items.push({ description: '', code: '', qty: 0, amount: 0 });
@@ -47,11 +47,13 @@ export class CreateInvoiceComponent {
   showPreview: boolean = false;
   editInvoice: boolean = true;
   changeInvoice() {
+    this.isPreviewSelected = false;
     this.editInvoice = true;
     this.showPreview=false;
   }
   submittedInvoice: any = {};
   submitInvoice() {
+    this.isPreviewSelected = true;
     this.submittedInvoice = {
       businessName: this.businessName,
       mobileNumber: this.mobileNumber,

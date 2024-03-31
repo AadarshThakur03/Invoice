@@ -1,6 +1,6 @@
 <div class="submit-button">
-  <button (click)="submitInvoice()">Preview</button>
-  <button (click)="changeInvoice()">Edit</button>
+  <button (click)="changeInvoice()" [class.selected-button]="!isPreviewSelected" [class.deselected-button]="isPreviewSelected">Edit</button>
+  <button (click)="submitInvoice()" [class.selected-button]="isPreviewSelected" [class.deselected-button]="!isPreviewSelected">Preview</button>
 </div>
 
 <div *ngIf="editInvoice" class="container">
@@ -179,8 +179,8 @@
       <div class="right gst-right">
         <div class="tax-row">
           <div class="tax-title">Taxable Amount:</div>
-          <div class="tax-percentage">$100.00</div>
-          <div class="tax-amount">$100.00</div>
+          <div class="tax-percentage">$18</div>
+          <div class="tax-amount">$10000.00</div>
         </div>
         <div class="tax-row">
           <div class="tax-title">CGST:</div>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { SidebarStateService } from '../../services/activeScreen.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(private http: HttpClient, private authService: AuthService,private router:Router) {}
+  constructor(private http: HttpClient, private authService: AuthService,private router:Router,private sidebarStateService: SidebarStateService) {}
 
   successMessage: String = '';
   isSuccess: boolean = false;
@@ -27,6 +28,7 @@ export class LoginComponent {
         this.authService.setLoggedIn(true);
         localStorage.setItem('token', data.token);
         this.router.navigate(['/user-homepage']);
+        this.sidebarStateService.setActiveScreen('user-dashboard');
       }
     });
   }

@@ -195,4 +195,21 @@ border-right: 1px solid black;
     padding: 10px;
     text-align: left;
   }
+ .download-button{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+ }
+ .download-button button{
+  border: none;
+  background-color: #fa0059;
+  color: white;
+  /* width: 80px; */
  
+  padding: 10px 20px;
+    border-radius: 5px;
+ }
+ .download-icon{
+  padding-right: 5px;
+  font-size: 16px;
+ }

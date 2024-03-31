@@ -3,11 +3,11 @@
 
   <main class="main-container">
     <app-sidebar
-      [activeScreen]="activeScreen"
+     
       [sideNavStatus]="sideNavStatus"
       [ngClass]="{ 'app-side-nav-open': sideNavStatus }"
       class="black-border"
-      (screenSelected)="loadComponent($event)"
+      (screenSelected)="navigateTo($event)"
     >
     </app-sidebar>
     <div

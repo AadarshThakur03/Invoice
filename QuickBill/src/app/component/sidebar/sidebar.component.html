@@ -1,4 +1,4 @@
-<div class="side-nav-content border-black">
+<!-- <div class="side-nav-content border-black">
   <ul class="nav-list" [ngClass]="{ 'nav-list-open': sideNavStatus }">
     <li class="profile-item">
       <img
@@ -32,6 +32,38 @@
           item.name
         }}</a>
       </span>
+    </li>
+  </ul>
+</div> -->
+<div class="side-nav-content border-black">
+  <ul class="nav-list" [ngClass]="{ 'nav-list-open': sideNavStatus }">
+    <li class="profile-item">
+      <img
+        class="user-image"
+        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+        alt="User Image"
+      />
+      <span>
+        <a>Aadarsh</a>
+        <p>adarshthakur210gmail.com</p>
+      </span>
+    </li>
+    <li
+      *ngFor="let item of list"
+      class="nav-list-item"
+      [ngClass]="{
+        'active': activeScreen === item.routes.components,
+        'active-collapse':
+          activeScreen === item.routes.components && !sideNavStatus
+      }"
+      (click)="selectScreen(item)"
+    >
+      <i  [ngClass]="{
+        'active-i': activeScreen === item.routes.components && !sideNavStatus
+      }" class="{{ item.icon }}"></i>
+      <span
+        ><a>{{ item.name }}</a></span
+      >
     </li>
   </ul>
 </div>

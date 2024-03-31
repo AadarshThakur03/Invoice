@@ -27,11 +27,6 @@ const appRoutes: Routes = [
       // Add more child routes as needed
     ],
   },
-  {
-    path: 'user-dashboard',
-    component: UserDashboardComponent,
-    canActivate: [AuthGuard],
-  },
 
   { path: '', component: HomePageComponent }, // Default route
   { path: '**', redirectTo: '' }, // Redirect to default route for any unknown paths

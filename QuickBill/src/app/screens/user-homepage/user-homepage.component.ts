@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { UserDashboardComponent } from '../../component/user-dashboard/user-dashboard.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-homepage',
@@ -17,28 +18,13 @@ import { UserDashboardComponent } from '../../component/user-dashboard/user-dash
 })
 export class UserHomepageComponent implements OnInit {
   currentUser: any;
-  activeScreen: string = 'user-dashboard';
 
-  constructor(
-    private authService: AuthService,
-    private componentFactoryResolver: ComponentFactoryResolver
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
   sideNavStatus: boolean = true;
   selectedComponent: any = UserDashboardComponent;
-  loadComponent(component: string) {
-    this.activeScreen = component;
-    switch (component) {
-      case 'user-dashboard':
-        this.selectedComponent = UserDashboardComponent;
-        break;
-      case 'register':
-        this.selectedComponent = RegisterComponent;
-        break;
-      // Add more cases for other components
-      default:
-        this.selectedComponent = UserDashboardComponent;
-        break;
-    }
+
+  navigateTo(routePath: string) {
+    this.router.navigate([routePath]);
   }
 
   ngOnInit(): void {

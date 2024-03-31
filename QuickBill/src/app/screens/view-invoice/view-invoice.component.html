@@ -1,105 +1,116 @@
+<div class="download-button">
+  <button  (click)="downloadPDF()">
+    <i class="fa-solid fa-file-arrow-down download-icon"></i>
+    Download Invoice</button>
+</div>
 <div #content class="container">
-    <div class="a4-box">
-      <div class="header">
-        <div class="left business-left">TAX INVOICE</div>
-  
-        <div class="center business-title">{{ invoiceData.businessName }}</div>
-        <div class="business-right">
-          Mobile No: {{ invoiceData.mobileNumber }} <br />
-          Alternate Mobile No: {{ invoiceData.alternateMobileNumber }}
+  <div class="a4-box">
+    <div class="header">
+      <div class="left business-left">TAX INVOICE</div>
+
+      <div class="center business-title">{{ invoiceData.businessName }}</div>
+      <div class="business-right">
+        Mobile No: {{ invoiceData.mobileNumber }} <br />
+        {{ invoiceData.alternateMobileNumber }}
+      </div>
+    </div>
+    <div class="address">
+      {{ invoiceData.addressLine1 }}<br />{{ invoiceData.addressLine2 }}
+    </div>
+    <div class="details">
+      <div class="billed-div">
+        <div><strong>Billed To:</strong></div>
+        <div>{{ invoiceData.customerName }}</div>
+        <div>{{ invoiceData.customerAddress }}</div>
+        <div>{{ invoiceData.cityStateZip }}</div>
+        <div>{{ invoiceData.country }}</div>
+      </div>
+      <div class="invoice-div">
+        <div><strong>Invoice No:</strong> {{ invoiceData.invoiceNo }}</div>
+        <div><strong>Order No:</strong> {{ invoiceData.orderNo }}</div>
+        <div><strong>Date:</strong> {{ invoiceData.date }}</div>
+      </div>
+    </div>
+    <div class="item-details">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Description</th>
+            <th>Code</th>
+            <th>Qty</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of invoiceData.items; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.code }}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.amount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tax-details">
+      <div class="left gst-left">
+        <div class="section">
+          <strong>GSTIN:</strong> {{ invoiceData.gstin }}
+        </div>
+        <div class="section"><strong>PAN:</strong> {{ invoiceData.pan }}</div>
+        <div class="section">
+          <strong>State:</strong> {{ invoiceData.state }}
+        </div>
+        <div class="section">
+          <strong>Amount in Words:</strong> {{ invoiceData.amountInWords }}
+        </div>
+        <div class="section">
+          <strong>Bank Details:</strong> Account No -
+          {{ invoiceData.accountNo }}, IFSC -
+          {{ invoiceData.ifsc }}
+        </div>
+        <div class="section">
+          <strong>Terms & Conditions:</strong> {{ invoiceData.termsConditions }}
         </div>
       </div>
-      <div class="address">{{ invoiceData.addressLine1 }}<br />{{ invoiceData.addressLine2 }}</div>
-      <div class="details">
-        <div class="billed-div">
-          <div><strong>Billed To:</strong></div>
-          <div>Customer Name: {{ invoiceData.customerName }}</div>
-          <div>Customer Address: {{ invoiceData.customerAddress }}</div>
-          <div>City, State, Zip Code: {{ invoiceData.cityStateZip }}</div>
-          <div>Country: {{ invoiceData.country }}</div>
+      <div class="right gst-right">
+        <div class="tax-row">
+          <div class="tax-title">Taxable Amount:</div>
+          <div class="tax-percentage">$18</div>
+          <div class="tax-amount">$100.00</div>
         </div>
-        <div class="invoice-div">
-          <div><strong>Invoice No:</strong> {{ invoiceData.invoiceNo }}</div>
-          <div><strong>Order No:</strong> {{ invoiceData.orderNo }}</div>
-          <div><strong>Date:</strong> {{ invoiceData.date }}</div>
+        <div class="tax-row">
+          <div class="tax-title">CGST:</div>
+          <div class="tax-percentage">10%</div>
+          <div class="tax-amount">$5.00</div>
         </div>
-      </div>
-      <div class="item-details">
-        <table>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Description</th>
-              <th>Code</th>
-              <th>Qty</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of invoiceData.items; let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ item.description }}</td>
-              <td>{{ item.code }}</td>
-              <td>{{ item.qty }}</td>
-              <td>{{ item.amount }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="tax-details">
-        <div class="left gst-left">
-          <div class="section"><strong>GSTIN:</strong> {{ invoiceData.gstin }}</div>
-          <div class="section"><strong>PAN:</strong> {{ invoiceData.pan }}</div>
-          <div class="section"><strong>State:</strong> {{ invoiceData.state }}</div>
-          <div class="section">
-            <strong>Amount in Words:</strong> {{ invoiceData.amountInWords }}
-          </div>
-          <div class="section">
-            <strong>Bank Details:</strong> Account No - {{ invoiceData.accountNo }}, IFSC -
-            {{ invoiceData.ifsc }}
-          </div>
-          <div class="section">
-            <strong>Terms & Conditions:</strong> {{ invoiceData.termsConditions }}
-          </div>
+        <div class="tax-row">
+          <div class="tax-title">SGST:</div>
+          <div class="tax-percentage">10%</div>
+          <div class="tax-amount">$5.00</div>
         </div>
-        <div class="right gst-right">
-          <div class="tax-row">
-            <div class="tax-title">Taxable Amount:</div>
-            <div class="tax-percentage">$100.00</div>
-            <div class="tax-amount">$100.00</div>
-          </div>
-          <div class="tax-row">
-            <div class="tax-title">CGST:</div>
-            <div class="tax-percentage">10%</div>
-            <div class="tax-amount">$5.00</div>
-          </div>
-          <div class="tax-row">
-            <div class="tax-title">SGST:</div>
-            <div class="tax-percentage">10%</div>
-            <div class="tax-amount">$5.00</div>
-          </div>
-          <div class="tax-row">
-            <div class="tax-title">IGST:</div>
-            <div class="tax-percentage">20%</div>
-            <div class="tax-amount">$10.00</div>
-          </div>
-          <div class="tax-row">
-            <div class="tax-title">IGST:</div>
-            <div class="tax-percentage">20%</div>
-            <div class="tax-amount">$10.00</div>
-          </div>
-          <div class="tax-row">
-            <div class="tax-title">IGST:</div>
-            <div class="tax-percentage">20%</div>
-            <div class="tax-amount">$10.00</div>
-          </div>
-          <div class="tax-row">
-            <div class="tax-title">IGST:</div>
-            <div class="tax-percentage">20%</div>
-            <div class="tax-amount">$10.00</div>
-          </div>
+        <div class="tax-row">
+          <div class="tax-title">IGST:</div>
+          <div class="tax-percentage">20%</div>
+          <div class="tax-amount">$10.00</div>
+        </div>
+        <div class="tax-row">
+          <div class="tax-title">IGST:</div>
+          <div class="tax-percentage">20%</div>
+          <div class="tax-amount">$10.00</div>
+        </div>
+        <div class="tax-row">
+          <div class="tax-title">IGST:</div>
+          <div class="tax-percentage">20%</div>
+          <div class="tax-amount">$10.00</div>
+        </div>
+        <div class="tax-row">
+          <div class="tax-title">IGST:</div>
+          <div class="tax-percentage">20%</div>
+          <div class="tax-amount">$10.00</div>
         </div>
       </div>
     </div>
   </div>
-  <button class="btn btn-primary" (click)="downloadPDF()">Download PDF</button>
+</div>

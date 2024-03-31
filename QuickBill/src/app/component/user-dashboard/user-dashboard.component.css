@@ -41,6 +41,11 @@
     border: 2px solid #fa0059;
     width: 100%;
   }
+  .card-button:hover{
+    background-color: #fa0059;
+    border: none;
+    color: white;
+  }
   
   .card-title {
     font-size: 1.25rem;

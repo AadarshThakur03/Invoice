@@ -30,68 +30,14 @@
           <button
             mat-button
             class="card-button"
-            [routerLink]="['/user-homepage/create-invoice']"
+            (click)="navigateTo()"
             color="primary"
           >
+            <i class="fa-solid fa-plus"></i>
             {{ card.buttonText }}
           </button>
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-</div>
-<div class="invoice">
-  <div class="invoice-header">
-    <h1>Invoice</h1>
-    <p>Date:</p>
-  </div>
-  <div class="invoice-details">
-    <table>
-      <tr>
-        <th>Invoice Number:</th>
-        <td></td>
-      </tr>
-      <tr>
-        <th>Due Date:</th>
-        <td></td>
-      </tr>
-      <tr>
-        <th>Client Name:</th>
-        <td></td>
-      </tr>
-      <tr>
-        <th>Client Address:</th>
-        <td></td>
-      </tr>
-      <tr>
-        <th>Client Contact:</th>
-        <td></td>
-      </tr>
-    </table>
-  </div>
-  <div class="invoice-items">
-    <table>
-      <thead>
-        <tr>
-          <th>Item Name</th>
-          <th>Item Description</th>
-          <th>Unit Price</th>
-          <th>Quantity</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="">
-          <td>1234</td>
-          <td>"ADARSh</td>
-          <td>"RINKy"</td>
-          <td>6546</td>
-          <td>57657</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="invoice-total">
-    <p>Total:</p>
-  </div>
 </div>
