@@ -1,0 +1,119 @@
+.card {
+    position: relative;
+    width: 60vw;
+    max-width: 600px; 
+    margin: 0 auto; 
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .profile-picture-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  .card-body{
+    padding: 30px;
+  }
+  
+  .profile-picture {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    
+  }
+  
+  .profile-picture i {
+    font-size: 100px;
+    color: #666;
+  }
+  
+  .fa-7x {
+    font-size: 7em;
+  }
+  
+  .col h2.name {
+    font-size: 30px;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  
+  .col p.email {
+    font-size: 14px;
+    color: #666;
+    
+  }
+  
+  .col h5 {
+    margin: 10px 0;
+    font-size: 1.2em;
+  }
+  
+  .edit-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: black;
+    font-size: large;
+  }
+  
+  .edit-icon-inside {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  /* .card {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .edit-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #666;
+  }
+  
+  .profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+  }
+  
+  .profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .col h2.name {
+    font-size: 2em;
+    margin-bottom: 5px;
+  }
+  
+  .col p.email {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: -5px;
+  }
+  
+  .col h5 {
+    margin: 10px 0;
+    font-size: 1.2em;
+  }
+   */

@@ -33,6 +33,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CreateInvoiceComponent } from './screens/create-invoice/create-invoice.component';
 import { ViewInvoiceComponent } from './screens/view-invoice/view-invoice.component';
+import { ProfileComponent } from './screens/profile/profile.component';
+import { UserDetailsComponent } from './screens/profile/user-details/user-details.component';
+
+import { UserClientsComponent } from './screens/profile/user-clients/user-clients.component';
+import { UserProductComponent } from './screens/profile/user-product/user-product.component';
+import { UserBusinessComponent } from './screens/profile/user-business/user-business.component';
+import { UserDataCardComponent } from './component/user-data-card/user-data-card.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +55,13 @@ import { ViewInvoiceComponent } from './screens/view-invoice/view-invoice.compon
     UserDashboardComponent,
     CreateInvoiceComponent,
     ViewInvoiceComponent,
+    ProfileComponent,
+    UserDetailsComponent,
+   
+    UserClientsComponent,
+    UserProductComponent,
+    UserBusinessComponent,
+    UserDataCardComponent,
   ],
   imports: [
     BrowserModule,

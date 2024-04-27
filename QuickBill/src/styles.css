@@ -6,3 +6,27 @@
   }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.secondary-button{
+  background-color: #f7fbff;
+  color: #fa0059;
+  border-radius: 5px;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease;
+  border: 2px solid #fa0059;
+  width: 100%; 
+}
+
+.secondary-button:hover{
+background-color: #fa0059;
+color: white;
+}
+.primary-button{
+  background-color:var(--primary-color);
+  color: white;
+  border-radius: 5px;
+  padding: 8px 14px;
+  transition: background-color 0.3s ease;
+  border: 2px solid var(--primary-color);
+ 
+}

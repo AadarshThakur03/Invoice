@@ -45,8 +45,8 @@ export class SidebarComponent {
       name: 'Profile',
       icon: 'fa-solid fa-user',
       routes: {
-        components: 'register',
-        path: 'user-homepage/user-dashboard',
+        components: 'user-profile',
+        path: 'user-homepage/user-profile',
       },
     },
     {

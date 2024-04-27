@@ -1,0 +1,22 @@
+<!-- business-list.component.html -->
+<div class="business-header">
+    <h1>{{data.cardHeader}}</h1>
+    <button mat-raised-button class="primary-button" color="primary">{{data.buttonLabel}}</button>
+  </div>
+  
+  <mat-card class="business-card">
+    <div class="business-list">
+      <div class="business-item" *ngFor="let business of data.cardData">
+        <img [src]="business.image" alt="Business Logo" class="business-logo" />
+        <div class="business-details">
+          <p class="business-name">{{ business.name }}</p>
+          <p class="business-email">{{ business.email }}</p>
+        </div>
+        <div class="business-actions">
+          <button class="secondary-button" >Edit</button>
+          <button class="secondary-button" >View</button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+  

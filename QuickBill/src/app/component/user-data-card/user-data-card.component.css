@@ -1,0 +1,80 @@
+@import '../../../styles.css';
+
+/* business-list.component.css */
+.business-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  
+  .business-card {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px; /* Adjust font size as needed */
+    box-shadow: none;
+  }
+  
+  .business-header h1{
+    font-weight: 500;
+    font-size: 30px;
+    margin: 0px;
+
+  }
+  .business-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .business-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #d6d6d6;
+  }
+  .business-item:last-child{
+    border-bottom: none;
+  }
+  
+  .business-logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+  
+  .business-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .business-name {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0px;
+  }
+  
+  .business-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .business-actions button {
+    margin-left: 10px;
+    padding: 6px 20px;
+  }
+  .business-email{
+    color: #8c8c8c;
+    font-size: 14px;
+    margin: 0px;
+  }
+  /* Button styles */
+  mat-raised-button {
+    font-size: 14px; /* Adjust font size as needed */
+  }
+  
+  

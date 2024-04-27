@@ -8,6 +8,7 @@ import html2canvas from 'html2canvas';
   styleUrl: './view-invoice.component.css',
 })
 export class ViewInvoiceComponent {
+  
   @ViewChild('content', { static: false }) content!: ElementRef;
   @Input() 
   invoiceData: any;
