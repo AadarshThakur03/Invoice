@@ -31,15 +31,8 @@ async function registerUser(req, res) {
    
   }
   async function getUserDetails (req, res) {
-
-    // const token = req.headers.authorization;
-    const token = req.headers.authorization.split(' ')[1];
-    console.log(token,'hi');
-    if (!token) {
-      return res.status(401).json({ error: 'Authorization header missing' });
-    }
     try {
-      const result = await userService.getUserDetails(token);
+      const result = await userService.getUserDetails(req.email);
       res.json(result);
     } catch (error) {
       res.status(500).json({ error: error.message });

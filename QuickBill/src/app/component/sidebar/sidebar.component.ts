@@ -55,7 +55,7 @@ export class SidebarComponent {
       icon: 'fa-solid fa-gear',
       routes: {
         components: 'login',
-        path: 'user-homepage/user-dashboard',
+        path: 'user-homepage/edit-business',
       },
     },
     // {

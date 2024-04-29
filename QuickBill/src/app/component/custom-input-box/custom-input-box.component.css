@@ -1,0 +1,25 @@
+.form-group {
+    margin-bottom: 20px;
+  }
+
+.label-div{
+    margin-bottom: 5px;
+}
+  
+  label {
+    font-weight: 500;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .required-mark {
+    color: red;
+    margin-left: 5px;
+  }
+  

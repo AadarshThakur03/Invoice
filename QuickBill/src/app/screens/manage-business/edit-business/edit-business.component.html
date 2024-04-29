@@ -1,0 +1,113 @@
+<div>
+   
+  <h1>{{ this.isBusiness ? "Add Business" : "Add Client" }}</h1>
+
+  <form (ngSubmit)="this.addDetails()" *ngIf="labels">
+    <div class="w-100 row">
+      <div class="col-6 pb-3">
+        <app-custom-input-box
+          [label]="labels.name"
+          [placeholder]="labels.name"
+          [type]="'text'"
+          [required]="true"
+          (valueChange)="onValueChanged($event)"
+          name="name"
+        >
+        </app-custom-input-box>
+      </div>
+      <div class="col-6 pb-3">
+        <app-custom-input-box
+          [label]="labels.email"
+          [placeholder]="labels.email"
+          [type]="'text'"
+          [required]="true"
+          (valueChange)="onValueChanged($event)"
+          name="email"
+        >
+        </app-custom-input-box>
+      </div>
+      <div class="col-6 pb-3">
+        <app-custom-input-box
+          [label]="'Phone No'"
+          [placeholder]="'Phone No'"
+          [type]="'text'"
+          [required]="true"
+          (valueChange)="onValueChanged($event)"
+          name="phone"
+        >
+        </app-custom-input-box>
+      </div>
+      <div class="col-6 pb-3">
+        <app-custom-input-box
+          [label]="'Alternate Phone No'"
+          [placeholder]="'Alternate Phone No'"
+          [type]="'text'"
+          [required]="true"
+          (valueChange)="onValueChanged($event)"
+          name="alt-phone"
+        >
+        </app-custom-input-box>
+      </div>
+      <div class="col-8 pb-3">
+        <app-custom-input-box
+          [label]="'Address Line 1'"
+          [placeholder]="'Business Name'"
+          [type]="'text'"
+          [required]="true"
+          (valueChange)="onValueChanged($event)"
+          name="address-1"
+        >
+        </app-custom-input-box>
+      </div>
+      <div class="col-4 pb-3">
+        <app-custom-input-box
+          [label]="'Pin Code'"
+          [placeholder]="'Pin Code'"
+          [type]="'text'"
+          [required]="true"
+          (valueChange)="onValueChanged($event)"
+          name="pin-code"
+        >
+        </app-custom-input-box>
+      </div>
+      <div class="col-4 pb-3">
+        <app-custom-input-box
+          [label]="'City'"
+          [placeholder]="'City'"
+          [type]="'text'"
+          [required]="true"
+          (valueChange)="onValueChanged($event)"
+          name="city"
+        >
+        </app-custom-input-box>
+      </div>
+      <div class="col-4 pb-3">
+        <app-custom-input-box
+          [label]="'State'"
+          [placeholder]="'State'"
+          [type]="'text'"
+          [required]="true"
+          (valueChange)="onValueChanged($event)"
+          name="state"
+        >
+        </app-custom-input-box>
+      </div>
+      <div class="col-4 pb-3">
+        <app-custom-input-box
+          [label]="'GST NO'"
+          [placeholder]="'GST No'"
+          [type]="'text'"
+          [required]="true"
+          (valueChange)="onValueChanged($event)"
+          name="gst"
+        >
+        </app-custom-input-box>
+      </div>
+      <div class="col-4">
+        <button type="submit" class="primary-button" color="primary">
+          {{ this.isBusiness ? "Add Business" : "Add Client" }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

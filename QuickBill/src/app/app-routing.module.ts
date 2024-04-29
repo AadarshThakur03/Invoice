@@ -11,6 +11,9 @@ import { CreateInvoiceComponent } from './screens/create-invoice/create-invoice.
 import { AuthGuard } from './services/auth.guard';
 import { ViewInvoiceComponent } from './screens/view-invoice/view-invoice.component';
 import { ProfileComponent } from './screens/profile/profile.component';
+import { ViewBusinessComponent } from './screens/manage-business/view-business/view-business.component';
+import path from 'path';
+import { EditBusinessComponent } from './screens/manage-business/edit-business/edit-business.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -24,7 +27,9 @@ const appRoutes: Routes = [
       { path: 'user-dashboard', component: UserDashboardComponent },
       { path: 'create-invoice', component: CreateInvoiceComponent },
       { path: 'view-invoice', component: ViewInvoiceComponent },
-      {path:'user-profile',component:ProfileComponent}
+      { path: 'user-profile', component: ProfileComponent },
+      { path: 'view-business', component: ViewBusinessComponent },
+      { path: 'edit-business', component: EditBusinessComponent },
 
       // Add more child routes as needed
     ],

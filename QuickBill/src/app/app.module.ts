@@ -40,7 +40,15 @@ import { UserClientsComponent } from './screens/profile/user-clients/user-client
 import { UserProductComponent } from './screens/profile/user-product/user-product.component';
 import { UserBusinessComponent } from './screens/profile/user-business/user-business.component';
 import { UserDataCardComponent } from './component/user-data-card/user-data-card.component';
-
+import { ViewBusinessComponent } from './screens/manage-business/view-business/view-business.component';
+import { EditBusinessComponent } from './screens/manage-business/edit-business/edit-business.component';
+import { CustomInputBoxComponent } from './component/custom-input-box/custom-input-box.component';
+import { CustomTypeheadDropdownComponent } from './component/custom-typehead-dropdown/custom-typehead-dropdown.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,11 +65,15 @@ import { UserDataCardComponent } from './component/user-data-card/user-data-card
     ViewInvoiceComponent,
     ProfileComponent,
     UserDetailsComponent,
-   
     UserClientsComponent,
     UserProductComponent,
     UserBusinessComponent,
     UserDataCardComponent,
+    ViewBusinessComponent,
+    EditBusinessComponent,
+    CustomInputBoxComponent,
+    CustomTypeheadDropdownComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -70,7 +82,12 @@ import { UserDataCardComponent } from './component/user-data-card/user-data-card
     FormsModule,
     AppRoutingModule,
     MatCardModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
     MatGridListModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(),
