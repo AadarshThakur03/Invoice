@@ -10,6 +10,7 @@ import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { UserDashboardComponent } from '../../component/user-dashboard/user-dashboard.component';
 import { Router } from '@angular/router';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-user-homepage',
@@ -19,7 +20,7 @@ import { Router } from '@angular/router';
 export class UserHomepageComponent implements OnInit {
   currentUser: any;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private dataService:DataService) {}
   sideNavStatus: boolean = true;
   selectedComponent: any = UserDashboardComponent;
 
@@ -32,5 +33,10 @@ export class UserHomepageComponent implements OnInit {
       this.currentUser = user.user;
       console.log(this.currentUser);
     });
+
+    this.dataService.getBusinessByUserId().subscribe(user=>{
+      console.log(user,"From Home");
+      
+    })
   }
 }

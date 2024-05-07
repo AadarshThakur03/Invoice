@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const userRouter = require("./routes/userRoutes");
+const businessRouter=require("./routes/businessRoutes")
 const {pool} = require("./database/db");
 const cors = require('cors');
 
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", userRouter);
+app.use("/business", businessRouter);
 
 
 pool.getConnection((err, connection) => {

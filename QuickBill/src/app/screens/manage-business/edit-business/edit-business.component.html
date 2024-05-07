@@ -1,8 +1,11 @@
 <div>
-   
   <h1>{{ this.isBusiness ? "Add Business" : "Add Client" }}</h1>
 
   <form (ngSubmit)="this.addDetails()" *ngIf="labels">
+    <app-custom-typehead-dropdown
+      [placeholder]="'Select Business'"
+      [options]="options"
+    ></app-custom-typehead-dropdown>
     <div class="w-100 row">
       <div class="col-6 pb-3">
         <app-custom-input-box
@@ -44,7 +47,7 @@
           [type]="'text'"
           [required]="true"
           (valueChange)="onValueChanged($event)"
-          name="alt-phone"
+          name="alternatePhone"
         >
         </app-custom-input-box>
       </div>
@@ -55,7 +58,7 @@
           [type]="'text'"
           [required]="true"
           (valueChange)="onValueChanged($event)"
-          name="address-1"
+          name="addressLine1"
         >
         </app-custom-input-box>
       </div>
@@ -66,7 +69,7 @@
           [type]="'text'"
           [required]="true"
           (valueChange)="onValueChanged($event)"
-          name="pin-code"
+          name="pinCode"
         >
         </app-custom-input-box>
       </div>
@@ -99,7 +102,7 @@
           [type]="'text'"
           [required]="true"
           (valueChange)="onValueChanged($event)"
-          name="gst"
+          name="gstNo"
         >
         </app-custom-input-box>
       </div>

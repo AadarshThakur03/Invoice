@@ -1,7 +1,15 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { log } from 'console';
+import { AuthService } from '../../../services/auth.service';
+import { DataService } from '../../../services/data.service';
+import { Observable } from 'rxjs';
 
+interface BusinessData {
+  businesses: Array<any>;
+  message: string;
+  status: string;
+}
 @Component({
   selector: 'app-edit-business',
   templateUrl: './edit-business.component.html',
@@ -10,10 +18,11 @@ import { log } from 'console';
 export class EditBusinessComponent {
   isBusiness: boolean = true;
   labels: any;
-  name:string ='';
+  name: string = '';
   formData: any = {};
+  options: any = ['Adarsh', 'Mayak'];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private dataService: DataService) {
     this.labels = {
       business: {
         name: 'Business Name',
@@ -42,14 +51,30 @@ export class EditBusinessComponent {
       this.isBusiness = url[0].path == 'user-profile';
       this.labels = this.isBusiness ? this.labels.business : this.labels.client;
     });
+    this.dataService.getBusinessByUserId().subscribe((data: any) => {
+      console.log(data.business, 'edit');
+      this.options = data.business;
+    });
   }
-  onValueChanged(event: { value: string, name: string }) {
+  onValueChanged(event: { value: string; name: string }) {
     console.log(event);
-    
+
     this.formData[event.name] = event.value; // Update the formData with the changed value
   }
 
   addDetails() {
     console.log(this.formData);
+
+    this.dataService.addBusiness(this.formData).subscribe((data) => {
+      console.log(data);
+      // this.successMessage = data.message;
+      // this.isSuccess = data.status === 'success';
+      // if (data.status === 'success') {
+      //   this.authService.setLoggedIn(true);
+      //   localStorage.setItem('token', data.token);
+      //   this.router.navigate(['/user-homepage']);
+      //   this.sidebarStateService.setActiveScreen('user-dashboard');
+      // }
+    });
   }
 }

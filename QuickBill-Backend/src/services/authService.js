@@ -11,7 +11,7 @@ function authenticateUser(req, res, next) {
     // Verify the JWT token
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     // Extract the user ID from the decoded token and attach it to the request object
-    req.userId = decodedToken.userId;
+    req.userId = decodedToken.id;
     req.email = decodedToken.email;
     // Call the next middleware or route handler
     next();

@@ -1,0 +1,54 @@
+
+use info;
+
+create table business(
+id int not null,
+name varchar(20),
+email varchar(30),
+phone int(13),
+alternatePhone int(13),
+addressLine1 varchar(40),
+pinCode int(6),
+city varchar(20),
+state varchar(20),
+gstNo varchar(30),
+userId int,
+primary key(id),
+foreign key (userId) references users(id)
+);
+
+CREATE TABLE business (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    alternatePhone VARCHAR(15),
+    addressLine1 VARCHAR(100) NOT NULL,
+    addressLine2 VARCHAR(100),
+    pinCode INT,
+    city VARCHAR(50),
+    state VARCHAR(50),
+    gstNo VARCHAR(20),
+    userId INT NOT NULL,
+	dateRegistered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (userId) REFERENCES users(id)
+);
+
+
+INSERT INTO business (name, email, phone, addressLine1, city, state, userId, dateRegistered)
+VALUES 
+('Corporation1232', 'abc@example.com', '+1234567890', '123 Main Street', 'City1', 'State1', 1, CURRENT_TIMESTAMP),
+('Enterprises1221', 'xyz@example.com', '+9876543210', '456 Elm Street', 'City2', 'State2', 2, CURRENT_TIMESTAMP),
+('Industries1221', 'pqr@example.com', '+1112223333', '789 Oak Street', 'City3', 'State3', 3, CURRENT_TIMESTAMP);
+
+select * from business WHERE name="ABC Corporation" and userId=1;
+
+select * from users;
+
+drop table business;
+
+SELECT * FROM users ;
+
+select * from business where userId="1";
+

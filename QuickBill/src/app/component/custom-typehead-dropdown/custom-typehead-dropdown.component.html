@@ -1,12 +1,29 @@
 <mat-form-field>
-    <input type="text" [placeholder]="placeholder" matInput [formControl]="searchControl" [matAutocomplete]="auto" [required]="required">
-    <button mat-button *ngIf="searchControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearInput()">
-      <!-- <mat-icon>close</mat-icon> -->
-    </button>
-    <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions" [value]="option" (click)="selectOption(option)">
-          {{ option }}
-        </mat-option>
-      </mat-autocomplete>
-  </mat-form-field>
-  
+  <input
+    type="text"
+    [placeholder]="placeholder"
+    matInput
+    [formControl]="searchControl"
+    [matAutocomplete]="auto"
+    [required]="required"
+  />
+  <button
+    mat-button
+    *ngIf="searchControl.value"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="clearInput()"
+  >
+    <i class="fa-solid fa-xmark" (click)="clearInput()"></i>
+  </button>
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option
+      *ngFor="let option of options"
+      [value]="option.name"
+      (click)="selectOption(option)"
+    >
+      {{ option.name }} <!-- Assuming 'name' is the property to display -->
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
