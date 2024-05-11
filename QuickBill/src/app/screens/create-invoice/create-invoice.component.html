@@ -1,6 +1,18 @@
 <div class="submit-button">
-  <button (click)="changeInvoice()" [class.selected-button]="!isPreviewSelected" [class.deselected-button]="isPreviewSelected">Edit</button>
-  <button (click)="submitInvoice()" [class.selected-button]="isPreviewSelected" [class.deselected-button]="!isPreviewSelected">Preview</button>
+  <button
+    (click)="changeInvoice()"
+    [class.selected-button]="!isPreviewSelected"
+    [class.deselected-button]="isPreviewSelected"
+  >
+    Edit
+  </button>
+  <button
+    (click)="submitInvoice()"
+    [class.selected-button]="isPreviewSelected"
+    [class.deselected-button]="!isPreviewSelected"
+  >
+    Preview
+  </button>
 </div>
 
 <div *ngIf="editInvoice" class="container">
@@ -9,37 +21,57 @@
       <div class="left business-left">TAX INVOICE</div>
 
       <div class="center business-title">
-        <input
+        <app-custom-typehead-dropdown
+          [placeholder]="'Select Business'"
+          [options]="businessOptions"
+          (selectedOptions)="selectedOptions($event)"
+          [value]="businessName"
+          
+          (clearOptions)="clearOptions($event)"
+          
+        ></app-custom-typehead-dropdown>
+        <!-- <input
           type="text"
           [(ngModel)]="businessName"
           placeholder="Business Name"
-        />
+        /> -->
       </div>
       <div class="business-right">
-        Mobile No:
-        <input type="text" [(ngModel)]="mobileNumber" placeholder="Mobile No" />
-        <br />
-        Alternate Mobile No:
-        <input
-          type="text"
-          [(ngModel)]="alternateMobileNumber"
-          placeholder="Alternate Mobile No"
-        />
+        <app-custom-input-box
+          [placeholder]="'Mobile Number'"
+          [value]="mobileNumber"
+          [disable]="true"
+          [onlyInput]="true"
+          [inputClass]="'custom-input'"
+        >
+        </app-custom-input-box>
+        <!-- <br /> -->
+        <app-custom-input-box
+          [placeholder]="'Alternate Mobile Number'"
+          [value]="alternateMobileNumber"
+          [disable]="true"
+          [onlyInput]="true"
+          [inputClass]="'custom-input'"
+        >
+        </app-custom-input-box>
       </div>
     </div>
     <div class="address">
-      Address Line 1:
-      <input
-        type="text"
-        [(ngModel)]="addressLine1"
-        placeholder="Address Line 1"
-      /><br />
-      Address Line 2:
-      <input
-        type="text"
-        [(ngModel)]="addressLine2"
-        placeholder="Address Line 2"
-      />
+      <app-custom-input-box
+        [placeholder]="'Address Line 1'"
+        [value]="addressLine1"
+        [disable]="true"
+        [onlyInput]="true"
+        [inputClass]="'custom-input address1'"
+      ></app-custom-input-box>
+
+      <app-custom-input-box
+        [placeholder]="'Address Line 2'"
+        [value]="addressLine2"
+        [disable]="true"
+        [onlyInput]="true"
+        [inputClass]="'custom-input'"
+      ></app-custom-input-box>
     </div>
     <div class="details">
       <div class="billed-div">

@@ -35,6 +35,10 @@
     grid-column: 1;
     padding: 5px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   .details {
@@ -211,5 +215,20 @@ border: none;
   width: 80px;
   padding: 5px 0px;
   /* padding: 5px 12px; */
+ }
+
+ ::ng-deep .custom-input{
+  font-size: 12px !important;
+    border-radius: 0px !important;
+    padding: 5px 5px 5px 10px !important;
+    
+    margin: 0px 0 5px 0;
+    color: #757575;
+    width: auto; /* Allow the input to expand dynamically based on content */
+    min-width: 100px; /* Set a minimum width to prevent it from becoming too narrow */
+    max-width: 100%;
+ }
+ ::ng-deep .address1{
+  width: 300px  !important;
  }
   

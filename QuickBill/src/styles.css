@@ -30,3 +30,40 @@ color: white;
   border: 2px solid var(--primary-color);
  
 }
+::ng-deep .success-toast {
+  background-color: green !important;
+  color: white !important;
+}
+
+.error-toast {
+  background-color: red;
+  color: white;
+}
+
+.info-toast {
+  background-color: blue;
+  color: white;
+}
+.mat-mdc-snack-bar-container {
+  &.success-snackbar {
+    --mdc-snackbar-container-color: #4BB543;
+    --mdc-snackbar-supporting-text-color: #fff;
+    border-radius: 2px;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+    text-align: center;
+  }
+}
+.mat-mdc-snack-bar-container .mdc-snackbar__label{
+  color: white !important;
+}
+
+.mat-mdc-snack-bar-container {
+  &.error-snackbar {
+    --mdc-snackbar-container-color: red;
+    color: white;
+  }
+}

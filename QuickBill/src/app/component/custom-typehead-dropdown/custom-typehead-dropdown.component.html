@@ -6,6 +6,7 @@
     [formControl]="searchControl"
     [matAutocomplete]="auto"
     [required]="required"
+    [value]="value"
   />
   <button
     mat-button
@@ -13,17 +14,19 @@
     matSuffix
     mat-icon-button
     aria-label="Clear"
+    class="cancel-button"
     (click)="clearInput()"
   >
     <i class="fa-solid fa-xmark" (click)="clearInput()"></i>
   </button>
-  <mat-autocomplete #auto="matAutocomplete">
+  <mat-autocomplete #auto="matAutocomplete" #autocomplete >
     <mat-option
-      *ngFor="let option of options"
-      [value]="option.name"
+      *ngFor="let option of filteredOptions"
+      [value]="value"
       (click)="selectOption(option)"
     >
-      {{ option.name }} <!-- Assuming 'name' is the property to display -->
+      {{ option.name }}
+      <!-- Assuming 'name' is the property to display -->
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

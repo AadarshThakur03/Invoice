@@ -1,0 +1,91 @@
+
+::ng-deep .mdc-line-ripple {
+    display: none;
+    border-bottom-width: 0 !important;
+  }
+
+::ng-deep .mdc-line-ripple::before, .mdc-line-ripple::after {
+    border-bottom-width: 0px !important;
+  }
+  /* ::ng-deep .mdc-text-field--filled.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+    border-bottom-width: 0 !important;
+} */
+
+::ng-deep .mat-mdc-text-field-wrapper{
+    background: white !important;
+    border: 1px solid #ccc;
+    border-radius: 5px !important;
+    padding-left: 5px !important;
+}
+/* ::ng-deep .mat-mdc-text-field-wrapper:hover{
+    background-color: white !important;
+    border: 1px solid red;
+    border-radius: 5px !important; */
+    ::ng-deep .mat-mdc-form-field-infix{
+padding: 10px !important;
+min-height: 46px !important;
+    }
+
+::ng-deep .mat-mdc-form-field-focus-overlay{
+  background-color: white !important;
+}
+
+.cancel-button{
+  border: none !important;
+  background-color: white !important;
+
+}
+.cancel-button i{
+  font-size: 18px;
+    margin-right: 10px;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-text-field__input{
+  caret-color: black !important;
+}
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input{
+  caret-color: black !important;
+}
+::ng-deep .mdc-text-field--filled.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-text-field__input:focus + ::ng-deep .mat-mdc-text-field-wrapper{
+  border: 1px solid red;
+}
+/* ::ng-deep .mat-mdc-text-field-wrapper:focus{::n
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+} */
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-text-field__input:focus + .mat-mdc-text-field-wrapper {
+  /* Define the border color and other styles for the second element */
+  /* color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25); */
+  /* Add any other styles you want for the second element when the first one is focused */
+}
+
+
+/* Styles for the focused state of the input inside mat-form-field */
+::ng-deep mat-form-field.mat-form-field-appearance-fill.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-flex > div > div > div.mat-form-field-infix input.mat-input-element:focus {
+  /* Define the border color and other styles for the input when focused */
+  /* color: blue;
+  background-color:blue;
+  border-color: yellow;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25); */
+  /* Add any other styles you want for the input when focused */
+}
+
+/* Styles for the mat-form-field when there's text input */
+::ng-deep mat-form-field.mat-form-field-appearance-fill.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-flex > div > div > div.mat-form-field-infix input.mat-input-element:not(:placeholder-shown) {
+  /* Define the border color and other styles for the input when text is input */
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: yellow;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+  /* Add any other styles you want for the input when text is input */
+}

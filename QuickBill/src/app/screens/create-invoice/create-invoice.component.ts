@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DataService } from '../../services/data.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-create-invoice',
@@ -39,7 +41,20 @@ export class CreateInvoiceComponent {
   igstAmount: string = '';
   items: any[] = [{ description: '', code: '', qty: '', amount: '' }];
   isPreviewSelected: boolean = false;
-  constructor() {}
+  businessOptions: any[] = [];
+  // selectedOptions: any[] = [];
+  constructor(
+    private dataService: DataService,
+    private toastService: ToastService
+  ) {
+    // this.toastService.showSuccess('Operation successful!');
+    // this.toastService.showError('Operation successful!');
+    this.dataService.getBusinessByUserId().subscribe((data: any) => {
+      console.log(data);
+      this.businessOptions = data.business;
+      console.log(this.businessOptions);
+    });
+  }
   addItem() {
     this.items.push({ description: '', code: '', qty: 0, amount: 0 });
     console.log(this.items);
@@ -49,7 +64,7 @@ export class CreateInvoiceComponent {
   changeInvoice() {
     this.isPreviewSelected = false;
     this.editInvoice = true;
-    this.showPreview=false;
+    this.showPreview = false;
   }
   submittedInvoice: any = {};
   submitInvoice() {
@@ -89,6 +104,20 @@ export class CreateInvoiceComponent {
       items: this.items,
     };
     this.showPreview = true;
-    this.editInvoice=false;
+    this.editInvoice = false;
+  }
+  selectedOptions(data: any) {
+    console.log(data);
+    this.businessName = data.name;
+    this.mobileNumber = data.phone;
+    this.alternateMobileNumber = data.alternatePhone;
+    this.addressLine1 = data.addressLine1;
+  }
+  clearOptions(data: any) {
+    if (data) {
+      this.mobileNumber = '';
+      this.alternateMobileNumber = '';
+      this.addressLine1 = '';
+    }
   }
 }

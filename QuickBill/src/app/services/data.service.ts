@@ -88,7 +88,7 @@ export class DataService {
       console.error('Token not found in localStorage');
     }
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get('http://localhost:3000/business//get-business', {
+    return this.http.get('http://localhost:3000/business/get-business', {
       headers,
     });
   }

@@ -4,6 +4,7 @@ import { log } from 'console';
 import { AuthService } from '../../../services/auth.service';
 import { DataService } from '../../../services/data.service';
 import { Observable } from 'rxjs';
+import { ToastService } from '../../../services/toast.service';
 
 interface BusinessData {
   businesses: Array<any>;
@@ -22,7 +23,12 @@ export class EditBusinessComponent {
   formData: any = {};
   options: any = ['Adarsh', 'Mayak'];
 
-  constructor(private route: ActivatedRoute, private dataService: DataService) {
+  constructor(
+    private route: ActivatedRoute,
+    private dataService: DataService,
+    private toastService: ToastService
+  ) {
+    // this.toastService.showSuccess("data.message");
     this.labels = {
       business: {
         name: 'Business Name',
@@ -67,6 +73,10 @@ export class EditBusinessComponent {
 
     this.dataService.addBusiness(this.formData).subscribe((data) => {
       console.log(data);
+      if (data.status == 'success') {
+        this.toastService.showSuccess(data.message);
+      }
+
       // this.successMessage = data.message;
       // this.isSuccess = data.status === 'success';
       // if (data.status === 'success') {

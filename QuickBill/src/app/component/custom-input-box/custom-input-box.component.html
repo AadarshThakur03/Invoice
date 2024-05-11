@@ -1,5 +1,5 @@
 <div>
-  <div class="label-div">
+  <div class="label-div" [ngClass]="onlyInput ? 'hide-label' : 'label-div'">
     <label [ngClass]="labelClass">{{ label }}</label>
     <span *ngIf="required" class="required-mark">*</span>
   </div>
@@ -10,8 +10,10 @@
       [required]="required"
       [ngClass]="inputClass"
       [value]="value"
-      [ngModel]="value" 
+      [ngModel]="value"
       (ngModelChange)="onValueChange($event)"
+      [disabled]="disable"
+      [class]="inputClass"
       class="form-control"
     />
   </div>
