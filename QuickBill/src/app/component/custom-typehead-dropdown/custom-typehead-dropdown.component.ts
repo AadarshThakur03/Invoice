@@ -4,6 +4,7 @@ import {
   Output,
   EventEmitter,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -17,6 +18,8 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
   styleUrls: ['./custom-typehead-dropdown.component.css'],
 })
 export class CustomTypeheadDropdownComponent {
+  @ViewChild(MatAutocompleteTrigger) autocomplete!: MatAutocompleteTrigger;
+  @Input() selectedOption = '';
   @Input() placeholder: string = '';
   @Input() required: boolean = true;
   @Input() options: any[] = [];
@@ -25,6 +28,7 @@ export class CustomTypeheadDropdownComponent {
   searchControl = new FormControl();
   @Output() selectedOptions = new EventEmitter<string>();
   @Output() clearOptions = new EventEmitter<boolean>();
+  // selectedOption = 'Adarsh';
 
   constructor() {
     this.searchControl.valueChanges
@@ -32,11 +36,7 @@ export class CustomTypeheadDropdownComponent {
         startWith(''),
         map((value) => this._filter(value))
       )
-      .subscribe(
-        (filteredOptions) => (
-          console.log(filteredOptions,'fo'), (this.filteredOptions = filteredOptions)
-        )
-      );
+      .subscribe((filteredOptions) => (this.filteredOptions = filteredOptions));
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -48,9 +48,16 @@ export class CustomTypeheadDropdownComponent {
       this.searchControl.setValue(changes['value'].currentValue);
     }
   }
+  // ngAfterViewInit() {
+  //   // Manually open the autocomplete panel after setting the initial value
+  //   setTimeout(() => {
+  //     this.searchControl.setValue("Adarsh")
+  //     this.autocomplete.openPanel();
+  //   });
+  // }
 
   private populateOptions(): void {
-    this.filteredOptions = this.options.slice(0, 10);
+    this.filteredOptions = this.options;
   }
 
   private _filter(value: string): any[] {
@@ -61,13 +68,16 @@ export class CustomTypeheadDropdownComponent {
   }
 
   clearInput(): void {
-    this.searchControl.setValue('');
-    console.log('cleared');
+    // this.searchControl.reset();
+    this.searchControl.reset();
+    this.filteredOptions = this.options; // Clear filtered options
+
+    // console.log(this.searchControl);
     this.clearOptions.emit(true);
   }
 
   selectOption(option: any): void {
-    this.value = "Adarsh";
+    this.value = option.name;
     console.log('Selected Option:', option);
     this.selectedOptions.emit(option);
   }

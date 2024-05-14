@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { ToastService } from '../../services/toast.service';
 
@@ -42,11 +42,13 @@ export class CreateInvoiceComponent {
   items: any[] = [{ description: '', code: '', qty: '', amount: '' }];
   isPreviewSelected: boolean = false;
   businessOptions: any[] = [];
+  selectedOption: string = '';
   // selectedOptions: any[] = [];
   constructor(
     private dataService: DataService,
     private toastService: ToastService
   ) {
+    // console.log(this.businessName, 'onInit');
     // this.toastService.showSuccess('Operation successful!');
     // this.toastService.showError('Operation successful!');
     this.dataService.getBusinessByUserId().subscribe((data: any) => {
@@ -54,6 +56,15 @@ export class CreateInvoiceComponent {
       this.businessOptions = data.business;
       console.log(this.businessOptions);
     });
+  }
+  @HostListener('window:load', ['$event'])
+  onPageLoad(event: Event) {
+    console.log('Page loaded!');
+    // You can trigger any action here when the page is loaded
+  }
+
+  onFocus() {
+    console.log(this.businessName, 'onInit');
   }
   addItem() {
     this.items.push({ description: '', code: '', qty: 0, amount: 0 });
@@ -64,6 +75,10 @@ export class CreateInvoiceComponent {
   changeInvoice() {
     this.isPreviewSelected = false;
     this.editInvoice = true;
+    if (this.editInvoice) {
+      console.log(this.businessName, 'edit');
+      // this.selectedOption = this.businessName;
+    }
     this.showPreview = false;
   }
   submittedInvoice: any = {};
@@ -113,6 +128,8 @@ export class CreateInvoiceComponent {
     this.alternateMobileNumber = data.alternatePhone;
     this.addressLine1 = data.addressLine1;
   }
+
+  
   clearOptions(data: any) {
     if (data) {
       this.mobileNumber = '';

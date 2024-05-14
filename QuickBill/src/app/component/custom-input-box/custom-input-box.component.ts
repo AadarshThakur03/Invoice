@@ -1,15 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  Renderer2,
+  ElementRef,
+} from '@angular/core';
 
 @Component({
   selector: 'app-custom-input-box',
   templateUrl: './custom-input-box.component.html',
-  styleUrl: './custom-input-box.component.css',
+  styleUrls: ['./custom-input-box.component.css'],
 })
 export class CustomInputBoxComponent {
   @Input() label: string = '';
   @Input() required: boolean = false;
   @Input() placeholder: string = '';
-  @Input() ngModel: string = '';
   @Input() type: string = 'text';
   @Input() value: string = '';
   @Input() name: string = '';
@@ -21,15 +27,27 @@ export class CustomInputBoxComponent {
   @Output() ngModelChange: EventEmitter<string> = new EventEmitter<string>();
   @Input() disable: boolean = false;
 
+  constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
+
   // Method to handle value changes
   onValueChange(newValue: string) {
+    console.log("onCalledV");
+    
+    // this.setInputWidth();
     this.value = newValue; // Update the component property
-
     this.valueChange.emit({ value: newValue, name: this.name });
-    // Emit the value change event with input name
+   
+    // Set input width dynamically
   }
-  onModelChange(newValue: string) {
-    this.ngModel = newValue; // Update ngModel with new value
-    this.ngModelChange.emit(newValue); // Emit the ngModelChange event
-  }
+  // ngAfterViewInit() {
+  //   this.setInputWidth();
+  // }
+
+
+  // Method to set input width dynamically based on content
+  // setInputWidth() {
+  //   console.log('Setting input width');
+  //   const input = this.elementRef.nativeElement.querySelector('input');
+  //   input.style.width = input.scrollWidth + 2 + 'px'; // Add 2 pixels to prevent content from getting cut off
+  // }
 }

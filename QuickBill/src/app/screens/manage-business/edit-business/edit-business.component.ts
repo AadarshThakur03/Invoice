@@ -54,7 +54,7 @@ export class EditBusinessComponent {
     };
 
     this.route.url.subscribe((url) => {
-      this.isBusiness = url[0].path == 'user-profile';
+      this.isBusiness = url[0].path == 'edit-business';
       this.labels = this.isBusiness ? this.labels.business : this.labels.client;
     });
     this.dataService.getBusinessByUserId().subscribe((data: any) => {
@@ -63,7 +63,7 @@ export class EditBusinessComponent {
     });
   }
   onValueChanged(event: { value: string; name: string }) {
-    console.log(event);
+    // console.log(event);
 
     this.formData[event.name] = event.value; // Update the formData with the changed value
   }

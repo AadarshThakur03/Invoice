@@ -30,6 +30,7 @@ const appRoutes: Routes = [
       { path: 'user-profile', component: ProfileComponent },
       { path: 'view-business', component: ViewBusinessComponent },
       { path: 'edit-business', component: EditBusinessComponent },
+      { path: 'edit-client', component: EditBusinessComponent },
 
       // Add more child routes as needed
     ],

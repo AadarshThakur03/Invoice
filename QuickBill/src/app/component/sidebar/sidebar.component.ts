@@ -49,12 +49,31 @@ export class SidebarComponent {
         path: 'user-homepage/user-profile',
       },
     },
+   
     {
       number: '4',
+      name: 'Manage Business',
+      icon: 'fa-solid fa-building',
+      routes: {
+        components: 'edit-business',
+        path: 'user-homepage/edit-business',
+      },
+    },
+    {
+      number: '5',
+      name: 'Manage Client',
+      icon: 'fa-solid fa-users',
+      routes: {
+        components: 'edit-client',
+        path: 'user-homepage/edit-client',
+      },
+    },
+    {
+      number: '6',
       name: 'Settings',
       icon: 'fa-solid fa-gear',
       routes: {
-        components: 'login',
+        components: 'edit-busines',
         path: 'user-homepage/edit-business',
       },
     },

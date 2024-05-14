@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DataService } from '../../../services/data.service';
 
 export interface CardData {
   name: string;
@@ -18,31 +19,30 @@ export interface UserCardDetails {
   styleUrl: './user-business.component.css',
 })
 export class UserBusinessComponent {
-  businesses = [
-    {
-      name: 'Business 1',
-      email: 'business1@example.com',
-      image: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-    },
-    {
-      name: 'Business 2',
-      email: 'business2@example.com',
-      image: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-    },
-    {
-      name: 'Business 3',
-      email: 'business3@example.com',
-      image: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-    },
-  ];
+  constructor(private dataService: DataService) {
+    this.loadBusinesses();
+  }
+
+  businesses: CardData[] = [];
   userCardDetails: UserCardDetails = {
     cardHeader: 'Business',
     buttonLabel: 'Add Business',
-    cardData: this.businesses,
+    cardData: [],
   };
-  
+
+  loadBusinesses() {
+    this.dataService.getBusinessByUserId().subscribe((data: any) => {
+      console.log(data.business, 'busiess-user');
+      this.businesses = data.business;
+      console.log(this.businesses);
+      // Update userCardDetails.cardData here
+      this.userCardDetails.cardData = this.businesses.slice(0,3);
+    });
+  }
 
   deleteBusiness(index: number) {
     this.businesses.splice(index, 1);
+    // Update userCardDetails.cardData after deletion if necessary
+    this.userCardDetails.cardData = this.businesses;
   }
 }

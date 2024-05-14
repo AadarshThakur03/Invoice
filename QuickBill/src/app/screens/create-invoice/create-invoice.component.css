@@ -218,12 +218,15 @@ border: none;
  }
 
  ::ng-deep .custom-input{
-  font-size: 12px !important;
+  
     border-radius: 0px !important;
     padding: 5px 5px 5px 10px !important;
     
     margin: 0px 0 5px 0;
-    color: #757575;
+    background-color: #f9f9f9;
+    opacity: 1;
+    color: black;
+    font-size: 14px !important;
     width: auto; /* Allow the input to expand dynamically based on content */
     min-width: 100px; /* Set a minimum width to prevent it from becoming too narrow */
     max-width: 100%;

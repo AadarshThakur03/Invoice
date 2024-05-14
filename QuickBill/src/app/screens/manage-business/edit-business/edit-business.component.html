@@ -2,10 +2,6 @@
   <h1>{{ this.isBusiness ? "Add Business" : "Add Client" }}</h1>
 
   <form (ngSubmit)="this.addDetails()" *ngIf="labels">
-    <app-custom-typehead-dropdown
-      [placeholder]="'Select Business'"
-      [options]="options"
-    ></app-custom-typehead-dropdown>
     <div class="w-100 row">
       <div class="col-6 pb-3">
         <app-custom-input-box
