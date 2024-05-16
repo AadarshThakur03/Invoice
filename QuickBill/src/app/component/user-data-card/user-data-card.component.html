@@ -13,8 +13,8 @@
           <p class="business-email">{{ business.email }}</p>
         </div>
         <div class="business-actions">
-          <button class="secondary-button" >Edit</button>
-          <button class="secondary-button" >View</button>
+          <button class="secondary-button" (click)="editBusiness(business)">Edit</button>
+          <button class="secondary-button" (click)="openDialog(business)">View</button>
         </div>
       </div>
     </div>

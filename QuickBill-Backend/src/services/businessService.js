@@ -2,6 +2,7 @@ const pool = require("../database/db");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
+const { BusinessDataModel } = require("../models/businessModel");
 
 function getBusiness() {
   return pool
@@ -11,45 +12,48 @@ function getBusiness() {
       throw new Error(`Error fetching users: ${err.message}`);
     });
 }
-
 async function registerBusiness(businessData, userId) {
-  // Validate fields
-  const {
-    name,
-    email,
-    phone,
-    alternatePhone,
-    addressLine1,
-    addressLine2,
-    pinCode,
-    city,
-    state,
-    gstNo,
-  } = businessData;
+  const business = new BusinessDataModel(businessData);
 
-  if (!name || !email || !phone || !addressLine1) {
+  // Validate fields
+  if (
+    !business.businessName ||
+    !business.email ||
+    !business.mobile ||
+    !business.addressLine1
+  ) {
     return { message: "All required fields must be provided", status: "error" };
   }
 
-  if (!validator.isEmail(email)) {
+  if (!validator.isEmail(business.email)) {
     return { message: "Invalid email format", status: "error" };
+  }
+
+  const oldUser = await pool.query(
+    "SELECT * FROM business WHERE userId = ? AND businessName = ?",
+    [userId, business.businessName]
+  );
+
+  if (oldUser[0].length > 0) {
+    console.log(oldUser, "oldUser");
+    return { message: "Business already exists", status: "error" };
   }
 
   // Insert business into the database
   try {
     const result = await pool.query(
-      "INSERT INTO business (name, email, phone, alternatePhone, addressLine1, addressLine2, pinCode, city, state, gstNo, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO business (businessName, email, mobile, alternateMobile, addressLine1, addressLine2, pinCode, city, state, gstNo, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
-        name,
-        email,
-        phone,
-        alternatePhone,
-        addressLine1,
-        addressLine2,
-        pinCode,
-        city,
-        state,
-        gstNo,
+        business.businessName,
+        business.email,
+        business.mobile,
+        business.alternateMobile,
+        business.addressLine1,
+        business.addressLine2,
+        business.pinCode,
+        business.city,
+        business.state,
+        business.gstNo,
         userId,
       ]
     );

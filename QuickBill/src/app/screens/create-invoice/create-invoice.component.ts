@@ -1,13 +1,14 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { ToastService } from '../../services/toast.service';
+import { EditBusinessData } from '../manage-business/business.model';
 
 @Component({
   selector: 'app-create-invoice',
   templateUrl: './create-invoice.component.html',
   styleUrl: './create-invoice.component.css',
 })
-export class CreateInvoiceComponent {
+export class CreateInvoiceComponent{
   businessName: string = '';
   mobileNumber: string = '';
   alternateMobileNumber: string = '';
@@ -43,29 +44,20 @@ export class CreateInvoiceComponent {
   isPreviewSelected: boolean = false;
   businessOptions: any[] = [];
   selectedOption: string = '';
+  data: any;
   // selectedOptions: any[] = [];
   constructor(
     private dataService: DataService,
     private toastService: ToastService
   ) {
-    // console.log(this.businessName, 'onInit');
-    // this.toastService.showSuccess('Operation successful!');
-    // this.toastService.showError('Operation successful!');
     this.dataService.getBusinessByUserId().subscribe((data: any) => {
       console.log(data);
       this.businessOptions = data.business;
       console.log(this.businessOptions);
     });
   }
-  @HostListener('window:load', ['$event'])
-  onPageLoad(event: Event) {
-    console.log('Page loaded!');
-    // You can trigger any action here when the page is loaded
-  }
+ 
 
-  onFocus() {
-    console.log(this.businessName, 'onInit');
-  }
   addItem() {
     this.items.push({ description: '', code: '', qty: 0, amount: 0 });
     console.log(this.items);
@@ -77,7 +69,11 @@ export class CreateInvoiceComponent {
     this.editInvoice = true;
     if (this.editInvoice) {
       console.log(this.businessName, 'edit');
-      // this.selectedOption = this.businessName;
+      this.selectedOption = this.businessName;
+      console.log(this.data.mobile);
+      this.mobileNumber=this.data.mobile
+      console.log(this.mobileNumber,'mob');
+      
     }
     this.showPreview = false;
   }
@@ -121,15 +117,17 @@ export class CreateInvoiceComponent {
     this.showPreview = true;
     this.editInvoice = false;
   }
-  selectedOptions(data: any) {
+  selectedOptions(data: any): void {
     console.log(data);
-    this.businessName = data.name;
-    this.mobileNumber = data.phone;
-    this.alternateMobileNumber = data.alternatePhone;
+    this.data = data;
+    console.log(this.data, 'stored');
+
+    this.businessName = data.businessName;
+    this.mobileNumber = data.mobile;
+    this.alternateMobileNumber = data.alternateMobile;
     this.addressLine1 = data.addressLine1;
   }
 
-  
   clearOptions(data: any) {
     if (data) {
       this.mobileNumber = '';

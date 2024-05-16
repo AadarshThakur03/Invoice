@@ -11,12 +11,11 @@
       [required]="required"
       [ngClass]="inputClass"
       [value]="value"
-      [ngModel]="value"
-      (ngModelChange)="onValueChange($event)"
+      [(ngModel)]="disable ? value : ngModel"
+      (ngModelChange)="onInputChange($event)"
       [disabled]="disable"
-     
+      [name]="name"
       class="form-control input-container"
-     
     />
     <div class="overlay"></div>
   </div>

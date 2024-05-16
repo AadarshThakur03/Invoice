@@ -22,11 +22,11 @@
   <mat-autocomplete #auto="matAutocomplete" #autocomplete>
     <mat-option
       *ngFor="let option of filteredOptions"
-      [value]="option.name"
-      [ngClass]="{ 'mat-selected-option': selectedOption === option.name }"
+      [value]="option.businessName"
+      [ngClass]="{ 'mat-selected-option': selectedOption === option.businessName }"
       (click)="selectOption(option)"
     >
-      {{ option.name }}
+      {{ option.businessName }}
       <!-- Assuming 'name' is the property to display -->
     </mat-option>
   </mat-autocomplete>

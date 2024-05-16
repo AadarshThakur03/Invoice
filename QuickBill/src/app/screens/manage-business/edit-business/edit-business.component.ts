@@ -1,34 +1,33 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { log } from 'console';
-import { AuthService } from '../../../services/auth.service';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../../services/data.service';
-import { Observable } from 'rxjs';
 import { ToastService } from '../../../services/toast.service';
+import { EditBusinessData } from '../business.model';
 
-interface BusinessData {
-  businesses: Array<any>;
-  message: string;
-  status: string;
-}
 @Component({
   selector: 'app-edit-business',
   templateUrl: './edit-business.component.html',
-  styleUrl: './edit-business.component.css',
+  styleUrls: ['./edit-business.component.css'],
 })
-export class EditBusinessComponent {
+export class EditBusinessComponent implements OnInit {
+  editBusinessData: EditBusinessData = new EditBusinessData();
   isBusiness: boolean = true;
   labels: any;
-  name: string = '';
   formData: any = {};
   options: any = ['Adarsh', 'Mayak'];
+  editData: boolean = false;
+  data: any = '';
 
   constructor(
     private route: ActivatedRoute,
     private dataService: DataService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
-    // this.toastService.showSuccess("data.message");
+    const routeData = this.router.getCurrentNavigation()?.extras.state;
+    console.log(routeData);
+    this.data = this.router.getCurrentNavigation()?.extras.state;
     this.labels = {
       business: {
         name: 'Business Name',
@@ -57,34 +56,41 @@ export class EditBusinessComponent {
       this.isBusiness = url[0].path == 'edit-business';
       this.labels = this.isBusiness ? this.labels.business : this.labels.client;
     });
+
     this.dataService.getBusinessByUserId().subscribe((data: any) => {
       console.log(data.business, 'edit');
       this.options = data.business;
     });
   }
-  onValueChanged(event: { value: string; name: string }) {
-    // console.log(event);
 
+  // ngOnInit(): void {
+  //   this.editBusinessData = new EditBusinessData();
+  // }
+
+  onValueChanged(event: { value: string; name: string }) {
     this.formData[event.name] = event.value; // Update the formData with the changed value
+  }
+  ngOnInit(): void {
+    console.log(this.data);
+    if (this.data == undefined) {
+      console.log(this.data);
+    } else {
+      this.editBusinessData = this.data.data;
+      console.log(this.editBusinessData, 'onnn');
+    }
+
+    // this.cdr.detectChanges();
   }
 
   addDetails() {
-    console.log(this.formData);
+    // console.log(this.formData);
+    console.log(this.editBusinessData, 'kkkk');
 
-    this.dataService.addBusiness(this.formData).subscribe((data) => {
+    this.dataService.addBusiness(this.editBusinessData).subscribe((data) => {
       console.log(data);
       if (data.status == 'success') {
         this.toastService.showSuccess(data.message);
       }
-
-      // this.successMessage = data.message;
-      // this.isSuccess = data.status === 'success';
-      // if (data.status === 'success') {
-      //   this.authService.setLoggedIn(true);
-      //   localStorage.setItem('token', data.token);
-      //   this.router.navigate(['/user-homepage']);
-      //   this.sidebarStateService.setActiveScreen('user-dashboard');
-      // }
     });
   }
 }

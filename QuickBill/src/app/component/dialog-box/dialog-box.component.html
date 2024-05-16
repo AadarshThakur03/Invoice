@@ -1,0 +1,15 @@
+<div class="business-details-dialog">
+    <h2 mat-dialog-title>Business Details</h2>
+    <div mat-dialog-content>
+      <div class="business-details">
+        <!-- <img [src]="data.image" alt="Business Logo" class="business-logo" /> -->
+        <div *ngFor="let key of getObjectKeys(data)" class="detail-item">
+          <p><strong>{{ key }}:</strong> {{ data[key] }}</p>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Close</button>
+    </div>
+  </div>
+  

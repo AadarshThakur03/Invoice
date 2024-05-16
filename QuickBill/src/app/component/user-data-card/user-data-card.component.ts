@@ -1,15 +1,8 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-user-data-card',
-//   templateUrl: './user-data-card.component.html',
-//   styleUrl: './user-data-card.component.css'
-// })
-// export class UserDataCardComponent {
-
-// }
-
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
+import { Router } from '@angular/router';
+import { SidebarStateService } from '../../services/activeScreen.service';
 
 export interface CardData {
   name: string;
@@ -26,11 +19,10 @@ export interface UserCardDetails {
 @Component({
   selector: 'app-user-data-card',
   templateUrl: './user-data-card.component.html',
-   styleUrl: './user-data-card.component.css'
+  styleUrls: ['./user-data-card.component.css'],
 })
 export class UserDataCardComponent {
   @Input() data!: UserCardDetails;
-
   businesses = [
     {
       name: 'Business 1',
@@ -51,5 +43,27 @@ export class UserDataCardComponent {
 
   deleteBusiness(index: number) {
     this.businesses.splice(index, 1);
+  }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private sidebarStateService: SidebarStateService
+  ) {}
+  editBusiness(data: any) {
+    console.log(data, 'from card');
+
+    this.router.navigate(['user-homepage/edit-business'], {
+      state: { data: data, edit: true },
+    });
+    this.sidebarStateService.setActiveScreen('edit-business');
+
+    // this.router.navigate(['/user-homepage/edit-business'], { queryParams: { data: data } });
+  }
+
+  openDialog(business: CardData): void {
+    this.dialog.open(DialogBoxComponent, {
+      width: '250px',
+      data: business,
+    });
   }
 }

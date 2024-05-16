@@ -10,7 +10,7 @@ export class ToastService {
 
   showSuccess(message: string): void {
     const config = new MatSnackBarConfig();
-    config.duration = 300000;
+    config.duration = 3000;
     config.panelClass = ['success-snackbar'];
     config.verticalPosition = 'bottom'; // Adjust position if needed
     config.horizontalPosition = 'center'; // Adjust position if needed

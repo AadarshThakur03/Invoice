@@ -1,7 +1,7 @@
 <div>
-  <h1>{{ this.isBusiness ? "Add Business" : "Add Client" }}</h1>
+  <h1>{{ isBusiness ? "Add Business" : "Add Client" }}</h1>
 
-  <form (ngSubmit)="this.addDetails()" *ngIf="labels">
+  <form (ngSubmit)="addDetails()" *ngIf="labels" #myForm="ngForm">
     <div class="w-100 row">
       <div class="col-6 pb-3">
         <app-custom-input-box
@@ -9,10 +9,10 @@
           [placeholder]="labels.name"
           [type]="'text'"
           [required]="true"
-          (valueChange)="onValueChanged($event)"
-          name="name"
-        >
-        </app-custom-input-box>
+          [(ngModel)]="editBusinessData.businessName"
+          [name]="'businessName'"
+          ngDefaultControl
+        ></app-custom-input-box>
       </div>
       <div class="col-6 pb-3">
         <app-custom-input-box
@@ -20,32 +20,32 @@
           [placeholder]="labels.email"
           [type]="'text'"
           [required]="true"
-          (valueChange)="onValueChanged($event)"
-          name="email"
-        >
-        </app-custom-input-box>
+          [(ngModel)]="editBusinessData.email"
+          [name]="'email'"
+          ngDefaultControl
+        ></app-custom-input-box>
       </div>
       <div class="col-6 pb-3">
         <app-custom-input-box
-          [label]="'Phone No'"
-          [placeholder]="'Phone No'"
+          [label]="'Mobile No'"
+          [placeholder]="'Mobile No'"
           [type]="'text'"
           [required]="true"
-          (valueChange)="onValueChanged($event)"
-          name="phone"
-        >
-        </app-custom-input-box>
+          [(ngModel)]="editBusinessData.mobile"
+          [name]="'mobile'"
+          ngDefaultControl
+        ></app-custom-input-box>
       </div>
       <div class="col-6 pb-3">
         <app-custom-input-box
-          [label]="'Alternate Phone No'"
-          [placeholder]="'Alternate Phone No'"
+          [label]="'Alternate Mobile No'"
+          [placeholder]="'Alternate Mobile No'"
           [type]="'text'"
           [required]="true"
-          (valueChange)="onValueChanged($event)"
-          name="alternatePhone"
-        >
-        </app-custom-input-box>
+          [(ngModel)]="editBusinessData.alternateMobile"
+          [name]="'alternateMobile'"
+          ngDefaultControl
+        ></app-custom-input-box>
       </div>
       <div class="col-8 pb-3">
         <app-custom-input-box
@@ -53,10 +53,10 @@
           [placeholder]="'Business Name'"
           [type]="'text'"
           [required]="true"
-          (valueChange)="onValueChanged($event)"
-          name="addressLine1"
-        >
-        </app-custom-input-box>
+          [(ngModel)]="editBusinessData.addressLine1"
+          [name]="'addressLine1'"
+          ngDefaultControl
+        ></app-custom-input-box>
       </div>
       <div class="col-4 pb-3">
         <app-custom-input-box
@@ -64,10 +64,10 @@
           [placeholder]="'Pin Code'"
           [type]="'text'"
           [required]="true"
-          (valueChange)="onValueChanged($event)"
-          name="pinCode"
-        >
-        </app-custom-input-box>
+          [(ngModel)]="editBusinessData.pinCode"
+          [name]="'pinCode'"
+          ngDefaultControl
+        ></app-custom-input-box>
       </div>
       <div class="col-4 pb-3">
         <app-custom-input-box
@@ -75,10 +75,10 @@
           [placeholder]="'City'"
           [type]="'text'"
           [required]="true"
-          (valueChange)="onValueChanged($event)"
-          name="city"
-        >
-        </app-custom-input-box>
+          [(ngModel)]="editBusinessData.city"
+          [name]="'city'"
+          ngDefaultControl
+        ></app-custom-input-box>
       </div>
       <div class="col-4 pb-3">
         <app-custom-input-box
@@ -86,10 +86,10 @@
           [placeholder]="'State'"
           [type]="'text'"
           [required]="true"
-          (valueChange)="onValueChanged($event)"
-          name="state"
-        >
-        </app-custom-input-box>
+          [(ngModel)]="editBusinessData.state"
+          [name]="'state'"
+          ngDefaultControl
+        ></app-custom-input-box>
       </div>
       <div class="col-4 pb-3">
         <app-custom-input-box
@@ -97,14 +97,20 @@
           [placeholder]="'GST No'"
           [type]="'text'"
           [required]="true"
-          (valueChange)="onValueChanged($event)"
-          name="gstNo"
-        >
-        </app-custom-input-box>
+          [(ngModel)]="editBusinessData.gstNo"
+          [name]="'gstNo'"
+          ngDefaultControl
+        ></app-custom-input-box>
       </div>
       <div class="col-4">
         <button type="submit" class="primary-button" color="primary">
-          {{ this.isBusiness ? "Add Business" : "Add Client" }}
+          {{
+            isBusiness
+              ? data != undefined && data.edit
+                ? "Update Business"
+                : "Add Business"
+              : "Add Client"
+          }}
         </button>
       </div>
     </div>

@@ -14,6 +14,7 @@ import {
 })
 export class CustomInputBoxComponent {
   @Input() label: string = '';
+  @Input() ngModel: string = '';
   @Input() required: boolean = false;
   @Input() placeholder: string = '';
   @Input() type: string = 'text';
@@ -24,25 +25,33 @@ export class CustomInputBoxComponent {
   @Input() onlyInput: boolean = false;
   @Output() valueChange: EventEmitter<{ value: string; name: string }> =
     new EventEmitter<{ value: string; name: string }>();
-  @Output() ngModelChange: EventEmitter<string> = new EventEmitter<string>();
+    @Output() ngModelChange = new EventEmitter<string>();
   @Input() disable: boolean = false;
 
   constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
 
+  get value1(): any {
+    return this.ngModel;
+  }
+  set value1(val: any) {
+    this.ngModel = val;
+  }
+  onInputChange(value: string) {
+    this.ngModelChange.emit(value); // Emit ngModelChange event
+  }
   // Method to handle value changes
   onValueChange(newValue: string) {
-    console.log("onCalledV");
-    
+    console.log('onCalledV');
+
     // this.setInputWidth();
     this.value = newValue; // Update the component property
     this.valueChange.emit({ value: newValue, name: this.name });
-   
+
     // Set input width dynamically
   }
   // ngAfterViewInit() {
   //   this.setInputWidth();
   // }
-
 
   // Method to set input width dynamically based on content
   // setInputWidth() {

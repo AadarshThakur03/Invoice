@@ -50,6 +50,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { DialogBoxComponent } from './component/dialog-box/dialog-box.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +74,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ViewBusinessComponent,
     EditBusinessComponent,
     CustomInputBoxComponent,
-    CustomTypeheadDropdownComponent
+    CustomTypeheadDropdownComponent,
+    DialogBoxComponent
     
   ],
   imports: [

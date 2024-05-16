@@ -63,7 +63,7 @@ export class CustomTypeheadDropdownComponent {
   private _filter(value: string): any[] {
     const filterValue = value.toLowerCase();
     return this.options.filter((option) =>
-      option.name.toLowerCase().includes(filterValue)
+      option.businessName.toLowerCase().includes(filterValue)
     );
   }
 
