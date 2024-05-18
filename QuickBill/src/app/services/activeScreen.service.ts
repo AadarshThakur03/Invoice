@@ -11,4 +11,17 @@ export class SidebarStateService {
   setActiveScreen(screen: string) {
     this.activeScreenSubject.next(screen);
   }
+  private expandedState = new BehaviorSubject<{ [key: string]: boolean }>({});
+
+  constructor() {}
+
+  getExpandedState() {
+    return this.expandedState.asObservable();
+  }
+
+  setExpandedState(item: string, expanded: boolean) {
+    const currentState = this.expandedState.value;
+    currentState[item] = expanded;
+    this.expandedState.next(currentState);
+  }
 }

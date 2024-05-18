@@ -65,6 +65,8 @@ export class AuthService {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    console.log(headers,'header');
+    
     return this.http.get<any>('http://localhost:3000/users/get-userDetails', {
       headers,
     });

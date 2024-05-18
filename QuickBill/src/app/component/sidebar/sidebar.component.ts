@@ -1,23 +1,26 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { LoginComponent } from '../../screens/login/login.component';
-import { RegisterComponent } from '../../screens/register/register.component';
 import { SidebarStateService } from '../../services/activeScreen.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css',
+  styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
   @Input() sideNavStatus: boolean = false;
-  @Input() activeScreen: String = 'user-dashboard';
-
-  // @Output() screenSelected= new EventEmitter<string>();
+  @Input() activeScreen: string = 'user-dashboard';
   @Output() screenSelected = new EventEmitter<string>();
 
   constructor(private sidebarStateService: SidebarStateService) {
     this.sidebarStateService.activeScreen$.subscribe((screen) => {
       this.activeScreen = screen;
+    });
+    this.sidebarStateService.getExpandedState().subscribe((expandedState) => {
+      this.list.forEach((item) => {
+        if (expandedState[item.name] !== undefined) {
+          item.expanded = expandedState[item.name];
+        }
+      });
     });
   }
 
@@ -49,7 +52,6 @@ export class SidebarComponent {
         path: 'user-homepage/user-profile',
       },
     },
-   
     {
       number: '4',
       name: 'Manage Business',
@@ -58,6 +60,26 @@ export class SidebarComponent {
         components: 'edit-business',
         path: 'user-homepage/edit-business',
       },
+      children: [
+        {
+          name: 'View Business',
+          icon: 'fa-solid fa-building-circle-check', // Icon for child item
+          routes: {
+            components: 'view-business',
+            path: 'user-homepage/view-business',
+          },
+        },
+        // fa-solid fa-file-pen
+        {
+          name: 'Add Business',
+          icon: 'fa-solid fa-hospital-user', // Icon for child item
+          routes: {
+            components: 'add-business',
+            path: 'user-homepage/add-business',
+          },
+        },
+      ],
+      expanded: false, // Initialize the 'expanded' property
     },
     {
       number: '5',
@@ -67,32 +89,60 @@ export class SidebarComponent {
         components: 'edit-client',
         path: 'user-homepage/edit-client',
       },
+      children: [
+        {
+          name: 'View Business',
+          icon: 'fa-solid fa-building-circle-check', // Icon for child item
+          routes: {
+            components: 'view-business',
+            path: 'user-homepage/view-business',
+          },
+        },
+        // fa-solid fa-file-pen
+        {
+          name: 'Add Client',
+          icon: 'fa-solid fa-hospital-user', // Icon for child item
+          routes: {
+            components: 'add-client',
+            path: 'user-homepage/add-client',
+          },
+        },
+      ],
+      expanded: false, // Initialize the 'expanded' property
     },
     {
       number: '6',
       name: 'Settings',
       icon: 'fa-solid fa-gear',
       routes: {
-        components: 'edit-busines',
+        components: 'edit-business',
         path: 'user-homepage/edit-business',
       },
     },
-    // {
-    //   number:'3',
-    //   name:'home',
-    //   icon:'fa-solid fa-house'
-    // },
-    // {
-    //   number:'4',
-    //   name:'home',
-    //   icon:'fa-solid fa-house'
-    // },
   ];
-  selectScreen(routePath: any) {
-    console.log(routePath.routes.path);
+  hasActiveChild(children: any[]): boolean {
+    return children.some(
+      (child) => child.routes.components === this.activeScreen
+    );
+  }
 
-    this.screenSelected.emit(routePath.routes.path);
+  navigate(item: any) {
+    if (item.children) {
+      // item.expanded = !item.expanded;
+      this.sidebarStateService.setExpandedState(item.name, !item.expanded);
+    } else if (item.routes) {
+      this.screenSelected.emit(item.routes.path);
+      console.log(item, 'from navigation');
+
+      this.sidebarStateService.setActiveScreen(item.routes.components);
+    }
+  }
+
+  selectScreen(routePath: any) {
+    console.log(routePath.routes.path, 'hii');
+
+    // this.screenSelected.emit(routePath.routes.path);
     // this.activeScreen = routePath.routes.components;
-    this.sidebarStateService.setActiveScreen(routePath.routes.components);
+    // this.sidebarStateService.setActiveScreen(routePath.routes.components);
   }
 }

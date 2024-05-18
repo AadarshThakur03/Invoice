@@ -1,0 +1,115 @@
+<div>
+    <h1>Add Business</h1>
+  
+    <form (ngSubmit)="addDetails()" *ngIf="labels" #myForm="ngForm">
+      <div class="w-100 row">
+        <div class="col-6 pb-3">
+          <app-custom-input-box
+            [label]="labels.name"
+            [placeholder]="labels.name"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.businessName"
+            [name]="'businessName'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-6 pb-3">
+          <app-custom-input-box
+            [label]="labels.email"
+            [placeholder]="labels.email"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.email"
+            [name]="'email'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-6 pb-3">
+          <app-custom-input-box
+            [label]="'Mobile No'"
+            [placeholder]="'Mobile No'"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.mobile"
+            [name]="'mobile'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-6 pb-3">
+          <app-custom-input-box
+            [label]="'Alternate Mobile No'"
+            [placeholder]="'Alternate Mobile No'"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.alternateMobile"
+            [name]="'alternateMobile'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-8 pb-3">
+          <app-custom-input-box
+            [label]="'Address Line 1'"
+            [placeholder]="'Business Name'"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.addressLine1"
+            [name]="'addressLine1'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-4 pb-3">
+          <app-custom-input-box
+            [label]="'Pin Code'"
+            [placeholder]="'Pin Code'"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.pinCode"
+            [name]="'pinCode'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-4 pb-3">
+          <app-custom-input-box
+            [label]="'City'"
+            [placeholder]="'City'"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.city"
+            [name]="'city'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-4 pb-3">
+          <app-custom-input-box
+            [label]="'State'"
+            [placeholder]="'State'"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.state"
+            [name]="'state'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-4 pb-3">
+          <app-custom-input-box
+            [label]="'GST NO'"
+            [placeholder]="'GST No'"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.gstNo"
+            [name]="'gstNo'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-4">
+          <button type="submit" class="primary-button" color="primary">
+            {{
+              data != undefined && data.edit ? "Update Business" : "Add Business"
+            }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

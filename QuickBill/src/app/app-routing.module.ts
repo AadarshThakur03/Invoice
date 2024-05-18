@@ -13,7 +13,9 @@ import { ViewInvoiceComponent } from './screens/view-invoice/view-invoice.compon
 import { ProfileComponent } from './screens/profile/profile.component';
 import { ViewBusinessComponent } from './screens/manage-business/view-business/view-business.component';
 import path from 'path';
-import { EditBusinessComponent } from './screens/manage-business/edit-business/edit-business.component';
+
+import { AddClientComponent } from './screens/manage-client/add-client/add-client.component';
+import { AddBusinessComponent } from './screens/manage-business/add-business/add-business.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -29,8 +31,8 @@ const appRoutes: Routes = [
       { path: 'view-invoice', component: ViewInvoiceComponent },
       { path: 'user-profile', component: ProfileComponent },
       { path: 'view-business', component: ViewBusinessComponent },
-      { path: 'edit-business', component: EditBusinessComponent },
-      { path: 'edit-client', component: EditBusinessComponent },
+      { path: 'add-business', component: AddBusinessComponent },
+      { path: 'add-client', component: AddClientComponent },
 
       // Add more child routes as needed
     ],

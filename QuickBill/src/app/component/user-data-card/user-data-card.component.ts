@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { SidebarStateService } from '../../services/activeScreen.service';
 
 export interface CardData {
-  name: string;
+  businessName: string;
   email: string;
   image: string; // Assuming you also have an image property
 }
@@ -14,6 +14,7 @@ export interface UserCardDetails {
   cardHeader: string;
   buttonLabel: string;
   cardData: CardData[];
+  // cardRoute: string;
 }
 
 @Component({
@@ -24,21 +25,7 @@ export interface UserCardDetails {
 export class UserDataCardComponent {
   @Input() data!: UserCardDetails;
   businesses = [
-    {
-      name: 'Business 1',
-      email: 'business1@example.com',
-      image: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-    },
-    {
-      name: 'Business 2',
-      email: 'business2@example.com',
-      image: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-    },
-    {
-      name: 'Business 3',
-      email: 'business3@example.com',
-      image: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-    },
+   
   ];
 
   deleteBusiness(index: number) {
@@ -48,14 +35,19 @@ export class UserDataCardComponent {
     public dialog: MatDialog,
     private router: Router,
     private sidebarStateService: SidebarStateService
-  ) {}
+  ) {
+
+    console.log(this.data,'card');
+    
+  }
   editBusiness(data: any) {
     console.log(data, 'from card');
 
-    this.router.navigate(['user-homepage/edit-business'], {
+    this.router.navigate(['user-homepage/add-business'], {
       state: { data: data, edit: true },
     });
-    this.sidebarStateService.setActiveScreen('edit-business');
+    this.sidebarStateService.setActiveScreen('add-business');
+    this.sidebarStateService.setExpandedState('Manage Business', true);
 
     // this.router.navigate(['/user-homepage/edit-business'], { queryParams: { data: data } });
   }

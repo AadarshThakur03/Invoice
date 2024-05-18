@@ -8,8 +8,8 @@ import { UserCardDetails } from '../user-business/user-business.component';
 })
 export class UserClientsComponent {
   clients = [
-    { name: 'Client 1', email: 'client1@example.com', image: 'url_to_image1' },
-    { name: 'Client 2', email: 'client2@example.com', image: 'url_to_image2' },
+    { businessName: 'Client 1', email: 'client1@example.com', image: 'url_to_image1' },
+    { businessName: 'Client 2', email: 'client2@example.com', image: 'url_to_image2' },
   ];
   userCardDetails: UserCardDetails = {
     cardHeader: 'Client',

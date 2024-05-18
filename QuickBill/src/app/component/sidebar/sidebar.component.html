@@ -1,42 +1,6 @@
-<!-- <div class="side-nav-content border-black">
-  <ul class="nav-list" [ngClass]="{ 'nav-list-open': sideNavStatus }">
-    <li class="profile-item">
-      <img
-        class="user-image"
-        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-        alt="User Image"
-      />
-      <span>
-        <a>Aadarsh</a>
-        <p>adarshthakur210gmail.com</p>
-      </span>
-    </li>
-    <li
-      class="nav-list-item border-black"
-      *ngFor="let item of list"
-      [ngClass]="{
-        active: activeScreen === item.components,
-        'active-collapse': activeScreen === item.components && !sideNavStatus
-      }"
-      (click)="selectScreen(item.components)"
-    >
-      <i
-        class="{{ item.icon }}"
-        [ngClass]="{
-          'active-i': activeScreen === item.components && !sideNavStatus
-        }"
-        style="color: #002347"
-      ></i>
-      <span>
-        <a [ngClass]="{ 'active-a': activeScreen === item.components }">{{
-          item.name
-        }}</a>
-      </span>
-    </li>
-  </ul>
-</div> -->
 <div class="side-nav-content border-black">
   <ul class="nav-list" [ngClass]="{ 'nav-list-open': sideNavStatus }">
+    <!-- User Profile -->
     <li class="profile-item">
       <img
         class="user-image"
@@ -48,22 +12,46 @@
         <p>adarshthakur210gmail.com</p>
       </span>
     </li>
-    <li
-      *ngFor="let item of list"
-      class="nav-list-item"
-      [ngClass]="{
-        'active': activeScreen === item.routes.components,
-        'active-collapse':
-          activeScreen === item.routes.components && !sideNavStatus
-      }"
-      (click)="selectScreen(item)"
-    >
-      <i  [ngClass]="{
-        'active-i': activeScreen === item.routes.components && !sideNavStatus
-      }" class="{{ item.icon }}"></i>
-      <span
-        ><a>{{ item.name }}</a></span
+
+    <!-- Navigation Items -->
+    <ng-container *ngFor="let item of list">
+      <li
+        class="nav-list-item"
+        [ngClass]="{
+          active: item.children
+            ? false
+            : activeScreen === item.routes.components
+        }"
+        (click)="navigate(item); selectScreen(item.routes.components)"
       >
-    </li>
+        <i class="{{ item.icon }}"></i>
+        <span
+          ><a>{{ item.name }}</a></span
+        >
+        <!-- Down arrow icon for items with children -->
+        <i
+          class="fa-solid fa-angle-down"
+          *ngIf="item.children && !item.expanded"
+        ></i>
+        <i
+          class="fa-solid fa-angle-up"
+          *ngIf="item.children && item.expanded"
+        ></i>
+      </li>
+      <!-- Child Items -->
+      <ng-container *ngIf="item.children && item.expanded">
+        <li
+          *ngFor="let child of item.children"
+          class="nav-list-item nav-list-child"
+          [ngClass]="{ active: activeScreen === child.routes.components }"
+          (click)="navigate(child)"
+        >
+          <i class="{{ child.icon }}"></i>
+          <span
+            ><a>{{ child.name }}</a></span
+          >
+        </li>
+      </ng-container>
+    </ng-container>
   </ul>
 </div>

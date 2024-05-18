@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 
 export interface CardData {
-  name: string;
+  businessName: string;
   email: string;
   image: string; // Assuming you also have an image property
 }
@@ -11,6 +11,7 @@ export interface UserCardDetails {
   cardHeader: string;
   buttonLabel: string;
   cardData: CardData[];
+  // cardRoute:string
 }
 
 @Component({
@@ -28,6 +29,7 @@ export class UserBusinessComponent {
     cardHeader: 'Business',
     buttonLabel: 'Add Business',
     cardData: [],
+   
   };
 
   loadBusinesses() {

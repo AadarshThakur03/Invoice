@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, } from '@angular/core';
 import {
   BrowserModule,
   provideClientHydration,
@@ -17,6 +17,7 @@ import { IntroSectionComponent } from './home-page/intro-section/intro-section.c
 import { FeatureSectionComponent } from './home-page/feature-section/feature-section.component';
 import { LoginComponent } from './screens/login/login.component';
 import {
+  HTTP_INTERCEPTORS,
   HttpClientModule,
   provideHttpClient,
   withFetch,
@@ -41,7 +42,7 @@ import { UserProductComponent } from './screens/profile/user-product/user-produc
 import { UserBusinessComponent } from './screens/profile/user-business/user-business.component';
 import { UserDataCardComponent } from './component/user-data-card/user-data-card.component';
 import { ViewBusinessComponent } from './screens/manage-business/view-business/view-business.component';
-import { EditBusinessComponent } from './screens/manage-business/edit-business/edit-business.component';
+
 import { CustomInputBoxComponent } from './component/custom-input-box/custom-input-box.component';
 import { CustomTypeheadDropdownComponent } from './component/custom-typehead-dropdown/custom-typehead-dropdown.component';
 import { MatInputModule } from '@angular/material/input';
@@ -49,8 +50,14 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DialogBoxComponent } from './component/dialog-box/dialog-box.component';
+import { ResponseInterceptor } from './core/toast-notification.interceptor';
+import { CustomSnackbarComponent } from './component/custom-snackbar/custom-snackbar.component';
+import { ViewClientComponent } from './screens/manage-client/view-client/view-client.component';
+import { AddClientComponent } from './screens/manage-client/add-client/add-client.component';
+import { AddBusinessComponent } from './screens/manage-business/add-business/add-business.component';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,11 +79,14 @@ import { DialogBoxComponent } from './component/dialog-box/dialog-box.component'
     UserBusinessComponent,
     UserDataCardComponent,
     ViewBusinessComponent,
-    EditBusinessComponent,
+    
     CustomInputBoxComponent,
     CustomTypeheadDropdownComponent,
-    DialogBoxComponent
-    
+    DialogBoxComponent,
+    CustomSnackbarComponent,
+    ViewClientComponent,
+    AddClientComponent,
+    AddBusinessComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,13 +101,16 @@ import { DialogBoxComponent } from './component/dialog-box/dialog-box.component'
     MatGridListModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    CommonModule
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
+ 
 })
 export class AppModule {}

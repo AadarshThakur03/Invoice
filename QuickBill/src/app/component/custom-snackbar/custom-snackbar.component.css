@@ -1,0 +1,26 @@
+.custom-snackbar {
+  display: flex;
+  align-items: center;
+}
+
+.custom-snackbar span:first-child {
+  margin-right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-snackbar {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.info-snackbar {
+  background-color: #2196f3;
+  color: #fff;
+}

@@ -1,5 +1,5 @@
 <div>
-  <h1>{{ isBusiness ? "Add Business" : "Add Client" }}</h1>
+  <h1>Add Client</h1>
 
   <form (ngSubmit)="addDetails()" *ngIf="labels" #myForm="ngForm">
     <div class="w-100 row">
@@ -9,7 +9,7 @@
           [placeholder]="labels.name"
           [type]="'text'"
           [required]="true"
-          [(ngModel)]="editBusinessData.businessName"
+          [(ngModel)]="clientDataModel.clientName"
           [name]="'businessName'"
           ngDefaultControl
         ></app-custom-input-box>
@@ -20,7 +20,7 @@
           [placeholder]="labels.email"
           [type]="'text'"
           [required]="true"
-          [(ngModel)]="editBusinessData.email"
+          [(ngModel)]="clientDataModel.email"
           [name]="'email'"
           ngDefaultControl
         ></app-custom-input-box>
@@ -31,7 +31,7 @@
           [placeholder]="'Mobile No'"
           [type]="'text'"
           [required]="true"
-          [(ngModel)]="editBusinessData.mobile"
+          [(ngModel)]="clientDataModel.mobile"
           [name]="'mobile'"
           ngDefaultControl
         ></app-custom-input-box>
@@ -42,7 +42,7 @@
           [placeholder]="'Alternate Mobile No'"
           [type]="'text'"
           [required]="true"
-          [(ngModel)]="editBusinessData.alternateMobile"
+          [(ngModel)]="clientDataModel.alternateMobile"
           [name]="'alternateMobile'"
           ngDefaultControl
         ></app-custom-input-box>
@@ -53,7 +53,7 @@
           [placeholder]="'Business Name'"
           [type]="'text'"
           [required]="true"
-          [(ngModel)]="editBusinessData.addressLine1"
+          [(ngModel)]="clientDataModel.addressLine1"
           [name]="'addressLine1'"
           ngDefaultControl
         ></app-custom-input-box>
@@ -64,7 +64,7 @@
           [placeholder]="'Pin Code'"
           [type]="'text'"
           [required]="true"
-          [(ngModel)]="editBusinessData.pinCode"
+          [(ngModel)]="clientDataModel.pinCode"
           [name]="'pinCode'"
           ngDefaultControl
         ></app-custom-input-box>
@@ -75,7 +75,7 @@
           [placeholder]="'City'"
           [type]="'text'"
           [required]="true"
-          [(ngModel)]="editBusinessData.city"
+          [(ngModel)]="clientDataModel.city"
           [name]="'city'"
           ngDefaultControl
         ></app-custom-input-box>
@@ -86,7 +86,7 @@
           [placeholder]="'State'"
           [type]="'text'"
           [required]="true"
-          [(ngModel)]="editBusinessData.state"
+          [(ngModel)]="clientDataModel.state"
           [name]="'state'"
           ngDefaultControl
         ></app-custom-input-box>
@@ -97,7 +97,7 @@
           [placeholder]="'GST No'"
           [type]="'text'"
           [required]="true"
-          [(ngModel)]="editBusinessData.gstNo"
+          [(ngModel)]="clientDataModel.gstNo"
           [name]="'gstNo'"
           ngDefaultControl
         ></app-custom-input-box>
@@ -108,7 +108,7 @@
             isBusiness
               ? data != undefined && data.edit
                 ? "Update Business"
-                : "Add Business"
+                : "Add Client"
               : "Add Client"
           }}
         </button>
