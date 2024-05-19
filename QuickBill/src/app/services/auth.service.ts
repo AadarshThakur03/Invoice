@@ -8,11 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
-    // if (typeof localStorage !== 'undefined') {
-    // Check if the user was previously logged in
-    this.isLoggedInValue = window.localStorage.getItem('isLoggedIn') === 'true';
-
-    //   }
+    if (typeof localStorage !== 'undefined') {
+      // Check if the user was previously logged in
+      this.isLoggedInValue =
+        window.localStorage.getItem('isLoggedIn') === 'true';
+    }
   }
   currentUser: any;
 
@@ -44,29 +44,29 @@ export class AuthService {
 
   setLoggedIn(value: boolean) {
     this.isLoggedInValue = value;
-    localStorage.setItem('isLoggedIn', value ? 'true' : 'false');
+    window.localStorage.setItem('isLoggedIn', value ? 'true' : 'false');
   }
 
   isLoggedIn(): boolean {
     // return this.isLoggedInValue;
-    return localStorage.getItem('isLoggedIn') === 'true';
+    return window.localStorage.getItem('isLoggedIn') === 'true';
   }
   logout(): void {
     this.setLoggedIn(false);
-    localStorage.removeItem('token');
-    localStorage.removeItem('isLoggedIn');
+    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('isLoggedIn');
     this.router.navigate(['/']); // Navigate to login page
   }
 
   getUserDetails() {
-    const token = localStorage.getItem('token');
+    const token = window.localStorage.getItem('token');
     if (!token) {
       console.error('Token not found in localStorage');
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    console.log(headers,'header');
-    
+    console.log(headers, 'header');
+
     return this.http.get<any>('http://localhost:3000/users/get-userDetails', {
       headers,
     });

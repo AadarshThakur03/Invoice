@@ -1,14 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const userRouter = require("./routes/userRoutes");
-const businessRouter=require("./routes/businessRoutes")
-const {pool} = require("./database/db");
-const cors = require('cors');
-
+const businessRouter = require("./routes/businessRoutes");
+const clientRouter = require("./routes/clientRoutes");
+const { pool } = require("./database/db");
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 
 app.use(bodyParser.json());
 
@@ -20,7 +19,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRouter);
 app.use("/business", businessRouter);
-
+app.use("/client", clientRouter);
 
 pool.getConnection((err, connection) => {
   if (err) {

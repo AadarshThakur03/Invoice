@@ -29,59 +29,6 @@ export class DataService {
       { headers }
     );
   }
-
-  login(email: string, password: string): Observable<any> {
-    const userData = { email, password };
-
-    return this.http.post<any>('http://localhost:3000/users/login', userData, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-    });
-  }
-
-  register(data: any) {
-    const userData = {
-      username: data.name,
-      email: data.email,
-      mobile: data.mobile,
-      password: data.password,
-    };
-    return this.http.post<any>(
-      'http://localhost:3000/users/register',
-      userData
-    );
-  }
-
-  setLoggedIn(value: boolean) {
-    this.isLoggedInValue = value;
-    localStorage.setItem('isLoggedIn', value ? 'true' : 'false');
-  }
-
-  isLoggedIn(): boolean {
-    // return this.isLoggedInValue;
-    return localStorage.getItem('isLoggedIn') === 'true';
-  }
-  logout(): void {
-    this.setLoggedIn(false);
-    localStorage.removeItem('token');
-    localStorage.removeItem('isLoggedIn');
-    this.router.navigate(['/']); // Navigate to login page
-  }
-
-  getUserDetails() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('Token not found in localStorage');
-    }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>('http://localhost:3000/users/get-userDetails', {
-      headers,
-    });
-  }
-
   getBusinessByUserId() {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -91,5 +38,25 @@ export class DataService {
     return this.http.get('http://localhost:3000/business/get-business', {
       headers,
     });
+  }
+
+  addClient(clientData: Object) {
+    // const token = localStorage.getItem('token');
+    // if (!token) {
+    //   console.error('Token not found in localStorage');
+    // }
+    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<any>(
+      'http://localhost:3000/client/add-client',
+      clientData
+    );
+  }
+  getClientByUserId() {
+    // const token = localStorage.getItem('token');
+    // if (!token) {
+    //   console.error('Token not found in localStorage');
+    // }
+    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get('http://localhost:3000/client/get-client', {});
   }
 }

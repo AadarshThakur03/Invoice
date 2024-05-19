@@ -50,6 +50,9 @@ export class AddClientComponent {
   //   this.formData[event.name] = event.value; // Update the formData with the changed value
   // }
   ngOnInit(): void {
+    this.dataService.getClientByUserId().subscribe((data) => {
+      console.log(data, 'cient');
+    });
     // console.log(this.data);
     // if (this.data == undefined) {
     //   console.log(this.data);
@@ -64,11 +67,8 @@ export class AddClientComponent {
     // console.log(this.formData);
     console.log(this.clientDataModel, 'kkkk');
 
-    // this.dataService.addBusiness(this.editBusinessData).subscribe((data) => {
-    //   console.log(data);
-    //   if (data.status == 'success') {
-    //     this.toastService.showSuccess(data.message);
-    //   }
-    // });
+    this.dataService.addClient(this.clientDataModel).subscribe((data) => {
+      console.log(data);
+    });
   }
 }

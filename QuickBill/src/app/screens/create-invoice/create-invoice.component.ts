@@ -8,16 +8,16 @@ import { EditBusinessData } from '../manage-business/business.model';
   templateUrl: './create-invoice.component.html',
   styleUrl: './create-invoice.component.css',
 })
-export class CreateInvoiceComponent{
+export class CreateInvoiceComponent {
   businessName: string = '';
   mobileNumber: string = '';
   alternateMobileNumber: string = '';
   addressLine1: string = '';
   addressLine2: string = '';
-  customerName: string = '';
-  customerAddress: string = '';
+  clientName: string = '';
+  clientAddress: string = '';
   cityStateZip: string = '';
-  country: string = '';
+  clientMobile: string = '';
   invoiceNo: string = '';
   orderNo: string = '';
   date: string = '';
@@ -43,6 +43,7 @@ export class CreateInvoiceComponent{
   items: any[] = [{ description: '', code: '', qty: '', amount: '' }];
   isPreviewSelected: boolean = false;
   businessOptions: any[] = [];
+  clientOptions: any[] = [];
   selectedOption: string = '';
   data: any;
   // selectedOptions: any[] = [];
@@ -55,8 +56,12 @@ export class CreateInvoiceComponent{
       this.businessOptions = data.business;
       console.log(this.businessOptions);
     });
+    this.dataService.getClientByUserId().subscribe((data: any) => {
+      console.log(data, 'create');
+
+      this.clientOptions = data.client;
+    });
   }
- 
 
   addItem() {
     this.items.push({ description: '', code: '', qty: 0, amount: 0 });
@@ -71,9 +76,8 @@ export class CreateInvoiceComponent{
       console.log(this.businessName, 'edit');
       this.selectedOption = this.businessName;
       console.log(this.data.mobile);
-      this.mobileNumber=this.data.mobile
-      console.log(this.mobileNumber,'mob');
-      
+      // this.mobileNumber = this.data.mobile;
+      // console.log(this.mobileNumber, 'mob');
     }
     this.showPreview = false;
   }
@@ -86,10 +90,10 @@ export class CreateInvoiceComponent{
       alternateMobileNumber: this.alternateMobileNumber,
       addressLine1: this.addressLine1,
       addressLine2: this.addressLine2,
-      customerName: this.customerName,
-      customerAddress: this.customerAddress,
+      clientName: this.clientName,
+      clientAddress: this.clientAddress,
       cityStateZip: this.cityStateZip,
-      country: this.country,
+      clientMobile: this.clientMobile,
       invoiceNo: this.invoiceNo,
       orderNo: this.orderNo,
       date: this.date,
@@ -117,7 +121,7 @@ export class CreateInvoiceComponent{
     this.showPreview = true;
     this.editInvoice = false;
   }
-  selectedOptions(data: any): void {
+  selectedBusiness(data: any): void {
     console.log(data);
     this.data = data;
     console.log(this.data, 'stored');
@@ -127,12 +131,25 @@ export class CreateInvoiceComponent{
     this.alternateMobileNumber = data.alternateMobile;
     this.addressLine1 = data.addressLine1;
   }
+  selectedClient(data: any): void {
+    console.log(data);
+    this.data = data;
+    console.log(this.data, 'stored');
+
+    this.clientName = data.clientName;
+    this.clientMobile = data.mobile;
+    this.cityStateZip = data.addressLine1;
+    this.clientAddress = data.addressLine1;
+    // this.addressLine1 = data.addressLine1;
+  }
 
   clearOptions(data: any) {
     if (data) {
-      this.mobileNumber = '';
+      this.businessName = '';
+
       this.alternateMobileNumber = '';
       this.addressLine1 = '';
+      this.mobileNumber = '';
     }
   }
 }

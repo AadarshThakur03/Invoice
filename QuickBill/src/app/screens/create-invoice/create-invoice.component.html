@@ -24,11 +24,9 @@
         <app-custom-typehead-dropdown
           [placeholder]="'Select Business'"
           [options]="businessOptions"
-          (selectedOptions)="selectedOptions($event)"
+          (selectedOptions)="selectedBusiness($event)"
           [value]="businessName"
-          
           (clearOptions)="clearOptions($event)"
-          
         ></app-custom-typehead-dropdown>
         <!-- <input
           type="text"
@@ -43,7 +41,6 @@
           [disable]="true"
           [onlyInput]="true"
           [inputClass]="'custom-input'"
-       
         >
         </app-custom-input-box>
         <!-- <br /> -->
@@ -78,32 +75,40 @@
       <div class="billed-div">
         <div><strong>Billed To:</strong></div>
         <div>
-          Customer Name:
-          <input
-            type="text"
-            [(ngModel)]="customerName"
-            placeholder="Customer Name"
-          />
+          <app-custom-typehead-dropdown
+            [placeholder]="'Select Client'"
+            [options]="clientOptions"
+            (selectedOptions)="selectedClient($event)"
+            [value]="clientName"
+            (clearOptions)="clearOptions($event)"
+          ></app-custom-typehead-dropdown>
         </div>
         <div>
-          Customer Address:
-          <input
-            type="text"
-            [(ngModel)]="customerAddress"
-            placeholder="Customer Address"
-          />
+          <app-custom-input-box
+            [placeholder]="'Client Address'"
+            [value]="clientAddress"
+            [disable]="true"
+            [onlyInput]="true"
+            [inputClass]="'custom-input'"
+          ></app-custom-input-box>
         </div>
         <div>
-          City, State, Zip Code:
-          <input
-            type="text"
-            [(ngModel)]="cityStateZip"
-            placeholder="City, State, Zip Code"
-          />
+          <app-custom-input-box
+            [placeholder]="'City State Zip'"
+            [value]="cityStateZip"
+            [disable]="true"
+            [onlyInput]="true"
+            [inputClass]="'custom-input'"
+          ></app-custom-input-box>
         </div>
         <div>
-          Country:
-          <input type="text" [(ngModel)]="country" placeholder="Country" />
+          <app-custom-input-box
+            [placeholder]="'Mobile'"
+            [value]="clientMobile"
+            [disable]="true"
+            [onlyInput]="true"
+            [inputClass]="'custom-input'"
+          ></app-custom-input-box>
         </div>
       </div>
       <div class="invoice-div">

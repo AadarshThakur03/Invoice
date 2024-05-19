@@ -98,3 +98,11 @@ min-height: 46px !important;
   background-color: lightblue !important;
   font-weight: bold !important;
 }
+::ng-deep .custom-selected {
+  background-color: rgba(0, 0, 0, 0.04); /* Light gray background for selected item */
+  font-weight: bold; /* Make the selected option bold */
+}
+
+::ng-deep .mat-option.custom-selected.mat-active {
+  background-color: rgba(0, 0, 0, 0.08); /* Slightly darker background when active */
+}

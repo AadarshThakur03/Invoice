@@ -20,7 +20,7 @@ export class ResponseInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // Retrieve token from localStorage
-    const token = localStorage.getItem('token');
+    const token = window.localStorage.getItem('token');
     if (!token) {
       console.error('Token not found in localStorage');
     }

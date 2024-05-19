@@ -138,11 +138,11 @@ export class SidebarComponent {
     }
   }
 
-  selectScreen(routePath: any) {
-    console.log(routePath.routes.path, 'hii');
+  // selectScreen(routePath: any) {
+  //   console.log(routePath.routes.path, 'hii');
 
-    // this.screenSelected.emit(routePath.routes.path);
-    // this.activeScreen = routePath.routes.components;
-    // this.sidebarStateService.setActiveScreen(routePath.routes.components);
-  }
+  //   // this.screenSelected.emit(routePath.routes.path);
+  //   // this.activeScreen = routePath.routes.components;
+  //   // this.sidebarStateService.setActiveScreen(routePath.routes.components);
+  // }
 }
