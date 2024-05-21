@@ -15,15 +15,16 @@
       </div>
     </div>
     <div class="address">
-      {{ invoiceData.addressLine1 }}<br />{{ invoiceData.addressLine2 }}
+      {{ invoiceData.addressLine1 }}<br />{{ invoiceData.businessEmail }}
     </div>
     <div class="details">
       <div class="billed-div">
         <div><strong>Billed To:</strong></div>
-        <div>{{ invoiceData.customerName }}</div>
-        <div>{{ invoiceData.customerAddress }}</div>
+        <div>{{ invoiceData.clientName }}</div>
+        <div>{{ invoiceData.clientAddress }}</div>
         <div>{{ invoiceData.cityStateZip }}</div>
-        <div>{{ invoiceData.country }}</div>
+        <div>{{ invoiceData.clientMobile }}</div>
+        <div>{{ invoiceData.clientGst }}</div>
       </div>
       <div class="invoice-div">
         <div><strong>Invoice No:</strong> {{ invoiceData.invoiceNo }}</div>

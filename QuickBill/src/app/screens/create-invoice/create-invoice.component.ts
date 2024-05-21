@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { ToastService } from '../../services/toast.service';
 import { EditBusinessData } from '../manage-business/business.model';
+import { InvoiceDataModel } from './invoice.model';
 
 @Component({
   selector: 'app-create-invoice',
@@ -9,6 +10,7 @@ import { EditBusinessData } from '../manage-business/business.model';
   styleUrl: './create-invoice.component.css',
 })
 export class CreateInvoiceComponent {
+  invoiceModel: InvoiceDataModel = new InvoiceDataModel();
   businessName: string = '';
   mobileNumber: string = '';
   alternateMobileNumber: string = '';
@@ -61,6 +63,7 @@ export class CreateInvoiceComponent {
 
       this.clientOptions = data.client;
     });
+    this.invoiceModel.date =new Date().toISOString().split('T')[0];
   }
 
   addItem() {
@@ -71,6 +74,7 @@ export class CreateInvoiceComponent {
   editInvoice: boolean = true;
   changeInvoice() {
     this.isPreviewSelected = false;
+    this.showPreview = false;
     this.editInvoice = true;
     if (this.editInvoice) {
       console.log(this.businessName, 'edit');
@@ -79,77 +83,61 @@ export class CreateInvoiceComponent {
       // this.mobileNumber = this.data.mobile;
       // console.log(this.mobileNumber, 'mob');
     }
-    this.showPreview = false;
   }
   submittedInvoice: any = {};
   submitInvoice() {
     this.isPreviewSelected = true;
-    this.submittedInvoice = {
-      businessName: this.businessName,
-      mobileNumber: this.mobileNumber,
-      alternateMobileNumber: this.alternateMobileNumber,
-      addressLine1: this.addressLine1,
-      addressLine2: this.addressLine2,
-      clientName: this.clientName,
-      clientAddress: this.clientAddress,
-      cityStateZip: this.cityStateZip,
-      clientMobile: this.clientMobile,
-      invoiceNo: this.invoiceNo,
-      orderNo: this.orderNo,
-      date: this.date,
-      itemDescription1: this.itemDescription1,
-      itemCode1: this.itemCode1,
-      qty1: this.qty1,
-      amount1: this.amount1,
-      gstin: this.gstin,
-      pan: this.pan,
-      state: this.state,
-      amountInWords: this.amountInWords,
-      accountNo: this.accountNo,
-      ifsc: this.ifsc,
-      termsConditions: this.termsConditions,
-      taxableAmount: this.taxableAmount,
-      taxableAmountValue: this.taxableAmountValue,
-      cgstPercentage: this.cgstPercentage,
-      cgstAmount: this.cgstAmount,
-      sgstPercentage: this.sgstPercentage,
-      sgstAmount: this.sgstAmount,
-      igstPercentage: this.igstPercentage,
-      igstAmount: this.igstAmount,
-      items: this.items,
-    };
+
     this.showPreview = true;
     this.editInvoice = false;
+    this.submittedInvoice = this.invoiceModel;
   }
   selectedBusiness(data: any): void {
     console.log(data);
     this.data = data;
     console.log(this.data, 'stored');
-
-    this.businessName = data.businessName;
-    this.mobileNumber = data.mobile;
-    this.alternateMobileNumber = data.alternateMobile;
-    this.addressLine1 = data.addressLine1;
+    this.invoiceModel.businessName = data.businessName;
+    this.invoiceModel.mobileNumber = data.mobile;
+    this.invoiceModel.alternateMobileNumber = data.alternateMobile;
+    this.invoiceModel.addressLine1 =
+      data.addressLine1 + ' ' + data.city + '-' + data.pinCode;
+    this.invoiceModel.businessEmail = data.email;
+    this.invoiceModel.pan = data.panNo;
+    this.invoiceModel.gstin = data.gstNo;
+    this.invoiceModel.state = data.state;
+    this.invoiceModel.accountNo = data.bankAccountNo;
+    this.invoiceModel.ifsc = data.ifscCode;
   }
   selectedClient(data: any): void {
     console.log(data);
     this.data = data;
     console.log(this.data, 'stored');
 
-    this.clientName = data.clientName;
-    this.clientMobile = data.mobile;
-    this.cityStateZip = data.addressLine1;
-    this.clientAddress = data.addressLine1;
+    this.invoiceModel.clientName = data.clientName;
+    this.invoiceModel.clientMobile = data.mobile;
+    this.invoiceModel.cityStateZip =
+      data.state + ', ' + data.city + ' - ' + data.pinCode;
+    this.invoiceModel.clientAddress = data.addressLine1;
+    this.invoiceModel.clientGst = data.gstNo;
     // this.addressLine1 = data.addressLine1;
   }
 
-  clearOptions(data: any) {
+  clearBusiness(data: any) {
     if (data) {
-      this.businessName = '';
-
-      this.alternateMobileNumber = '';
-      this.addressLine1 = '';
-      this.mobileNumber = '';
+      this.invoiceModel.businessName = '';
+      this.invoiceModel.alternateMobileNumber = '';
+      this.invoiceModel.addressLine1 = '';
+      this.invoiceModel.mobileNumber = '';
+      this.invoiceModel.businessEmail = '';
+    }
+  }
+  clearClient(data: any) {
+    if (data) {
+      this.invoiceModel.clientName = '';
+      this.invoiceModel.clientMobile = '';
+      this.invoiceModel.cityStateZip = '';
+      this.invoiceModel.clientAddress = '';
+      this.invoiceModel.clientGst = '';
     }
   }
 }

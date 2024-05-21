@@ -31,14 +31,23 @@
   }
   
   .address {
-    grid-row: 2;
-    grid-column: 1;
+    /* grid-row: 2;
+    grid-column: 1; */
     padding: 5px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+  }
+  
+  .address-div{
+    width: 60%;
+    /* display: flex; */
+    /* flex-direction: column;
+    justify-content: center;
+    align-items: center; */
   }
   
   .details {
@@ -142,12 +151,12 @@ border-right: 1px solid black;
 
   }
   .gst-left div {
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
   }
   
   .gst-left strong {
     display: inline-block;
-    width: 100px;
+    
   }
   .gst-left {
     display: flex;
@@ -156,7 +165,7 @@ border-right: 1px solid black;
   
   .section {
     border-bottom: 1px solid #ddd;
-    padding: 5px;
+    padding: 12px;
   }
   
   .section:last-child {
@@ -227,11 +236,36 @@ border: none;
     opacity: 1;
     color: black;
     font-size: 14px !important;
-    width: auto; /* Allow the input to expand dynamically based on content */
+    width: 100%; /* Allow the input to expand dynamically based on content */
     min-width: 100px; /* Set a minimum width to prevent it from becoming too narrow */
-    max-width: 100%;
+    /* max-width: 100%; */
  }
  ::ng-deep .address1{
-  width: 300px  !important;
+  /* width:  100% !important; */
+  text-align: center;
  }
+ ::ng-deep .email-input{
+width: 35% !important;
+
+ }
+ ::ng-deep .email-input .custom-input{
+  text-align: center !important;
+ }
+ .sub-section{
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px !important;
+ }
+ .sub-section strong{
+  margin-right: 5px;
+ }
+ ::ng-deep .section-input{
+  margin: 0px !important;
+  width: 100%;
+ }
+ .section-custom-input{
+  width: 100%;
+  margin-bottom: 0px !important;
+ }
+ 
   

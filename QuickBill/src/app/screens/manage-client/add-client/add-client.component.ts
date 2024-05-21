@@ -53,13 +53,13 @@ export class AddClientComponent {
     this.dataService.getClientByUserId().subscribe((data) => {
       console.log(data, 'cient');
     });
-    // console.log(this.data);
-    // if (this.data == undefined) {
-    //   console.log(this.data);
-    // } else {
-    //   this.editBusinessData = this.data.data;
-    //   console.log(this.editBusinessData, 'onnn');
-    // }
+    console.log(this.data);
+    if (this.data == undefined) {
+      console.log(this.data);
+    } else {
+      this.clientDataModel = this.data.data;
+      console.log(this.clientDataModel, 'onnn');
+    }
     // this.cdr.detectChanges();
   }
 

@@ -14,6 +14,28 @@ function getClient() {
 }
 async function registerClient(clientData, userId) {
   const client = new ClientDataModel(clientData);
+  
+  const requiredFields = [
+    "clientName",
+    "email",
+    "mobile",
+    "alternateMobile",
+    "addressLine1",
+    "pinCode",
+    "city",
+    "state",
+    "gstNo",
+    
+  ];
+
+  const missingFields = requiredFields.filter(field => !client[field] || (typeof client[field] === 'string' && client[field].trim() === ""));
+
+  if (missingFields.length > 0) {
+    return {
+      message: `The following fields are required: ${missingFields.join(', ')}`,
+      status: 'error'
+    };
+  }
   console.log(client,'cl');
 
   // Validate fields
@@ -71,7 +93,7 @@ async function registerClient(clientData, userId) {
 async function getClientByUserID(userId) {
   try {
     // Retrieve clientes associated with a user from the database
-    const clients = await pool.query("SELECT * FROM client WHERE userId = ?", [
+    const clients = await pool.query("SELECT * FROM client WHERE userId = ? ORDER BY id DESC", [
       userId,
     ]);
     const client = clients[0];
@@ -83,7 +105,7 @@ console.log(client,'client');
     };
   } catch (err) {
     return {
-      message: "Error retrieving businesses",
+      message: "Error retrieving clients",
       status: "error",
       error: err.message,
     };

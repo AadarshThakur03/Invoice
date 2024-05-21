@@ -15,14 +15,28 @@ function getBusiness() {
 async function registerBusiness(businessData, userId) {
   const business = new BusinessDataModel(businessData);
 
-  // Validate fields
-  if (
-    !business.businessName ||
-    !business.email ||
-    !business.mobile ||
-    !business.addressLine1
-  ) {
-    return { message: "All required fields must be provided", status: "error" };
+  const requiredFields = [
+    "businessName",
+    "email",
+    "mobile",
+    "alternateMobile",
+    "addressLine1",
+    "pinCode",
+    "city",
+    "state",
+    "gstNo",
+    "panNo",
+    "bankAccountNo",
+    "ifscCode",
+  ];
+
+  const missingFields = requiredFields.filter(field => !business[field] || (typeof business[field] === 'string' && business[field].trim() === ""));
+
+  if (missingFields.length > 0) {
+    return {
+      message: `The following fields are required: ${missingFields.join(', ')}`,
+      status: 'error'
+    };
   }
 
   if (!validator.isEmail(business.email)) {
@@ -42,18 +56,20 @@ async function registerBusiness(businessData, userId) {
   // Insert business into the database
   try {
     const result = await pool.query(
-      "INSERT INTO business (businessName, email, mobile, alternateMobile, addressLine1, addressLine2, pinCode, city, state, gstNo, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO business (businessName, email, mobile, alternateMobile, addressLine1, pinCode, city, state, gstNo, panNo, bankAccountNo, ifscCode, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)",
       [
         business.businessName,
         business.email,
         business.mobile,
         business.alternateMobile,
         business.addressLine1,
-        business.addressLine2,
         business.pinCode,
         business.city,
         business.state,
         business.gstNo,
+        business.panNo,
+        business.bankAccountNo,
+        business.ifscCode,
         userId,
       ]
     );
@@ -71,7 +87,7 @@ async function getBusinessesByUserID(userId) {
   try {
     // Retrieve businesses associated with a user from the database
     const businesses = await pool.query(
-      "SELECT * FROM business WHERE userId = ?",
+      "SELECT * FROM business WHERE userId = ? ORDER BY id DESC",
       [userId]
     );
     const business = businesses[0];

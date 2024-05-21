@@ -72,7 +72,7 @@ export class SidebarComponent {
         // fa-solid fa-file-pen
         {
           name: 'Add Business',
-          icon: 'fa-solid fa-hospital-user', // Icon for child item
+          icon: 'fa-solid fa-building-user', // Icon for child item
           routes: {
             components: 'add-business',
             path: 'user-homepage/add-business',
@@ -91,17 +91,17 @@ export class SidebarComponent {
       },
       children: [
         {
-          name: 'View Business',
-          icon: 'fa-solid fa-building-circle-check', // Icon for child item
+          name: 'View Client',
+          icon: 'fa-solid fa-id-card', // Icon for child item
           routes: {
-            components: 'view-business',
-            path: 'user-homepage/view-business',
+            components: 'view-client',
+            path: 'user-homepage/view-client',
           },
         },
         // fa-solid fa-file-pen
         {
           name: 'Add Client',
-          icon: 'fa-solid fa-hospital-user', // Icon for child item
+          icon: 'fa-solid fa-user-plus', // Icon for child item
           routes: {
             components: 'add-client',
             path: 'user-homepage/add-client',

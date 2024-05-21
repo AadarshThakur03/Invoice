@@ -16,6 +16,7 @@ import path from 'path';
 
 import { AddClientComponent } from './screens/manage-client/add-client/add-client.component';
 import { AddBusinessComponent } from './screens/manage-business/add-business/add-business.component';
+import { ViewClientComponent } from './screens/manage-client/view-client/view-client.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
       { path: 'view-business', component: ViewBusinessComponent },
       { path: 'add-business', component: AddBusinessComponent },
       { path: 'add-client', component: AddClientComponent },
+      { path: 'view-client', component: ViewClientComponent },
 
       // Add more child routes as needed
     ],

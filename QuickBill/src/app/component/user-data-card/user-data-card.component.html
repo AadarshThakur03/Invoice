@@ -15,7 +15,7 @@
         class="business-logo"
       />
       <div class="business-details">
-        <p class="business-name">{{ business.businessName }}</p>
+        <p class="business-name">{{ business.businessName || business.clientName }}</p>
         <p class="business-email">{{ business.email }}</p>
       </div>
       <div class="business-actions">

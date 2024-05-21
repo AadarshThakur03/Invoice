@@ -93,11 +93,44 @@
         </div>
         <div class="col-4 pb-3">
           <app-custom-input-box
-            [label]="'GST NO'"
-            [placeholder]="'GST No'"
+            [label]="'GSTIN No'"
+            [placeholder]="'GSTIN No'"
             [type]="'text'"
             [required]="true"
             [(ngModel)]="editBusinessData.gstNo"
+            [name]="'gstNo'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-4 pb-3">
+          <app-custom-input-box
+            [label]="'PAN No'"
+            [placeholder]="'PAN No'"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.panNo"
+            [name]="'panNo'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-4 pb-3">
+          <app-custom-input-box
+            [label]="'Bank A/C No.'"
+            [placeholder]="'Bank A/C No.'"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.bankAccountNo"
+            [name]="'accountNo'"
+            ngDefaultControl
+          ></app-custom-input-box>
+        </div>
+        <div class="col-4 pb-3">
+          <app-custom-input-box
+            [label]="'IFSC Code'"
+            [placeholder]="'IFSC Code'"
+            [type]="'text'"
+            [required]="true"
+            [(ngModel)]="editBusinessData.ifscCode"
             [name]="'gstNo'"
             ngDefaultControl
           ></app-custom-input-box>

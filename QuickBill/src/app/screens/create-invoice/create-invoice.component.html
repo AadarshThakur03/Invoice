@@ -25,19 +25,14 @@
           [placeholder]="'Select Business'"
           [options]="businessOptions"
           (selectedOptions)="selectedBusiness($event)"
-          [value]="businessName"
-          (clearOptions)="clearOptions($event)"
+          [value]="invoiceModel.businessName"
+          (clearOptions)="clearBusiness($event)"
         ></app-custom-typehead-dropdown>
-        <!-- <input
-          type="text"
-          [(ngModel)]="businessName"
-          placeholder="Business Name"
-        /> -->
       </div>
       <div class="business-right">
         <app-custom-input-box
           [placeholder]="'Mobile Number'"
-          [value]="mobileNumber"
+          [value]="invoiceModel.mobileNumber"
           [disable]="true"
           [onlyInput]="true"
           [inputClass]="'custom-input'"
@@ -46,7 +41,7 @@
         <!-- <br /> -->
         <app-custom-input-box
           [placeholder]="'Alternate Mobile Number'"
-          [value]="alternateMobileNumber"
+          [value]="invoiceModel.alternateMobileNumber"
           [disable]="true"
           [onlyInput]="true"
           [inputClass]="'custom-input'"
@@ -55,21 +50,24 @@
       </div>
     </div>
     <div class="address">
-      <app-custom-input-box
-        [placeholder]="'Address Line 1'"
-        [value]="addressLine1"
-        [disable]="true"
-        [onlyInput]="true"
-        [inputClass]="'custom-input address1'"
-      ></app-custom-input-box>
-
-      <app-custom-input-box
-        [placeholder]="'Address Line 2'"
-        [value]="addressLine2"
-        [disable]="true"
-        [onlyInput]="true"
-        [inputClass]="'custom-input'"
-      ></app-custom-input-box>
+      <div class="address-div">
+        <app-custom-input-box
+          [placeholder]="'Address Line 1'"
+          [value]="invoiceModel.addressLine1"
+          [disable]="true"
+          [onlyInput]="true"
+          [inputClass]="'custom-input address1'"
+        ></app-custom-input-box>
+      </div>
+      <div class="email-input">
+        <app-custom-input-box
+          [placeholder]="'Email'"
+          [value]="invoiceModel.businessEmail"
+          [disable]="true"
+          [onlyInput]="true"
+          [inputClass]="'custom-input '"
+        ></app-custom-input-box>
+      </div>
     </div>
     <div class="details">
       <div class="billed-div">
@@ -79,14 +77,14 @@
             [placeholder]="'Select Client'"
             [options]="clientOptions"
             (selectedOptions)="selectedClient($event)"
-            [value]="clientName"
-            (clearOptions)="clearOptions($event)"
+            [value]="invoiceModel.clientName"
+            (clearOptions)="clearClient($event)"
           ></app-custom-typehead-dropdown>
         </div>
         <div>
           <app-custom-input-box
             [placeholder]="'Client Address'"
-            [value]="clientAddress"
+            [value]="invoiceModel.clientAddress"
             [disable]="true"
             [onlyInput]="true"
             [inputClass]="'custom-input'"
@@ -95,7 +93,7 @@
         <div>
           <app-custom-input-box
             [placeholder]="'City State Zip'"
-            [value]="cityStateZip"
+            [value]="invoiceModel.cityStateZip"
             [disable]="true"
             [onlyInput]="true"
             [inputClass]="'custom-input'"
@@ -104,25 +102,77 @@
         <div>
           <app-custom-input-box
             [placeholder]="'Mobile'"
-            [value]="clientMobile"
+            [value]="invoiceModel.clientMobile"
             [disable]="true"
             [onlyInput]="true"
             [inputClass]="'custom-input'"
           ></app-custom-input-box>
         </div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 sub-section">
+              <div style="width: 23%"><strong>Client's GSTIN:</strong></div>
+              <div class="section-custom-input">
+                <app-custom-input-box
+                  [placeholder]="'GSTIN'"
+                  [value]="invoiceModel.clientGst"
+                  [disable]="true"
+                  [onlyInput]="true"
+                  [inputClass]="'custom-input section-input'"
+                ></app-custom-input-box>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="invoice-div">
-        <div>
-          <strong>Invoice No:</strong>
-          <input type="text" [(ngModel)]="invoiceNo" placeholder="Invoice No" />
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 sub-section">
+              <div style="width: 50%"><strong>Invoice No:</strong></div>
+              <div class="section-custom-input">
+                <app-custom-input-box
+                  [placeholder]="'Invoice No'"
+                  [value]="invoiceModel.invoiceNo"
+                  [disable]="true"
+                  [onlyInput]="true"
+                  [inputClass]="'custom-input section-input'"
+                ></app-custom-input-box>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <strong>Order No:</strong>
-          <input type="text" [(ngModel)]="orderNo" placeholder="Order No" />
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 sub-section">
+              <div style="width: 50%"><strong>Order No:</strong></div>
+              <div class="section-custom-input">
+                <app-custom-input-box
+                  [placeholder]="'Order No'"
+                  [value]="invoiceModel.orderNo"
+                  [disable]="true"
+                  [onlyInput]="true"
+                  [inputClass]="'custom-input section-input'"
+                ></app-custom-input-box>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <strong>Date:</strong>
-          <input type="text" [(ngModel)]="date" placeholder="Date" />
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 sub-section">
+              <div style="width: 50%"><strong>Date</strong></div>
+              <div class="section-custom-input">
+                <app-custom-input-box
+                  [placeholder]="'Date'"
+                  [value]="invoiceModel.date"
+                  [disable]="true"
+                  [onlyInput]="true"
+                  [inputClass]="'custom-input section-input'"
+                ></app-custom-input-box>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- Add other invoice information here -->
       </div>
@@ -177,34 +227,104 @@
     <!-- Tax details section -->
     <div class="tax-details">
       <div class="left gst-left">
-        <div class="section">
-          <strong>GSTIN:</strong>
-          <input type="text" [(ngModel)]="gstin" placeholder="GSTIN" />
+        <div class="section col-12">
+          <div class="row">
+            <div class="col-6 sub-section">
+              <div style="width: 25%"><strong>GSTIN:</strong></div>
+
+              <div class="section-custom-input">
+                <app-custom-input-box
+                  [placeholder]="'GSTIN'"
+                  [value]="invoiceModel.gstin"
+                  [disable]="true"
+                  [onlyInput]="true"
+                  [inputClass]="'custom-input section-input'"
+                ></app-custom-input-box>
+              </div>
+            </div>
+            <div class="col-6 sub-section">
+              <div style="width: 26%"><strong>PAN:</strong></div>
+              <div class="section-custom-input">
+                <app-custom-input-box
+                  [placeholder]="'PAN'"
+                  [value]="invoiceModel.pan"
+                  [disable]="true"
+                  [onlyInput]="true"
+                  [inputClass]="'custom-input section-input'"
+                ></app-custom-input-box>
+              </div>
+            </div>
+            <div class="col-6 sub-section">
+              <div style="width: 25%"><strong>State:</strong></div>
+              <div class="section-custom-input">
+                <app-custom-input-box
+                  [placeholder]="'State'"
+                  [value]="invoiceModel.state"
+                  [disable]="true"
+                  [onlyInput]="true"
+                  [inputClass]="'custom-input section-input'"
+                ></app-custom-input-box>
+              </div>
+            </div>
+          </div>
+          <!-- <strong>GSTIN:</strong> -->
         </div>
-        <div class="section">
-          <strong>PAN:</strong>
-          <input type="text" [(ngModel)]="pan" placeholder="PAN" />
-        </div>
-        <div class="section">
+        <!-- <div class="section"></div> -->
+        <!-- <div class="section">
           <strong>State:</strong>
           <input type="text" [(ngModel)]="state" placeholder="State" />
+        </div> -->
+        <div class="section col-12">
+          <div class="row">
+            <div class="col-12 sub-section mt-2">
+              <div style="width: 30%"><strong>Amount in Words:</strong></div>
+              <div class="section-custom-input">
+                <app-custom-input-box
+                  [placeholder]="'Amount in Words'"
+                  [value]="invoiceModel.amountInWords"
+                  [disable]="true"
+                  [onlyInput]="true"
+                  [inputClass]="'custom-input section-input'"
+                ></app-custom-input-box>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="section">
-          <strong>Amount in Words:</strong>
-          <input
-            type="text"
-            [(ngModel)]="amountInWords"
-            placeholder="Amount in Words"
-          />
-        </div>
-        <div class="section">
-          <strong>Bank Details:</strong> Account No -
-          <input
+        <div class="section col-12">
+          <strong>Bank Details:</strong><br />
+          <div class="row">
+            <div class="col-12 sub-section mt-2">
+              <div style="width: 25%">Bank A/C No :</div>
+              <div class="section-custom-input">
+                <app-custom-input-box
+                  [placeholder]="'Bank A/C No'"
+                  [value]="invoiceModel.accountNo"
+                  [disable]="true"
+                  [onlyInput]="true"
+                  [inputClass]="'custom-input section-input'"
+                ></app-custom-input-box>
+              </div>
+            </div>
+            <div class="col-12 sub-section">
+              <div style="width: 25%">IFSC :</div>
+              <div class="section-custom-input">
+                <app-custom-input-box
+                  [placeholder]="'IFSC'"
+                  [value]="invoiceModel.ifsc"
+                  [disable]="true"
+                  [onlyInput]="true"
+                  [inputClass]="'custom-input section-input'"
+                ></app-custom-input-box>
+              </div>
+            </div>
+          </div>
+
+          <!-- <input
             type="text"
             [(ngModel)]="accountNo"
             placeholder="Account No"
           />, IFSC -
-          <input type="text" [(ngModel)]="ifsc" placeholder="IFSC" />
+          <input type="text" [(ngModel)]="ifsc" placeholder="IFSC" /> -->
         </div>
         <div class="section">
           <strong>Terms & Conditions:</strong>

@@ -94,3 +94,7 @@
 li.nav-list-item.nav-list-child {
   margin-left: 40px;
 }
+::ng-deep .angle-up{
+  margin: 0px !important;
+  padding-right: 10px;
+}
