@@ -3,7 +3,7 @@
     <label [ngClass]="labelClass">{{ label }}</label>
     <span *ngIf="required" class="required-mark">*</span>
   </div>
-  <div class="input-box">
+  <div class="input-box"  [ngClass]="inputDiv">
     <input
       #inputElement
       [type]="type"
@@ -11,12 +11,12 @@
       [required]="required"
       [ngClass]="inputClass"
       [value]="value"
-      [(ngModel)]="disable ? value : ngModel"
+      [ngModel]="disable ? value : ngModel"
       (ngModelChange)="onInputChange($event)"
       [disabled]="disable"
       [name]="name"
+      (blur)="onBlur($event)"
       class="form-control input-container"
     />
-   
   </div>
 </div>

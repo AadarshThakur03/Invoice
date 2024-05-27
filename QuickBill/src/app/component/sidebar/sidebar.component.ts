@@ -112,6 +112,64 @@ export class SidebarComponent {
     },
     {
       number: '6',
+      name: 'Manage Items',
+      icon: 'fa-solid fa-store',
+      routes: {
+        components: 'edit-client',
+        path: 'user-homepage/edit-client',
+      },
+      children: [
+        {
+          name: 'View Items',
+          icon: 'fa-solid fa-box-open', // Icon for child item
+          routes: {
+            components: 'view-client',
+            path: 'user-homepage/view-items',
+          },
+        },
+        // fa-solid fa-file-pen
+        {
+          name: 'Add Items',
+          icon: 'fa-solid fa-box-archive', // Icon for child item
+          routes: {
+            components: 'add-client',
+            path: 'user-homepage/add-items',
+          },
+        },
+      ],
+      expanded: false, // Initialize the 'expanded' property
+    },
+    {
+      number: '7',
+      name: 'Manage HSN Code',
+      icon: 'fa-solid fa-file-lines',
+      routes: {
+        components: 'edit-client',
+        path: 'user-homepage/edit-client',
+      },
+      children: [
+        {
+          name: 'View HSN Code',
+          icon: 'fa-solid fa-barcode', // Icon for child item
+          routes: {
+            components: 'view-hsn-code',
+            path: 'user-homepage/view-hsn-code',
+          },
+        },
+        // fa-solid fa-file-pen
+        {
+          name: 'Add HSN Code',
+          icon: 'fa-solid fa-file-circle-plus', // Icon for child item
+          routes: {
+            components: 'add-hsn-code',
+            path: 'user-homepage/add-hsn-code',
+          },
+        },
+      ],
+      expanded: false, // Initialize the 'expanded' property
+    },
+    {
+      number: '7',
       name: 'Settings',
       icon: 'fa-solid fa-gear',
       routes: {

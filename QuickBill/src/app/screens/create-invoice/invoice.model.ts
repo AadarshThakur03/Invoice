@@ -1,8 +1,15 @@
 export interface Item {
   description: string;
   code: string;
-  qty: string;
-  amount: string;
+  qty: number;
+  amount: number;
+  unitPrice: string;
+  totalAmountBT: number;
+  hsnCode: string;
+  cgst: string;
+  igst: string;
+  sgst: string;
+  totalAmountAT: number;
 }
 export class InvoiceDataModel {
   businessName: string = '';
@@ -15,7 +22,7 @@ export class InvoiceDataModel {
   clientAddress: string = '';
   cityStateZip: string = '';
   clientMobile: string = '';
-  clientGst:string=''
+  clientGst: string = '';
   invoiceNo: string = '';
   orderNo: string = '';
   date: string = '';
@@ -38,5 +45,21 @@ export class InvoiceDataModel {
   sgstAmount: string = '';
   igstPercentage: string = '';
   igstAmount: string = '';
-  items: Item[] = [{ description: '', code: '', qty: '', amount: '' }];
+  subTotal: number = 0;
+  totalAmountAfterTax: number = 0;
+  items: Item[] = [
+    {
+      description: '',
+      code: '',
+      qty: 1,
+      amount: 0,
+      unitPrice: '',
+      totalAmountBT: 0,
+      hsnCode: '',
+      cgst: '',
+      igst: '',
+      sgst: '',
+      totalAmountAT: 0,
+    },
+  ];
 }

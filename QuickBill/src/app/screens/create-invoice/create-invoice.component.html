@@ -27,6 +27,7 @@
           (selectedOptions)="selectedBusiness($event)"
           [value]="invoiceModel.businessName"
           (clearOptions)="clearBusiness($event)"
+          [required]="false"
         ></app-custom-typehead-dropdown>
       </div>
       <div class="business-right">
@@ -79,6 +80,7 @@
             (selectedOptions)="selectedClient($event)"
             [value]="invoiceModel.clientName"
             (clearOptions)="clearClient($event)"
+            [required]="false"
           ></app-custom-typehead-dropdown>
         </div>
         <div>
@@ -181,49 +183,137 @@
       <table>
         <thead>
           <tr>
-            <th>No</th>
-            <th>Description</th>
-            <th>Code</th>
-            <th>Qty</th>
-            <th>Amount</th>
+            <th class="col-no" rowspan="2">No</th>
+            <th class="col-description" rowspan="2">Description</th>
+            <th class="col-code" rowspan="2">Code</th>
+            <th class="col-qty" rowspan="2">Qty</th>
+            <th class="col-unit-price" rowspan="2">Unit Price</th>
+            <th class="col-total" rowspan="2">Total</th>
+            <th class="col-tax" colspan="3">Tax</th>
+            <th class="col-total-amount" rowspan="2">Total Amount</th>
+          </tr>
+          <tr>
+            <th class="col-cgst">CGST</th>
+            <th class="col-igst">IGST</th>
+            <th class="col-sgst">SGST</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of items; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>
-              Item Description:
-              <input
-                type="text"
-                [(ngModel)]="items[i].description"
-                placeholder="Item Description"
-              />
+          <tr *ngFor="let item of invoiceModel.items; let i = index">
+            <td class="col-no">{{ i + 1 }}</td>
+            <td class="item-td col-description">
+              <app-custom-typehead-dropdown
+                [required]="false"
+                [placeholder]="'Item Description'"
+                [options]="itemOptions"
+                [value]="invoiceModel.items[i].description"
+                name="itemDescription"
+                (selectedOptions)="selectItem($event, i)"
+                ngDefaultControl
+              ></app-custom-typehead-dropdown>
             </td>
-            <td>
-              Item Code:
-              <input
-                type="text"
-                [(ngModel)]="items[i].code"
-                placeholder="Item Code"
-              />
+            <td class="item-td col-code">
+              <app-custom-input-box
+                [placeholder]="'HSN Code'"
+                [value]="invoiceModel.items[i].hsnCode"
+                [disable]="true"
+                [onlyInput]="true"
+                [inputClass]="'custom-input section-input invoice-input'"
+                [inputDiv]="'hsn-input-div'"
+                ngDefaultControl
+              ></app-custom-input-box>
             </td>
-            <td>
-              Qty:
-              <input type="text" [(ngModel)]="items[i].qty" placeholder="Qty" />
+            <td class="item-td col-qty">
+              <app-custom-input-box
+                [placeholder]="'Qty'"
+                [(ngModel)]="invoiceModel.items[i].qty"
+                [disable]="false"
+                [onlyInput]="true"
+                [inputClass]="'custom-input section-input qty-input'"
+                (blur)="calculateTotal(i)"
+                [inputDiv]="'qty-input-div'"
+                ngDefaultControl
+              ></app-custom-input-box>
             </td>
-            <td>
-              Amount:
-              <input
-                type="text"
-                [(ngModel)]="items[i].amount"
-                placeholder="Amount"
-              />
+            <td class="item-td col-unit-price">
+              <app-custom-input-box
+                [placeholder]="'Unit Price'"
+                [(ngModel)]="invoiceModel.items[i].unitPrice"
+                [onlyInput]="true"
+                [inputClass]="'custom-input section-input invoice-input'"
+                (blur)="calculateTotal(i)"
+                ngDefaultControl
+              ></app-custom-input-box>
             </td>
+            <td class="item-td col-total">
+              <app-custom-input-box
+                [placeholder]="'Total Before tax'"
+                [value]="invoiceModel.items[i].totalAmountBT"
+                [disable]="true"
+                [onlyInput]="true"
+                [inputClass]="'custom-input section-input total-input'"
+                ngDefaultControl
+              ></app-custom-input-box>
+            </td>
+            <td class="item-td col-cgst">
+              <app-custom-input-box
+                [placeholder]="'CGST'"
+                [(ngModel)]="invoiceModel.items[i].cgst"
+                (blur)="calculateTotal(i)"
+                [onlyInput]="true"
+                [inputClass]="'custom-input section-input tax-input'"
+                ngDefaultControl
+              ></app-custom-input-box>
+            </td>
+            <td class="item-td col-igst">
+              <app-custom-input-box
+                [placeholder]="'IGST'"
+                [value]="invoiceModel.items[i].igst"
+                [(ngModel)]="invoiceModel.items[i].igst"
+                (blur)="calculateTotal(i)"
+                [onlyInput]="true"
+                [inputClass]="'custom-input section-input tax-input'"
+                ngDefaultControl
+              ></app-custom-input-box>
+            </td>
+            <td class="item-td col-sgst">
+              <app-custom-input-box
+                [placeholder]="'SGST'"
+                [(ngModel)]="invoiceModel.items[i].sgst"
+                (blur)="calculateTotal(i)"
+                [onlyInput]="true"
+                [inputClass]="'custom-input section-input tax-input'"
+                ngDefaultControl
+              ></app-custom-input-box>
+            </td>
+            <td class="item-td col-total-amount">
+              <app-custom-input-box
+                [placeholder]="'Total Amount'"
+                [value]="invoiceModel.items[i].totalAmountAT"
+                [disable]="true"
+                [onlyInput]="true"
+                [inputClass]="'custom-input section-input total-amount-input'"
+                ngDefaultControl
+              ></app-custom-input-box>
+            </td>
+          </tr>
+          <tr class="subtotal-row">
+            <td class="subtotal-empty-row" colspan="5">Sub Total:</td>
+            <!-- colspan for columns before the "Total Amount" column -->
+            <td class="subtotal-amount-row">{{ invoiceModel.subTotal }}</td>
+            <!-- Subtotal -->
+            <td class="subtotal-empty-row" colspan="3">Total Amount:</td>
+            <!-- colspan for tax columns -->
+            <td class="subtotal-amount-row">
+              {{ invoiceModel.totalAmountAfterTax }}
+            </td>
+            <!-- Total Amount After Tax -->
           </tr>
         </tbody>
       </table>
-      <button (click)="addItem()">Add Item</button>
+      <button (click)="addItem()" class="add-button">Add Item</button>
     </div>
+
     <!-- Tax details section -->
     <div class="tax-details">
       <div class="left gst-left">

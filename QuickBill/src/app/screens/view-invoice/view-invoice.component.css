@@ -213,3 +213,169 @@ border-right: 1px solid black;
   padding-right: 5px;
   font-size: 16px;
  }
+/*
+ 
+ .item-details table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.item-details th,
+.item-details td {
+  font-size: 12px;
+  border: 1px solid #ddd;
+  padding: 8px;
+  word-wrap: break-word; 
+  max-width: 150px; 
+}
+
+.item-details td:nth-child(2) {
+  max-width: 200px; 
+
+.table-column-widths {
+  width: 3%; 
+}
+
+.col-description {
+  width: 20%; 
+  min-width: 200px
+}
+
+.col-code {
+  width: 7%; /* Code 
+}
+
+.col-qty {
+  width: 5%; /* Qty 
+}
+
+.col-unit-price {
+  width: 15%; /* Unit Price 
+}
+
+.col-tax {
+  width: 20%; /* Tax 
+}
+
+.col-total {
+  width: 20%; /* Total 
+}
+.subtotal-empty-row{
+  border: none !important;
+  text-align: right !important;
+  font-weight: bold;
+}
+
+.subtotal-amount-row{
+ padding-left: 15px ;
+  text-align: left !important;
+}
+
+.tax-details1 {
+  /* font-size: 12px; 
+}
+
+.tax-amount1 {
+  /* font-weight: bold; 
+}
+
+.tax-cgst1,
+.tax-igst1,
+.tax-sgst1 {
+  font-style: italic;
+  font-size: 10px;
+  font-weight: 600;
+}*/
+.item-details table {
+  width: 760px;
+  border-collapse: collapse;
+}
+
+.item-details th,
+.item-details td {
+  font-size: 12px;
+  border: 1px solid #ddd;
+  padding: 8px;
+  word-wrap: break-word;
+}
+
+.item-details th:nth-child(1),
+.item-details td:nth-child(1) {
+  min-width: 30px; /* No */
+  max-width: 20px;
+  width: 39px; /* 5% of 760px */
+}
+
+.item-details th:nth-child(2)
+ {
+  min-width: 150px; /* Description */
+  max-width: 300px;
+  width: 150px; /* Allocating more space for the description */
+}
+.item-details td:nth-child(2){
+  max-width: 225px;
+}
+
+.item-details th:nth-child(3),
+.item-details td:nth-child(3) {
+  min-width: 40px; /* Code */
+  max-width: 80px;
+  width: 55px; /* 7% of 760px */
+}
+
+.item-details th:nth-child(4),
+.item-details td:nth-child(4) {
+  min-width: 30px; /* Qty */
+  max-width: 40px;
+  width: 39px; /* 5% of 760px */
+}
+
+.item-details th:nth-child(5),
+.item-details td:nth-child(5) {
+  min-width: 80px; /* Unit Price */
+  max-width: 80px;
+  width: 114px; /* 15% of 760px */
+}
+
+.item-details th:nth-child(6),
+.item-details td:nth-child(6) {
+  min-width: 90px; /* Total BT */
+  max-width: 105px;
+  width: 152px; /* 20% of 760px */
+  word-wrap: break-word;
+}
+
+.item-details th:nth-child(7),
+.item-details td:nth-child(7) {
+  min-width: 90px; /* Total */
+  max-width: 105px;
+  width: 152px; /* 20% of 760px */
+  word-wrap: break-word;
+}
+
+.subtotal-empty-row {
+  border: none !important;
+  text-align: right !important;
+  font-weight: bold;
+}
+
+.subtotal-amount-row {
+  padding-left: 15px;
+  text-align: left !important;
+}
+
+.tax-details1 {
+  /* font-size: 12px; */
+}
+
+.tax-amount1 {
+  /* font-weight: bold; */
+}
+
+.tax-cgst1,
+.tax-igst1,
+.tax-sgst1 {
+  font-style: italic;
+  font-size: 10px;
+  font-weight: 600;
+}

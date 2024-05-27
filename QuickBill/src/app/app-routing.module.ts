@@ -17,6 +17,10 @@ import path from 'path';
 import { AddClientComponent } from './screens/manage-client/add-client/add-client.component';
 import { AddBusinessComponent } from './screens/manage-business/add-business/add-business.component';
 import { ViewClientComponent } from './screens/manage-client/view-client/view-client.component';
+import { AddHsnCodesComponent } from './screens/manage-hsn-codes/add-hsn-codes/add-hsn-codes.component';
+import { ViewHsnCodesComponent } from './screens/manage-hsn-codes/view-hsn-codes/view-hsn-codes.component';
+import { ViewItemsComponent } from './screens/manage-items/view-items/view-items.component';
+import { AddItemsComponent } from './screens/manage-items/add-items/add-items.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -35,6 +39,10 @@ const appRoutes: Routes = [
       { path: 'add-business', component: AddBusinessComponent },
       { path: 'add-client', component: AddClientComponent },
       { path: 'view-client', component: ViewClientComponent },
+      { path: 'add-hsn-code', component: AddHsnCodesComponent },
+      { path: 'view-hsn-code', component: ViewHsnCodesComponent },
+      { path: 'view-items', component: ViewItemsComponent },
+      { path: 'add-items', component: AddItemsComponent },
 
       // Add more child routes as needed
     ],

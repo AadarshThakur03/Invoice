@@ -1,31 +1,37 @@
-<mat-form-field>
-  <input
-    type="text"
-    [placeholder]="placeholder"
-    matInput
-    [formControl]="searchControl"
-    [matAutocomplete]="auto"
-    [required]="required"
-  />
-  <button
-    mat-button
-    *ngIf="searchControl.value"
-    matSuffix
-    mat-icon-button
-    aria-label="Clear"
-    class="cancel-button"
-    (click)="clearInput()"
-  >
-    <i class="fa-solid fa-xmark"></i>
-  </button>
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option
-      *ngFor="let option of filteredOptions"
-      [value]="getDisplayName(option)"
-      [class.mat-selected-option]="selectedOption === getDisplayName(option)"
-      (click)="selectOption(option)"
+<div>
+  <div class="label-div" [ngClass]="onlyInput ? 'hide-label' : 'label-div'">
+    <label [ngClass]="labelClass">{{ label }}</label>
+    <span *ngIf="required" class="required-mark">*</span>
+  </div>
+  <mat-form-field>
+    <input
+      type="text"
+      [placeholder]="placeholder"
+      matInput
+      [formControl]="searchControl"
+      [matAutocomplete]="auto"
+      [required]="required"
+    />
+    <button
+      mat-button
+      *ngIf="searchControl.value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      class="cancel-button"
+      (click)="clearInput()"
     >
-      {{ getDisplayName(option) }}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredOptions"
+        [value]="getDisplayName(option)"
+        [class.mat-selected-option]="selectedOption === getDisplayName(option)"
+        (click)="selectOption(option)"
+      >
+        {{ getDisplayName(option) }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

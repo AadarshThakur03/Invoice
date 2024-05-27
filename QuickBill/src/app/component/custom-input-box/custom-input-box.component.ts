@@ -14,22 +14,27 @@ import {
 })
 export class CustomInputBoxComponent {
   @Input() label: string = '';
-  @Input() ngModel: string = '';
+  @Input() ngModel: any = '';
   @Input() required: boolean = false;
   @Input() placeholder: string = '';
   @Input() type: string = 'text';
-  @Input() value: string = '';
+  @Input() value: any = '';
   @Input() name: string = '';
   @Input() labelClass: string = '';
   @Input() inputClass: string = '';
+  @Input() inputDiv: string = '';
   @Input() onlyInput: boolean = false;
   @Output() valueChange: EventEmitter<{ value: string; name: string }> =
     new EventEmitter<{ value: string; name: string }>();
-    @Output() ngModelChange = new EventEmitter<string>();
+    @Output() ngModelChange = new EventEmitter<any>();
   @Input() disable: boolean = false;
+  @Output() blur: EventEmitter<any> = new EventEmitter();
 
   constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
 
+  onBlur(event: any) {
+    this.blur.emit(event);
+  }
   get value1(): any {
     return this.ngModel;
   }

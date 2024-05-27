@@ -1,0 +1,47 @@
+<div>
+  <h1>Add Items</h1>
+  <form (ngSubmit)="addItemDetails()" #myForm="ngForm">
+    <div class="w-100 row">
+      <div class="col-6">
+        <app-custom-input-box
+          [label]="'Item Description'"
+          [placeholder]="'Item Description'"
+          [type]="'text'"
+          [required]="true"
+          [(ngModel)]="itemDataModel.itemDescription"
+          [name]="'businessName'"
+          name="description"
+          ngDefaultControl
+        ></app-custom-input-box>
+      </div>
+      <div class="col-3">
+        <app-custom-typehead-dropdown
+          [label]="'HSN Code'"
+          [placeholder]="'HSN Code'"
+          [options]="hsnCode"
+          [(ngModel)]="itemDataModel.hsnCode"
+          (selectedOptions)="selectedHsnCode($event)"
+          name="hsnCode"
+          ngDefaultControl
+        />
+      </div>
+      <div class="col-3">
+        <app-custom-input-box
+          [label]="'Unit Price'"
+          [placeholder]="'Unit Price'"
+          [type]="'text'"
+          [(ngModel)]="itemDataModel.unitPrice"
+          [name]="'businessName'"
+          name="unitPrice"
+          ngDefaultControl
+        ></app-custom-input-box>
+      </div>
+     
+      <div class="col-4">
+        <button type="submit" class="primary-button" color="primary">
+          Add HSN Code
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -15,6 +15,8 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 interface Option {
   businessName?: string;
   clientName?: string;
+  hsn_code?: string;
+  itemDescription?: string;
 }
 
 @Component({
@@ -29,6 +31,9 @@ export class CustomTypeheadDropdownComponent implements OnInit, OnChanges {
   @Input() required: boolean = true;
   @Input() options: Option[] = [];
   @Input() value: string = '';
+  @Input() labelClass: string = '';
+  @Input() label: string = '';
+  @Input() onlyInput: boolean = false;
   filteredOptions: Option[] = [];
   searchControl = new FormControl();
   @Output() selectedOptions = new EventEmitter<Option>();
@@ -78,7 +83,7 @@ export class CustomTypeheadDropdownComponent implements OnInit, OnChanges {
   }
 
   public getDisplayName(option: Option): string {
-    return option.businessName || option.clientName || '';
+    return option.businessName || option.clientName || option.hsn_code ||option.itemDescription|| '';
   }
 
   clearInput(): void {

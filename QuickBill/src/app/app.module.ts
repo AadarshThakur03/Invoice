@@ -58,6 +58,10 @@ import { ViewClientComponent } from './screens/manage-client/view-client/view-cl
 import { AddClientComponent } from './screens/manage-client/add-client/add-client.component';
 import { AddBusinessComponent } from './screens/manage-business/add-business/add-business.component';
 import { CommonModule } from '@angular/common';
+import { ViewHsnCodesComponent } from './screens/manage-hsn-codes/view-hsn-codes/view-hsn-codes.component';
+import { AddHsnCodesComponent } from './screens/manage-hsn-codes/add-hsn-codes/add-hsn-codes.component';
+import { ViewItemsComponent } from './screens/manage-items/view-items/view-items.component';
+import { AddItemsComponent } from './screens/manage-items/add-items/add-items.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +91,10 @@ import { CommonModule } from '@angular/common';
     ViewClientComponent,
     AddClientComponent,
     AddBusinessComponent,
+    ViewHsnCodesComponent,
+    AddHsnCodesComponent,
+    ViewItemsComponent,
+    AddItemsComponent,
   ],
   imports: [
     BrowserModule,

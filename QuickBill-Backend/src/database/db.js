@@ -21,42 +21,7 @@ pool
       mobile VARCHAR(20) NOT NULL,
       date_registered TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
-    CREATE TABLE IF NOT EXISTS business (
-      id INT NOT NULL AUTO_INCREMENT,
-      businessName VARCHAR(50) NOT NULL,
-      email VARCHAR(50) NOT NULL,
-      mobile VARCHAR(15) NOT NULL,
-      alternateMobile VARCHAR(15),
-      addressLine1 VARCHAR(100) NOT NULL,
-      pinCode INT,
-      city VARCHAR(50),
-      state VARCHAR(50),
-      gstNo VARCHAR(20),
-      panNo VARCHAR(20),
-      bankAccountNo VARCHAR(20),
-      ifscCode VARCHAR(20),
-      userId INT NOT NULL,
-    dateRegistered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      PRIMARY KEY (id),
-      FOREIGN KEY (userId) REFERENCES users(id)
-  );
-  CREATE TABLE IF NOT EXISTS client (
-      id INT NOT NULL AUTO_INCREMENT,
-      clientName VARCHAR(50) NOT NULL,
-      email VARCHAR(50) NOT NULL,
-      phone VARCHAR(15) NOT NULL,
-      alternatePhone VARCHAR(15),
-      addressLine1 VARCHAR(100) NOT NULL,
-      addressLine2 VARCHAR(100),
-      pinCode INT,
-      city VARCHAR(50),
-      state VARCHAR(50),
-      gstNo VARCHAR(20),
-      userId INT NOT NULL,
-    dateRegistered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      PRIMARY KEY (id),
-      FOREIGN KEY (userId) REFERENCES users(id)
-  );
+   
 `
   )
   .then(() => console.log("Table users created successfully"))
@@ -64,6 +29,42 @@ pool
 
 module.exports = pool;
 
+// CREATE TABLE IF NOT EXISTS business (
+//   id INT NOT NULL AUTO_INCREMENT,
+//   businessName VARCHAR(50) NOT NULL,
+//   email VARCHAR(50) NOT NULL,
+//   mobile VARCHAR(15) NOT NULL,
+//   alternateMobile VARCHAR(15),
+//   addressLine1 VARCHAR(100) NOT NULL,
+//   pinCode INT,
+//   city VARCHAR(50),
+//   state VARCHAR(50),
+//   gstNo VARCHAR(20),
+//   panNo VARCHAR(20),
+//   bankAccountNo VARCHAR(20),
+//   ifscCode VARCHAR(20),
+//   userId INT NOT NULL,
+// dateRegistered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//   PRIMARY KEY (id),
+//   FOREIGN KEY (userId) REFERENCES users(id)
+// );
+// CREATE TABLE IF NOT EXISTS client (
+//   id INT NOT NULL AUTO_INCREMENT,
+//   clientName VARCHAR(50) NOT NULL,
+//   email VARCHAR(50) NOT NULL,
+//   phone VARCHAR(15) NOT NULL,
+//   alternatePhone VARCHAR(15),
+//   addressLine1 VARCHAR(100) NOT NULL,
+//   addressLine2 VARCHAR(100),
+//   pinCode INT,
+//   city VARCHAR(50),
+//   state VARCHAR(50),
+//   gstNo VARCHAR(20),
+//   userId INT NOT NULL,
+// dateRegistered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//   PRIMARY KEY (id),
+//   FOREIGN KEY (userId) REFERENCES users(id)
+// );
 // -- Insert dummy data into business table
 // INSERT INTO business (businessName, email, mobile, alternateMobile, addressLine1, pinCode, city, state, gstNo, panNo, bankAccountNo, ifscCode, userId)
 // VALUES

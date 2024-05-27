@@ -232,12 +232,12 @@ border: none;
     padding: 5px 5px 5px 10px !important;
     
     margin: 0px 0 5px 0;
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
     opacity: 1;
     color: black;
     font-size: 14px !important;
     width: 100%; /* Allow the input to expand dynamically based on content */
-    min-width: 100px; /* Set a minimum width to prevent it from becoming too narrow */
+    /* Set a minimum width to prevent it from becoming too narrow */
     /* max-width: 100%; */
  }
  ::ng-deep .address1{
@@ -267,5 +267,117 @@ width: 35% !important;
   width: 100%;
   margin-bottom: 0px !important;
  }
+ /* ::ng-deep .qty-input{
+  width: 70px !important;
+  min-width: 70px !important
+ }
+ ::ng-deep .invoice-input{
+  width: 90px !important;
+  min-width: 90px !important
+
+ } */
+ /* ::ng-deep .hsn-input-div{
+  width: 65px !important;
+ }
+ ::ng-deep .qty-input-div{
+  width: 55px !important;
+ } */
+ /* ::ng-deep .total-input{
+  width: 120px !important;
+  min-width: 120px !important
+
+ } */
+ ::ng-deep thead, tr, th{
+  text-align: center !important;
  
+ }
+ td{
+  text-align: center !important;
+
+ }
+ ::ng-deep .item-td{
+  padding: 5px !important;
+ 
+  /* padding-left: 5px !important;
+  padding-right: 5px !important; */
+ }
+ ::ng-deep .mat-mdc-form-field-subscript-wrapper, ::ng-deep .label-div{
+  display: none;
+ }
+ 
+
+ .col-no {
+  width: 3%;
+}
+
+.col-description {
+  width: 16%;
+}
+
+.col-code {
+  width: 10% !important;
+}
+
+.col-qty {
+  width: 5%;
+}
+
+.col-unit-price {
+  width: 9%;
+}
+
+.col-total {
+  width: 13%;
+}
+.tax-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.tax-inputs app-custom-input-box {
+  margin-bottom: 5px;
+}
+
+.col-tax {
+  width: 17%;
+}
+
+.col-total-amount {
+  width: 13%;
+}
+
+/* Optional: styling for table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  /* border-bottom: 1px solid #ddd; */
+}
+
+th {
+  background-color: #f2f2f2;
+}
+.subtotal-empty-row{
+  border: none !important;
+  text-align: right !important;
+  font-weight: bold;
+}
+
+.subtotal-amount-row{
+ padding-left: 15px ;
+  text-align: left !important;
+}
+.add-button{
+  background-color:#fa0059;
+  color: white;
+  border-radius: 5px;
+  padding: 8px 14px;
+  transition: background-color 0.3s ease;
+  border: none;
+  /* border: 2px solid var(--primary-color); */
+}
   

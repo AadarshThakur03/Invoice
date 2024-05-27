@@ -41,22 +41,32 @@ export class DataService {
   }
 
   addClient(clientData: Object) {
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   console.error('Token not found in localStorage');
-    // }
-    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<any>(
       'http://localhost:3000/client/add-client',
       clientData
     );
   }
   getClientByUserId() {
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   console.error('Token not found in localStorage');
-    // }
-    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get('http://localhost:3000/client/get-client', {});
+  }
+  addHsnCode(hsnCodeData: Object) {
+    return this.http.post<any>(
+      'http://localhost:3000/users/add-hsnCode',
+      hsnCodeData
+    );
+  }
+  getHsnCodeByUserId() {
+    return this.http.get('http://localhost:3000/users/get-hsnCode', {});
+  }
+  getHsnCodeByNameAndId(hsnCode: string, id: string): Observable<any> {
+    return this.http.get<any>(
+      `http://localhost:3000/users/get-hsnCode/${hsnCode}/${id}`
+    );
+  }
+  addItem(itemData: Object) {
+    return this.http.post<any>('http://localhost:3000/item/add-item', itemData);
+  }
+  getItemByUserId() {
+    return this.http.get('http://localhost:3000/item/get-items', {});
   }
 }

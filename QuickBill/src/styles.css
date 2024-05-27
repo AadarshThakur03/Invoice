@@ -66,3 +66,44 @@ color: white;
     color: white;
   }
 }
+
+
+.label-div{
+  margin-bottom: 5px;
+}
+
+label {
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.required-mark {
+  color: red;
+  margin-left: 5px;
+}
+.hide-label{
+  display: none;
+}
+.form-control:disabled {
+  background-color: #f5f5f5;
+  opacity: 1;
+}
+.input-container {
+position: relative;
+}
+
+.overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%; /* Cover the input field horizontally */
+height: 100%; /* Cover the input field vertically */
+pointer-events: none; /* Allow clicks to pass through */
+}

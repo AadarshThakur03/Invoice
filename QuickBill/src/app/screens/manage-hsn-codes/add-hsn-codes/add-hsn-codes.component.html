@@ -1,0 +1,69 @@
+<div>
+  <h1>Add HSN Code</h1>
+
+  <form (ngSubmit)="addHsnCodeDetails()" #myForm="ngForm">
+    <div class="w-100 row">
+      <div class="col-3 pb-3">
+        <app-custom-input-box
+          [label]="'HSN Code'"
+          [placeholder]="'HSN Code'"
+          [type]="'text'"
+          [required]="true"
+          [(ngModel)]="hsnCodeDataModel.hsnCode"
+          [name]="'businessName'"
+          ngDefaultControl
+        ></app-custom-input-box>
+      </div>
+      <div class="col-9 pb-3">
+        <app-custom-input-box
+          [label]="'Description'"
+          [placeholder]="'Description'"
+          [type]="'text'"
+          
+          [(ngModel)]="hsnCodeDataModel.description"
+          [name]="'businessName'"
+          ngDefaultControl
+        ></app-custom-input-box>
+      </div>
+      <div class="col-4 pb-3">
+        <app-custom-input-box
+          [label]="'CGST Rate'"
+          [placeholder]="'CGST Rate'"
+          [type]="'text'"
+          
+          [(ngModel)]="hsnCodeDataModel.cgst_rate"
+          [name]="'businessName'"
+          ngDefaultControl
+        ></app-custom-input-box>
+      </div>
+      <div class="col-4 pb-3">
+        <app-custom-input-box
+          [label]="'SGST Rate'"
+          [placeholder]="'SGST Rate'"
+          [type]="'text'"
+          
+          [(ngModel)]="hsnCodeDataModel.sgst_rate"
+          [name]="'businessName'"
+          ngDefaultControl
+        ></app-custom-input-box>
+      </div>
+      <div class="col-4 pb-3">
+        <app-custom-input-box
+          [label]="'IGST Rate'"
+          [placeholder]="'IGST Rate'"
+          [type]="'text'"
+          
+          [(ngModel)]="hsnCodeDataModel.igst_rate"
+          [name]="'businessName'"
+          ngDefaultControl
+        ></app-custom-input-box>
+      </div>
+
+      <div class="col-4">
+        <button type="submit" class="primary-button" color="primary">
+          Add HSN Code
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
