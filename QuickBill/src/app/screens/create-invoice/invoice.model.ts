@@ -10,6 +10,8 @@ export interface Item {
   igst: string;
   sgst: string;
   totalAmountAT: number;
+  discount: number;
+  taxAmount: number;
 }
 export class InvoiceDataModel {
   businessName: string = '';
@@ -37,16 +39,20 @@ export class InvoiceDataModel {
   accountNo: string = '';
   ifsc: string = '';
   termsConditions: string = '';
-  taxableAmount: string = '';
+  totalTaxAmount: number = 0;
   taxableAmountValue: string = '';
-  cgstPercentage: string = '';
-  cgstAmount: string = '';
-  sgstPercentage: string = '';
-  sgstAmount: string = '';
-  igstPercentage: string = '';
-  igstAmount: string = '';
+  cgstPercentage: number = 0;
+  cgstAmount: number = 0;
+  sgstPercentage: number = 0;
+  sgstAmount: number = 0;
+  igstPercentage: number = 0;
+  igstAmount: number = 0;
   subTotal: number = 0;
+  totalDiscount: number = 0;
+  discountAmount: number = 0;
+  shippingCharges: number = 0;
   totalAmountAfterTax: number = 0;
+  totalInvoiceAmount: number = 0;
   items: Item[] = [
     {
       description: '',
@@ -60,6 +66,8 @@ export class InvoiceDataModel {
       igst: '',
       sgst: '',
       totalAmountAT: 0,
+      discount: 0,
+      taxAmount: 0,
     },
   ];
 }

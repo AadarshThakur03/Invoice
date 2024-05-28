@@ -100,7 +100,7 @@
   
   .tax-row {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
    
     border-bottom: 1px solid black;
@@ -129,6 +129,7 @@
 width: 55%;
 padding: 5px;
 border-right: 1px solid black;
+font-size: 12px;
 
   }
   .tax-percentage{
@@ -137,9 +138,18 @@ padding: 5px;
 border-right: 1px solid black;
   }
   .tax-amount{
-    width: 25%;
+    /* display: flex;
+    justify-content: center;
+    align-items: flex-start; */
+    width: 45%;
     padding: 5px;
+font-size: 12px;
+text-align: right;
+  }
 
+  .total-amount-text{
+    font-weight: bold;
+    font-size: 14px;
   }
   .gst-left div {
     margin-bottom: 5px;
@@ -213,6 +223,10 @@ border-right: 1px solid black;
   padding-right: 5px;
   font-size: 16px;
  }
+ .tax-gst  {  display: flex;
+ justify-content: flex-start;
+ align-items: center;
+}
 /*
  
  .item-details table {
@@ -315,34 +329,53 @@ border-right: 1px solid black;
 .item-details td:nth-child(2){
   max-width: 225px;
 }
+.col-discount{
+  min-width: 60px !important; /* QTY */
+  max-width: 60px !important;
+}
 
 .item-details th:nth-child(3),
 .item-details td:nth-child(3) {
-  min-width: 40px; /* Code */
-  max-width: 80px;
+  min-width: 40px; /* QTY */
+  max-width: 40px;
   width: 55px; /* 7% of 760px */
 }
 
 .item-details th:nth-child(4),
 .item-details td:nth-child(4) {
-  min-width: 30px; /* Qty */
+  min-width: 60px; /* Unit Price */
   max-width: 40px;
   width: 39px; /* 5% of 760px */
 }
 
 .item-details th:nth-child(5),
 .item-details td:nth-child(5) {
-  min-width: 80px; /* Unit Price */
-  max-width: 80px;
+  min-width: 90px; /* Total  BT */
+  max-width: 100px;
   width: 114px; /* 15% of 760px */
 }
 
 .item-details th:nth-child(6),
 .item-details td:nth-child(6) {
-  min-width: 90px; /* Total BT */
-  max-width: 105px;
+  /* min-width: 90px; Total BT */
+  /* max-width: 105px; */
+  max-width: 70px;
   width: 152px; /* 20% of 760px */
   word-wrap: break-word;
+}
+.col-subtotal{
+  max-width: 105px !important;
+  width: 152px; /* 20% of 760px */
+  word-wrap: break-word;
+  
+}
+
+.col-tax-amount{
+  min-width: 70px  !important; /* Total BT */
+  max-width: 70px !important;
+  width: 152px; /* 20% of 760px */
+  word-wrap: break-word;
+
 }
 
 .item-details th:nth-child(7),

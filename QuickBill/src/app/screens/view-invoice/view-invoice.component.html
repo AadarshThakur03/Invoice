@@ -39,64 +39,99 @@
           <tr>
             <th class="table-column-widths col-no">No</th>
             <th class="col-description">Description</th>
-            <th class="col-code">Code</th>
+
             <th class="col-qty">Qty</th>
             <th class="col-unit-price">Unit Price</th>
-            <th class="col-total">Total BT</th>
-            <!-- <th class="col-tax" colspan="3">Tax</th> -->
-            <th class="col-total">Total</th>
+            <ng-container *ngIf="!multipleTaxData">
+              <th class="col-discount">Discount</th>
+            </ng-container>
+            <th class="col-subtotal">Subtotal</th>
+            <ng-container *ngIf="multipleTaxData">
+              <th class="col-tax-amount">Tax Amount</th>
+              <!-- <th class="col-tax" colspan="3">Tax</th> -->
+              <th class="col-total">Total Amount</th>
+            </ng-container>
           </tr>
         </thead>
         <tbody>
           <!-- Table data from the first example -->
           <tr *ngFor="let item of invoiceData.items; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ item.description }}</td>
-            <td>{{ item.hsnCode }}</td>
+            <td>{{ item.description }}<br />HSN:{{ item.hsnCode }}</td>
+
             <td>{{ item.qty }}</td>
             <td>{{ item.unitPrice }}</td>
+            <ng-container *ngIf="!multipleTaxData">
+              <td class="col-discount">{{ item.discount }}</td>
+            </ng-container>
             <td class="col-tax1">
               <div class="tax-details1">
                 <div class="tax-amount1">{{ item.totalAmountBT }}</div>
-                <div class="tax-cgst1">
-                  {{
-                    item.cgst == "" || item.cgst == null
-                      ? ""
-                      : "@CGST " + item.cgst
-                  }}
-                </div>
-                <div class="tax-igst1">
-                  {{
-                    item.igst == "" || item.igst == null
-                      ? ""
-                      : "@IGST " + item.igst
-                  }}
-                </div>
-                <div class="tax-sgst1">
-                  {{
-                    item.sgst == "" || item.sgst == null
-                      ? ""
-                      : "@SGST " + item.sgst
-                  }}
-                </div>
+                <ng-container *ngIf="multipleTaxData">
+                  <div class="tax-cgst1">
+                    {{
+                      item.cgst == "" || item.cgst == null
+                        ? ""
+                        : "@CGST " + item.cgst
+                    }}
+                  </div>
+                  <div class="tax-igst1">
+                    {{
+                      item.igst == "" || item.igst == null
+                        ? ""
+                        : "@IGST " + item.igst
+                    }}
+                  </div>
+                  <div class="tax-sgst1">
+                    {{
+                      item.sgst == "" || item.sgst == null
+                        ? ""
+                        : "@SGST " + item.sgst
+                    }}
+                  </div>
+                </ng-container>
               </div>
             </td>
-            <td>{{ item.totalAmountAT }}</td>
+            <ng-container *ngIf="multipleTaxData">
+              <td>{{ item.taxAmount }}</td>
+              <td>{{ item.totalAmountAT }}</td>
+            </ng-container>
           </tr>
         </tbody>
         <tfoot>
-          <tr>
-            <td class="subtotal-empty-row"></td>
-            <td class="subtotal-empty-row" colspan="4">Total:</td>
-            <!-- colspan for columns before the "Total Amount" column -->
-            <td class="subtotal-amount-row">{{ invoiceData.subTotal }}</td>
-            <!-- Subtotal -->
+          <ng-container *ngIf="multipleTaxData">
+            <tr>
+              <td class="subtotal-empty-row"></td>
+              <td class="subtotal-empty-row" colspan="3">Total:</td>
+              <!-- colspan for columns before the "Total Amount" column -->
+              <td class="subtotal-amount-row total-amount-text">{{ invoiceData.subTotal }}</td>
+              <td class="subtotal-amount-row total-amount-text">
+                {{ invoiceData.totalTaxAmount }}
+              </td>
+              <!-- Subtotal -->
 
-            <!-- colspan for tax columns -->
-            <td class="subtotal-amount-row">
-              {{ invoiceData.totalAmountAfterTax }}
-            </td>
-          </tr>
+              <!-- colspan for tax columns -->
+              <td class="subtotal-amount-row total-amount-text">
+                {{ invoiceData.totalAmountAfterTax }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container *ngIf="!multipleTaxData">
+            <tr>
+              <td class="subtotal-empty-row"></td>
+              <td class="subtotal-empty-row" colspan="3">Total:</td>
+              <!-- colspan for columns before the "Total Amount" column -->
+              <td class="subtotal-amount-row total-amount-text">
+                {{ invoiceData.totalDiscount }}
+              </td>
+              <!-- Subtotal -->
+
+              <!-- colspan for tax columns -->
+              <td class="subtotal-amount-row total-amount-text">
+                {{ invoiceData.subTotal }}
+              </td>
+            </tr>
+          </ng-container>
         </tfoot>
       </table>
     </div>
@@ -123,36 +158,108 @@
         </div>
       </div>
       <div class="right gst-right">
-        <div class="tax-row">
-          <div class="tax-title">CGST:</div>
-          <div class="tax-percentage">10%</div>
-          <div class="tax-amount">$5.00</div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-title">SGST:</div>
-          <div class="tax-percentage">10%</div>
-          <div class="tax-amount">$5.00</div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-title">IGST:</div>
-          <div class="tax-percentage">20%</div>
-          <div class="tax-amount">$10.00</div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-title">IGST:</div>
-          <div class="tax-percentage">20%</div>
-          <div class="tax-amount">$10.00</div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-title">IGST:</div>
-          <div class="tax-percentage">20%</div>
-          <div class="tax-amount">$10.00</div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-title">IGST:</div>
-          <div class="tax-percentage">20%</div>
-          <div class="tax-amount">$10.00</div>
-        </div>
+        <ng-container *ngIf="!multipleTaxData">
+          <div class="tax-row">
+            <div class="tax-title">Total Amount Before Tax:</div>
+            <!-- <div class="tax-percentage">10%</div> -->
+            <div class="tax-amount">{{ invoiceData.subTotal }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title tax-gst">
+              <div class="col-5">CGST:</div>
+
+              <div class="tax-igst1 col-7">
+                {{
+                  invoiceData.cgstPercentage == "" ||
+                  invoiceData.cgstPercentage == null
+                    ? ""
+                    : "@" + invoiceData.cgstPercentage
+                }}
+              </div>
+            </div>
+            <!-- <div class="tax-percentage">10%</div> -->
+            <div class="tax-amount">{{ invoiceData.cgstAmount }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title tax-gst">
+              <div class="col-5">SGST:</div>
+
+              <div class="tax-igst1 col-7">
+                {{
+                  invoiceData.sgstPercentage == "" ||
+                  invoiceData.sgstPercentage == null
+                    ? ""
+                    : "@" + invoiceData.sgstPercentage
+                }}
+              </div>
+            </div>
+            <!-- <div class="tax-percentage">10%</div> -->
+            <div class="tax-amount">{{ invoiceData.sgstAmount }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title tax-gst">
+              <div class="col-5">CGST:</div>
+
+              <div class="tax-igst1 col-7">
+                {{
+                  invoiceData.igstPercentage == "" ||
+                  invoiceData.igstPercentage == null
+                    ? ""
+                    : "@" + invoiceData.igstPercentage
+                }}
+              </div>
+            </div>
+            <!-- <div class="tax-percentage">20%</div> -->
+            <div class="tax-amount">{{ invoiceData.igstAmount }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title">Total Discount</div>
+            <!-- <div class="tax-percentage">20%</div> -->
+            <div class="tax-amount">{{ invoiceData.totalDiscount }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title">Shipping Charges</div>
+            <!-- <div class="tax-percentage">20%</div> -->
+            <div class="tax-amount">{{ invoiceData.shippingCharges }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title ">Total Amount</div>
+            <!-- <div class="tax-percentage">20%</div> -->
+            <div class="tax-amount total-amount-text">{{ invoiceData.totalInvoiceAmount }}</div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="multipleTaxData">
+          <div class="tax-row">
+            <div class="tax-title">Total Amount Before Tax:</div>
+            <!-- <div class="tax-percentage">10%</div> -->
+            <div class="tax-amount">{{ invoiceData.subTotal }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title">Tax Amount:</div>
+            <!-- <div class="tax-percentage">10%</div> -->
+            <div class="tax-amount">{{ invoiceData.totalTaxAmount }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title">Total Amount After Tax:</div>
+            <!-- <div class="tax-percentage">10%</div> -->
+            <div class="tax-amount">{{ invoiceData.totalAmountAfterTax }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title">Total Discount:</div>
+            <!-- <div class="tax-percentage">10%</div> -->
+            <div class="tax-amount">{{ invoiceData.discountAmount }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title">Shipping Charges</div>
+            <!-- <div class="tax-percentage">10%</div> -->
+            <div class="tax-amount">{{ invoiceData.shippingCharges }}</div>
+          </div>
+          <div class="tax-row">
+            <div class="tax-title total-amount">Total Amount</div>
+            <!-- <div class="tax-percentage">10%</div> -->
+            <div class="tax-amount total-amount-text">{{ invoiceData.totalInvoiceAmount }}</div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

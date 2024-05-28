@@ -10,6 +10,8 @@ import html2canvas from 'html2canvas';
 export class ViewInvoiceComponent {
   @Input()
   invoiceData: any;
+  @Input()
+  multipleTaxData: boolean = false;
   constructor() {
     setTimeout(() => {
       console.log(this.invoiceData, 'id');

@@ -49,6 +49,7 @@ export class CreateInvoiceComponent {
   selectedOption: string = '';
   data: any;
   itemOptions: any = [];
+  multipleTaxData: boolean = false;
   // selectedOptions: any[] = [];
   constructor(
     private dataService: DataService,
@@ -71,6 +72,12 @@ export class CreateInvoiceComponent {
 
     this.invoiceModel.date = new Date().toISOString().split('T')[0];
   }
+  toggle() {
+    this.multipleTaxData = !this.multipleTaxData;
+    this.invoiceModel.items.forEach((item, index) => {
+      this.calculateTotal(index);
+    });
+  }
 
   addItem() {
     this.invoiceModel.items.push({
@@ -85,6 +92,8 @@ export class CreateInvoiceComponent {
       igst: '',
       sgst: '',
       totalAmountAT: 0,
+      discount: 0,
+      taxAmount: 0,
     });
     console.log(this.items);
   }
@@ -145,21 +154,12 @@ export class CreateInvoiceComponent {
   }
 
   calculateTotal(index: number) {
-    // const item = this.invoiceModel.items[index];
-    // item.totalAmountBT = item.qty * item.unitPrice;
-    // item.totalAmount = item.total + item.tax;
     const item = this.invoiceModel.items[index];
     const qty = item.qty;
     const unitPrice = this.convertToNumber(item.unitPrice);
     const cgst = this.convertToNumber(item.cgst);
     const igst = this.convertToNumber(item.igst);
     const sgst = this.convertToNumber(item.sgst);
-
-    console.log('Qty:', qty);
-    console.log('Unit Price:', unitPrice);
-    console.log('CGST:', cgst);
-    console.log('IGST:', igst);
-    console.log('SGST:', sgst);
 
     // Calculate total amount before tax
     let totalAmountBT = 0;
@@ -185,15 +185,26 @@ export class CreateInvoiceComponent {
     }
 
     // Calculate total amount after tax
-    const totalAmountAfterTax =
-      totalAmountBT + (cgstAmount + igstAmount + sgstAmount);
+    const totalTaxAmount = cgstAmount + igstAmount + sgstAmount;
+    const totalAmountAfterTax = totalAmountBT + totalTaxAmount;
+
+    // Apply discount based on multipleTaxData
+    if (this.multipleTaxData) {
+      console.log(this.multipleTaxData, 'multi');
+
+      // If multipleTaxData is true, apply discount to totalAmountAfterTax
+      item.totalAmountBT = totalAmountBT;
+      item.taxAmount = totalTaxAmount;
+      item.totalAmountAT = totalAmountAfterTax;
+    } else {
+      console.log(this.multipleTaxData, 'multi');
+      // If multipleTaxData is false, apply discount to totalAmountBeforeTax
+      item.totalAmountBT = totalAmountBT - item.discount;
+      item.taxAmount = totalTaxAmount;
+      item.totalAmountAT = totalAmountAfterTax;
+    }
 
     // Update the model
-    console.log('Total Amount Before Tax:', totalAmountBT);
-    console.log('Total Amount After Tax:', totalAmountAfterTax);
-
-    item.totalAmountBT = totalAmountBT;
-    item.totalAmountAT = totalAmountAfterTax;
     this.calculateTotalAndSubtotal();
   }
 
@@ -218,6 +229,8 @@ export class CreateInvoiceComponent {
   calculateTotalAndSubtotal() {
     let subtotal = 0;
     let totalAmountAfterTax = 0;
+    let totalDiscountAmount = 0;
+    let totalTaxAmount = 0;
     let totalCGST = 0;
     let totalIGST = 0;
     let totalSGST = 0;
@@ -229,34 +242,24 @@ export class CreateInvoiceComponent {
       const sgst = this.convertToNumber(item.sgst);
       subtotal += item.totalAmountBT;
       totalAmountAfterTax += item.totalAmountAT;
+      totalTaxAmount += item.taxAmount;
+      totalDiscountAmount += Number(item.discount);
       totalCGST += cgst !== undefined ? cgst : 0;
       totalIGST += igst !== undefined ? igst : 0;
       totalSGST += sgst !== undefined ? sgst : 0;
     });
 
-    // Convert back to strings if necessary
-    // totalCGST = totalCGST.toString();
-    // totalIGST = totalIGST.toString();
-    // totalSGST = totalSGST.toString();
-
-    console.log('Subtotal:', subtotal);
-    console.log('Total Amount After Tax:', totalAmountAfterTax);
-    console.log('Total CGST:', totalCGST);
-    console.log('Total IGST:', totalIGST);
-    console.log('Total SGST:', totalSGST);
-
     // Assign subtotal, total amount after tax, and total taxes to the model
     this.invoiceModel.subTotal = subtotal;
     this.invoiceModel.totalAmountAfterTax = totalAmountAfterTax;
-    // this.invoiceModel.totalCGST = totalCGST;
-    // this.invoiceModel.totalIGST = totalIGST;
-    // this.invoiceModel.totalSGST = totalSGST;
+    this.invoiceModel.totalTaxAmount = totalTaxAmount;
+    this.invoiceModel.totalDiscount = totalDiscountAmount;
 
-    // console.log('Final Subtotal:', this.invoiceModel.subtotal);
-    // console.log('Final Total Amount After Tax:', this.invoiceModel.totalAmountAfterTax);
-    // console.log('Final Total CGST:', this.invoiceModel.totalCGST);
-    // console.log('Final Total IGST:', this.invoiceModel.totalIGST);
-    // console.log('Final Total SGST:', this.invoiceModel.totalSGST);
+    if (this.multipleTaxData) {
+      this.billSummaryTotalMultipleTax();
+    } else {
+      this.billSummaryTotal();
+    }
   }
 
   selectedBusiness(data: any): void {
@@ -274,6 +277,49 @@ export class CreateInvoiceComponent {
     this.invoiceModel.state = data.state;
     this.invoiceModel.accountNo = data.bankAccountNo;
     this.invoiceModel.ifsc = data.ifscCode;
+  }
+  billSummaryTotal() {
+    const cgst = this.invoiceModel.cgstPercentage;
+    const igst = this.invoiceModel.igstPercentage;
+    const sgst = this.invoiceModel.sgstPercentage;
+    const totalAmountBT = this.invoiceModel.subTotal;
+    let cgstAmount = 0;
+    let igstAmount = 0;
+    let sgstAmount = 0;
+    if (cgst !== undefined) {
+      cgstAmount = (totalAmountBT * cgst) / 100;
+    }
+
+    if (igst !== undefined) {
+      igstAmount = (totalAmountBT * igst) / 100;
+    }
+
+    if (sgst !== undefined) {
+      sgstAmount = (totalAmountBT * sgst) / 100;
+    }
+    this.invoiceModel.cgstAmount = cgstAmount;
+    this.invoiceModel.sgstAmount = sgstAmount;
+    this.invoiceModel.igstAmount = igstAmount;
+
+    // Calculate total amount after tax
+    const totalAmount =
+      cgstAmount +
+      igstAmount +
+      sgstAmount +
+      totalAmountBT +
+      Number(this.invoiceModel.shippingCharges) -
+      Number(this.invoiceModel.totalDiscount);
+    this.invoiceModel.totalInvoiceAmount = totalAmount;
+  }
+  billSummaryTotalMultipleTax() {
+    const totalAmountAfterTax = this.invoiceModel.totalAmountAfterTax;
+    const shippingCharges = Number(this.invoiceModel.shippingCharges);
+    const totalAmount =
+      totalAmountAfterTax +
+      shippingCharges -
+      Number(this.invoiceModel.discountAmount);
+
+    this.invoiceModel.totalInvoiceAmount = totalAmount;
   }
   selectedClient(data: any): void {
     console.log(data);
