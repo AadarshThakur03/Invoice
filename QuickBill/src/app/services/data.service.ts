@@ -69,4 +69,10 @@ export class DataService {
   getItemByUserId() {
     return this.http.get('http://localhost:3000/item/get-items', {});
   }
+  addInvoice(invoiceData: Object) {
+    return this.http.post<any>(
+      'http://localhost:3000/invoice/add-invoice',
+      invoiceData
+    );
+  }
 }

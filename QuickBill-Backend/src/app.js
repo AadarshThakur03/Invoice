@@ -4,6 +4,7 @@ const userRouter = require("./routes/userRoutes");
 const businessRouter = require("./routes/businessRoutes");
 const clientRouter = require("./routes/clientRoutes");
 const itemRouter = require("./routes/itemRoutes");
+const invoiceRouter = require("./routes/invoiceRoutes");
 const { pool } = require("./database/db");
 const cors = require("cors");
 
@@ -22,6 +23,7 @@ app.use("/users", userRouter);
 app.use("/business", businessRouter);
 app.use("/client", clientRouter);
 app.use("/item", itemRouter);
+app.use("/invoice", invoiceRouter);
 
 pool.getConnection((err, connection) => {
   if (err) {

@@ -1,18 +1,19 @@
 export interface Item {
   description: string;
   code: string;
-  qty: number;
-  amount: number;
+  qty: number | 1;
+  amount: number | null;
   unitPrice: string;
-  totalAmountBT: number;
+  totalAmountBT: number | null;
   hsnCode: string;
   cgst: string;
   igst: string;
   sgst: string;
-  totalAmountAT: number;
-  discount: number;
-  taxAmount: number;
+  totalAmountAT: number | null;
+  discount: number | null;
+  taxAmount: number | null;
 }
+
 export class InvoiceDataModel {
   businessName: string = '';
   mobileNumber: string = '';
@@ -39,35 +40,35 @@ export class InvoiceDataModel {
   accountNo: string = '';
   ifsc: string = '';
   termsConditions: string = '';
-  totalTaxAmount: number = 0;
+  totalTaxAmount: number | null = null;
   taxableAmountValue: string = '';
-  cgstPercentage: number = 0;
-  cgstAmount: number = 0;
-  sgstPercentage: number = 0;
-  sgstAmount: number = 0;
-  igstPercentage: number = 0;
-  igstAmount: number = 0;
-  subTotal: number = 0;
-  totalDiscount: number = 0;
-  discountAmount: number = 0;
-  shippingCharges: number = 0;
-  totalAmountAfterTax: number = 0;
-  totalInvoiceAmount: number = 0;
+  cgstPercentage: number | null = null;
+  cgstAmount: number | null = null;
+  sgstPercentage: number | null = null;
+  sgstAmount: number | null = null;
+  igstPercentage: number | null = null;
+  igstAmount: number | null = null;
+  subTotal: number | null = null;
+  totalDiscount: number | null = null;
+  discountAmount: number | null = null;
+  shippingCharges: number | null = null;
+  totalAmountAfterTax: number | null = null;
+  totalInvoiceAmount: number | null = null;
   items: Item[] = [
     {
       description: '',
       code: '',
       qty: 1,
-      amount: 0,
+      amount: null,
       unitPrice: '',
-      totalAmountBT: 0,
+      totalAmountBT: null,
       hsnCode: '',
       cgst: '',
       igst: '',
       sgst: '',
-      totalAmountAT: 0,
-      discount: 0,
-      taxAmount: 0,
+      totalAmountAT: null,
+      discount: null,
+      taxAmount: null,
     },
   ];
 }

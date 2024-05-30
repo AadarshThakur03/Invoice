@@ -30,6 +30,7 @@
   >
     {{ multipleTaxData ? "Yes" : "No" }}
   </button>
+  <button (click)="addInvoiceDetails()">Save Invoice</button>
 </div>
 
 <div *ngIf="editInvoice" class="container">
@@ -355,7 +356,9 @@
             <tr class="subtotal-row">
               <td class="subtotal-empty-row" colspan="4">Total:</td>
               <!-- colspan for columns before the "Total Amount" column -->
-              <td class="subtotal-amount-row total-amount-text">{{ invoiceModel.subTotal }}</td>
+              <td class="subtotal-amount-row total-amount-text">
+                {{ invoiceModel.subTotal }}
+              </td>
               <!-- Subtotal -->
               <td class="subtotal-empty-row" colspan="3"></td>
               <!-- colspan for tax columns -->
@@ -492,7 +495,7 @@
         <div class="section">
           <strong>Terms & Conditions:</strong>
           <textarea
-            [(ngModel)]="termsConditions"
+            [(ngModel)]="invoiceModel.termsConditions"
             placeholder="Terms & Conditions"
           ></textarea>
         </div>
@@ -568,7 +571,7 @@
                 <div class="" style="border: none">Total Discount:</div>
               </td>
               <td class="tax-amount col-5">
-                <div style="border: none" >
+                <div style="border: none">
                   {{ invoiceModel.totalDiscount }}
                 </div>
               </td>
@@ -578,12 +581,14 @@
                 <div class="" style="border: none">Shipping Charges</div>
               </td>
               <td class="tax-amount col-5">
-                <div style="border: none" >
+                <div style="border: none">
                   <app-custom-input-box
                     [placeholder]="'Charges'"
                     [(ngModel)]="invoiceModel.shippingCharges"
                     [onlyInput]="true"
-                    [inputClass]="'custom-input section-input invoice-input summary-input-right '"
+                    [inputClass]="
+                      'custom-input section-input invoice-input summary-input-right '
+                    "
                     (blur)="billSummaryTotal()"
                     ngDefaultControl
                   ></app-custom-input-box>
@@ -640,12 +645,14 @@
                 <div class="" style="border: none">Total Discount:</div>
               </td>
               <td class="tax-amount col-5">
-                <div style="border: none" >
+                <div style="border: none">
                   <app-custom-input-box
                     [placeholder]="'Charges'"
                     [(ngModel)]="invoiceModel.discountAmount"
                     [onlyInput]="true"
-                    [inputClass]="'custom-input section-input invoice-input summary-input-right '"
+                    [inputClass]="
+                      'custom-input section-input invoice-input summary-input-right '
+                    "
                     (blur)="billSummaryTotalMultipleTax()"
                     ngDefaultControl
                   ></app-custom-input-box>
@@ -657,12 +664,14 @@
                 <div class="" style="border: none">Shipping Charges</div>
               </td>
               <td class="tax-amount col-5">
-                <div style="border: none" >
+                <div style="border: none">
                   <app-custom-input-box
                     [placeholder]="'Charges'"
                     [(ngModel)]="invoiceModel.shippingCharges"
                     [onlyInput]="true"
-                    [inputClass]="'custom-input section-input invoice-input summary-input-right'"
+                    [inputClass]="
+                      'custom-input section-input invoice-input summary-input-right'
+                    "
                     (blur)="billSummaryTotalMultipleTax()"
                     ngDefaultControl
                   ></app-custom-input-box>

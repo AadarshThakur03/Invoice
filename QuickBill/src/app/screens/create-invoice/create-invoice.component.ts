@@ -11,38 +11,7 @@ import { InvoiceDataModel } from './invoice.model';
 })
 export class CreateInvoiceComponent {
   invoiceModel: InvoiceDataModel = new InvoiceDataModel();
-  businessName: string = '';
-  mobileNumber: string = '';
-  alternateMobileNumber: string = '';
-  addressLine1: string = '';
-  addressLine2: string = '';
-  clientName: string = '';
-  clientAddress: string = '';
-  cityStateZip: string = '';
-  clientMobile: string = '';
-  invoiceNo: string = '';
-  orderNo: string = '';
-  date: string = '';
-  itemDescription1: string = '';
-  itemCode1: string = '';
-  qty1: string = '';
-  amount1: string = '';
-  gstin: string = '';
-  pan: string = '';
-  state: string = '';
-  amountInWords: string = '';
-  accountNo: string = '';
-  ifsc: string = '';
-  termsConditions: string = '';
-  taxableAmount: string = '';
-  taxableAmountValue: string = '';
-  cgstPercentage: string = '';
-  cgstAmount: string = '';
-  sgstPercentage: string = '';
-  sgstAmount: string = '';
-  igstPercentage: string = '';
-  igstAmount: string = '';
-  items: any[] = [{ description: '', code: '', qty: '', amount: '' }];
+
   isPreviewSelected: boolean = false;
   businessOptions: any[] = [];
   clientOptions: any[] = [];
@@ -95,7 +64,7 @@ export class CreateInvoiceComponent {
       discount: 0,
       taxAmount: 0,
     });
-    console.log(this.items);
+    console.log(this.invoiceModel.items);
   }
   showPreview: boolean = false;
   editInvoice: boolean = true;
@@ -104,8 +73,8 @@ export class CreateInvoiceComponent {
     this.showPreview = false;
     this.editInvoice = true;
     if (this.editInvoice) {
-      console.log(this.businessName, 'edit');
-      this.selectedOption = this.businessName;
+      console.log(this.invoiceModel.businessName, 'edit');
+      this.selectedOption = this.invoiceModel.businessName;
       console.log(this.data.mobile);
       // this.mobileNumber = this.data.mobile;
       // console.log(this.mobileNumber, 'mob');
@@ -155,12 +124,13 @@ export class CreateInvoiceComponent {
 
   calculateTotal(index: number) {
     const item = this.invoiceModel.items[index];
-    const qty = item.qty;
+    const qty = item.qty ?? 0;
     const unitPrice = this.convertToNumber(item.unitPrice);
     const cgst = this.convertToNumber(item.cgst);
     const igst = this.convertToNumber(item.igst);
     const sgst = this.convertToNumber(item.sgst);
 
+    const discount = item.discount ?? 0;
     // Calculate total amount before tax
     let totalAmountBT = 0;
     if (qty !== undefined && unitPrice !== undefined) {
@@ -199,7 +169,7 @@ export class CreateInvoiceComponent {
     } else {
       console.log(this.multipleTaxData, 'multi');
       // If multipleTaxData is false, apply discount to totalAmountBeforeTax
-      item.totalAmountBT = totalAmountBT - item.discount;
+      item.totalAmountBT = totalAmountBT - discount;
       item.taxAmount = totalTaxAmount;
       item.totalAmountAT = totalAmountAfterTax;
     }
@@ -240,9 +210,9 @@ export class CreateInvoiceComponent {
       const cgst = this.convertToNumber(item.cgst);
       const igst = this.convertToNumber(item.igst);
       const sgst = this.convertToNumber(item.sgst);
-      subtotal += item.totalAmountBT;
-      totalAmountAfterTax += item.totalAmountAT;
-      totalTaxAmount += item.taxAmount;
+      subtotal += item.totalAmountBT ?? 0;
+      totalAmountAfterTax += item.totalAmountAT ?? 0;
+      totalTaxAmount += item.taxAmount ?? 0;
       totalDiscountAmount += Number(item.discount);
       totalCGST += cgst !== undefined ? cgst : 0;
       totalIGST += igst !== undefined ? igst : 0;
@@ -279,10 +249,10 @@ export class CreateInvoiceComponent {
     this.invoiceModel.ifsc = data.ifscCode;
   }
   billSummaryTotal() {
-    const cgst = this.invoiceModel.cgstPercentage;
-    const igst = this.invoiceModel.igstPercentage;
-    const sgst = this.invoiceModel.sgstPercentage;
-    const totalAmountBT = this.invoiceModel.subTotal;
+    const cgst = this.invoiceModel.cgstPercentage ?? 0;
+    const igst = this.invoiceModel.igstPercentage ?? 0;
+    const sgst = this.invoiceModel.sgstPercentage ?? 0;
+    const totalAmountBT = this.invoiceModel.subTotal ?? 0;
     let cgstAmount = 0;
     let igstAmount = 0;
     let sgstAmount = 0;
@@ -312,7 +282,7 @@ export class CreateInvoiceComponent {
     this.invoiceModel.totalInvoiceAmount = totalAmount;
   }
   billSummaryTotalMultipleTax() {
-    const totalAmountAfterTax = this.invoiceModel.totalAmountAfterTax;
+    const totalAmountAfterTax = this.invoiceModel.totalAmountAfterTax ?? 0;
     const shippingCharges = Number(this.invoiceModel.shippingCharges);
     const totalAmount =
       totalAmountAfterTax +
@@ -352,5 +322,11 @@ export class CreateInvoiceComponent {
       this.invoiceModel.clientAddress = '';
       this.invoiceModel.clientGst = '';
     }
+  }
+  addInvoiceDetails() {
+    this.dataService.addInvoice(this.invoiceModel).subscribe((data) => {
+      console.log(data);
+      this.invoiceModel.invoiceNo = data.invoiceNo;
+    });
   }
 }
