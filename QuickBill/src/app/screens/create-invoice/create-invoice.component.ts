@@ -3,6 +3,7 @@ import { DataService } from '../../services/data.service';
 import { ToastService } from '../../services/toast.service';
 import { EditBusinessData } from '../manage-business/business.model';
 import { InvoiceDataModel } from './invoice.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-invoice',
@@ -22,8 +23,22 @@ export class CreateInvoiceComponent {
   // selectedOptions: any[] = [];
   constructor(
     private dataService: DataService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) {
+    const routeData = this.router.getCurrentNavigation()?.extras.state;
+    if (routeData != undefined && routeData['edit'] == true) {
+      console.log(this.router.getCurrentNavigation()?.extras.state, 'nav');
+      this.dataService
+        .getInvoiceByInvoiceNo(routeData['invoiceNo'])
+        .subscribe((data: any) => {
+          console.log(data, 'data from in');
+          this.invoiceModel = data.invoices[0];
+          this.invoiceModel.items.forEach((item, index) => {
+            this.calculateTotal(index);
+          });
+        });
+    }
     this.dataService.getBusinessByUserId().subscribe((data: any) => {
       console.log(data);
       this.businessOptions = data.business;
@@ -38,8 +53,17 @@ export class CreateInvoiceComponent {
       console.log(data, 'create');
       this.itemOptions = data.item;
     });
+    this.dataService.getInvoiceByuserId().subscribe((data: any) => {
+      console.log(data.invoices.length > 0, 'invoice');
+      // if (data.invoices.length >0) {
+      //   this.invoiceModel = data.invoices[0];
+      //   this.invoiceModel.items.forEach((item, index) => {
+      //     this.calculateTotal(index);
+      //   });
+      // }
+    });
 
-    this.invoiceModel.date = new Date().toISOString().split('T')[0];
+    // this.invoiceModel.date = new Date().toISOString().split('T')[0];
   }
   toggle() {
     this.multipleTaxData = !this.multipleTaxData;
@@ -177,24 +201,6 @@ export class CreateInvoiceComponent {
     // Update the model
     this.calculateTotalAndSubtotal();
   }
-
-  // calculateTotalAndSubtotal() {
-  //   let subtotal = 0;
-  //   let totalAmountAfterTax = 0;
-
-  //   console.log("called");
-
-  //   // Calculate subtotal and total amount after tax
-  //   this.invoiceModel.items.forEach((item) => {
-  //     subtotal += item.totalAmountBT;
-  //     totalAmountAfterTax += item.totalAmountAT;
-  //   });
-  //   console.log(subtotal, totalAmountAfterTax, 'total');
-
-  //   // Assign subtotal and total amount after tax to the model
-  //   // this.invoiceModel.subtotal = subtotal;
-  //   // this.invoiceModel.totalAmountAfterTax = totalAmountAfterTax;
-  // }
 
   calculateTotalAndSubtotal() {
     let subtotal = 0;

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidebarStateService } from '../../services/activeScreen.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -12,8 +13,9 @@ export class UserDashboardComponent {
     {
       title: 'Your Last Invoice',
       invoiceDetails: {
-        invoiceNo: 123,
-        billedTo: 'John Doe',
+        invoiceNo: '123',
+        business: 'John Doe',
+        client: '',
         invoiceDate: '2024-03-19',
         amount: 100,
       },
@@ -39,14 +41,37 @@ export class UserDashboardComponent {
     // },
   ];
 
-  constructor(private router:Router,private sidebarStateService: SidebarStateService) {}
+  constructor(
+    private router: Router,
+    private sidebarStateService: SidebarStateService,
+    private dataService: DataService
+  ) {
+    this.dataService.getInvoiceByuserId().subscribe((data: any) => {
+      console.log(data.invoices, 'invoice');
+      this.cardsData = data.invoices.map((data: any) => {
+        return {
+          title: 'Your Last Invoice',
+          invoiceDetails: {
+            invoiceNo: data.invoiceNo,
+            business: data.businessName,
+            client: data.clientName,
+            invoiceDate: data.created_at.slice(0, 10),
+            amount: data.totalInvoiceAmount,
+          },
+          buttonText: 'Edit Invoice',
+        };
+      });
+    });
+  }
 
   createNewInvoice() {
     // Add logic to create a new invoice
     console.log('Creating a new invoice');
   }
-  navigateTo(){
-    this.router.navigate(['/user-homepage/create-invoice']);
+  navigateTo(invoiceNo: string) {
+    this.router.navigate(['/user-homepage/create-invoice'], {
+      state: { invoiceNo: invoiceNo, edit: true },
+    });
     this.sidebarStateService.setActiveScreen('create-invoice');
   }
 }

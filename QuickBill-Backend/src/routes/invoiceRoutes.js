@@ -4,7 +4,8 @@ const invoiceController = require("../controllers/invoiceController");
 
 const router = express.Router();
 
-router.get("/", authenticateUser, invoiceController.getInvoicesByUserID);
+router.get("/get-invoices", authenticateUser, invoiceController.getInvoicesByUserID);
+router.get("/get-invoiceData/:invoiceNo", authenticateUser, invoiceController.getInvoicesByInvoiceNo);
 router.post("/add-invoice", authenticateUser, invoiceController.addInvoice);
 
 module.exports = router;

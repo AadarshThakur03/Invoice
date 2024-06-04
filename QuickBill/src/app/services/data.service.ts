@@ -75,4 +75,13 @@ export class DataService {
       invoiceData
     );
   }
+  getInvoiceByuserId() {
+    return this.http.get('http://localhost:3000/invoice/get-invoices', {});
+  }
+  getInvoiceByInvoiceNo(invoiceNo: string) {
+    return this.http.get(
+      `http://localhost:3000/invoice/get-invoiceData/${invoiceNo}`,
+      {}
+    );
+  }
 }

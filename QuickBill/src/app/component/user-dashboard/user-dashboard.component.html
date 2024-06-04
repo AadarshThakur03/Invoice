@@ -4,24 +4,26 @@
     <mat-grid-tile *ngFor="let card of cardsData">
       <mat-card class="card">
         <mat-card-header>
-          <mat-card-title>Your Last Invoice</mat-card-title>
+          <mat-card-title
+            >Invoice No: {{ card.invoiceDetails.invoiceNo }}</mat-card-title
+          >
         </mat-card-header>
         <mat-card-content>
           <div class="details-container">
             <div class="detail">
-              <p>Invoice No:</p>
-              <p>{{ card.invoiceDetails.invoiceNo }}</p>
+              <p>Business:</p>
+              <p>{{ card.invoiceDetails.business }}</p>
             </div>
             <div class="detail">
-              <p>Billed To:</p>
-              <p>{{ card.invoiceDetails.billedTo }}</p>
+              <p>Client:</p>
+              <p>{{ card.invoiceDetails.client }}</p>
             </div>
             <div class="detail">
               <p>Invoice Date:</p>
               <p>{{ card.invoiceDetails.invoiceDate }}</p>
             </div>
             <div class="detail">
-              <p>Amount:</p>
+              <p>Total Amount:</p>
               <p>{{ card.invoiceDetails.amount }}</p>
             </div>
           </div>
@@ -30,7 +32,7 @@
           <button
             mat-button
             class="card-button"
-            (click)="navigateTo()"
+            (click)="navigateTo(card.invoiceDetails.invoiceNo)"
             color="primary"
           >
             <i class="fa-solid fa-plus"></i>
