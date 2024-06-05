@@ -12,5 +12,6 @@ router.get("/get-userDetails", authenticateUser, userController.getUserDetails);
 router.get("/get-hsnCode", authenticateUser, hsnCodeController.getHsnCodesByUserID);
 router.post("/add-hsnCode", authenticateUser, hsnCodeController.addHsnCode);
 router.get("/get-hsnCode/:hsnCode/:id", authenticateUser, hsnCodeController.getHsnCodeByNameAndUserId);
+router.get("/get-trialRemaingDays", authenticateUser, userController.getTrialRemainingDays);
 
 module.exports = router;

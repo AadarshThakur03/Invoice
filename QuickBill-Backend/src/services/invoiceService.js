@@ -373,7 +373,7 @@ const updateInvoice = async (invoiceData, userId) => {
            clientMobile = ?, clientGst = ?, orderNo = ?, taxableAmountValue = ?, 
            totalTaxAmount = ?, cgstPercentage = ?, cgstAmount = ?, sgstPercentage = ?, 
            sgstAmount = ?, igstPercentage = ?, igstAmount = ?, subTotal = ?, totalDiscount = ?, 
-           discountAmount = ?, shippingCharges = ?, totalAmountAfterTax = ?, totalInvoiceAmount = ? 
+           discountAmount = ?, shippingCharges = ?, totalAmountAfterTax = ?, totalInvoiceAmount = ? , gstin=?,pan=?,state=?,accountNo=?,ifsc=?
        WHERE id = ? AND userId = ?`,
     [
       invoice.businessName,
@@ -402,6 +402,10 @@ const updateInvoice = async (invoiceData, userId) => {
       invoice.shippingCharges,
       invoice.totalAmountAfterTax,
       invoice.totalInvoiceAmount,
+      
+      invoice.gstin,
+      invoice.pan,
+      invoice.state, invoice.accountNo, invoice.ifsc,
       invoiceId,
       userId,
     ]
@@ -435,9 +439,9 @@ const saveInvoice = async (invoiceData, userId) => {
         clientName, clientAddress, cityStateZip, clientMobile, clientGst, invoiceNo, orderNo, 
         taxableAmountValue, totalTaxAmount, cgstPercentage, cgstAmount, sgstPercentage, sgstAmount, 
         igstPercentage, igstAmount, subTotal, totalDiscount, discountAmount, shippingCharges, 
-        totalAmountAfterTax, totalInvoiceAmount, userId) 
+        totalAmountAfterTax, totalInvoiceAmount,gstin,pan,state,accountNo,ifsc, userId) 
        VALUES
-       (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)`,
     [
       invoice.businessName,
       invoice.mobileNumber,
@@ -466,6 +470,9 @@ const saveInvoice = async (invoiceData, userId) => {
       invoice.shippingCharges,
       invoice.totalAmountAfterTax,
       invoice.totalInvoiceAmount,
+      invoice.gstin,
+      invoice.pan,
+      invoice.state, invoice.accountNo, invoice.ifsc,
       userId,
     ]
   );

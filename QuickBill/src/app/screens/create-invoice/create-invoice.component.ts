@@ -34,6 +34,7 @@ export class CreateInvoiceComponent {
         .subscribe((data: any) => {
           console.log(data, 'data from in');
           this.invoiceModel = data.invoices[0];
+          this.invoiceModel.date = data.invoices[0].created_at.slice(0, 10);
           this.invoiceModel.items.forEach((item, index) => {
             this.calculateTotal(index);
           });
@@ -107,7 +108,6 @@ export class CreateInvoiceComponent {
   submittedInvoice: any = {};
   submitInvoice() {
     this.isPreviewSelected = true;
-
     this.showPreview = true;
     this.editInvoice = false;
     this.submittedInvoice = this.invoiceModel;
@@ -330,6 +330,8 @@ export class CreateInvoiceComponent {
     }
   }
   addInvoiceDetails() {
+    console.log(this.invoiceModel);
+    
     this.dataService.addInvoice(this.invoiceModel).subscribe((data) => {
       console.log(data);
       this.invoiceModel.invoiceNo = data.invoiceNo;

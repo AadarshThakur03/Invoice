@@ -71,4 +71,10 @@ export class AuthService {
       headers,
     });
   }
+  getTrialRemainingDays() {
+    return this.http.get(
+      'http://localhost:3000/users/get-trialRemaingDays',
+      {}
+    );
+  }
 }

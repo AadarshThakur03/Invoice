@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
 
   @Output() sideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = true;
+  trialRemainingDays: number;
 
   sideNavToggled1() {
     this.menuStatus = !this.menuStatus;
@@ -29,6 +30,10 @@ export class NavbarComponent implements OnInit {
     this.authService.getUserDetails().subscribe((user) => {
       this.currentUser = user.user;
       console.log(this.currentUser);
+    });
+    this.authService.getTrialRemainingDays().subscribe((user:any) => {
+      console.log(user.remainingDays.days_remaining, 'getTrialRemainingDays');
+      this.trialRemainingDays=user.remainingDays.days_remaining
     });
     this.sidebarStateService.activeScreen$.subscribe((screen) => {});
   }

@@ -127,10 +127,33 @@ async function getUserDetails(email) {
     };
   }
 }
+async function getTrialRemainingDays(email) {
+  try {
+    const [user] = await pool.query("SELECT DATEDIFF(DATE_ADD(date_registered, INTERVAL 15 DAY), CURDATE()) AS days_remaining FROM users WHERE email=?", [
+      email,
+    ]);
+
+    return {
+      message: "Trial Period Remaining Days retrieved successfully",
+      status: "success",
+      remainingDays: user[0],
+    };
+
+
+  } catch (error) {
+    return {
+      message: "Error retrieving remaining days",
+      status: "error",
+      error: err.message,
+    };
+
+  }
+}
 
 module.exports = {
   getUsers,
   registerUser,
   loginUser,
   getUserDetails,
+  getTrialRemainingDays
 };

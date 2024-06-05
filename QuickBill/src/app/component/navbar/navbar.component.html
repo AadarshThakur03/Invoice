@@ -3,21 +3,20 @@
     <i class="fa-solid fa-bars text-light"></i>
   </div>
   <a class="navbar-brand" href="#">
-   
     <h1 class="nav-title">QuickBill</h1>
   </a>
   <button
-  class="navbar-toggler"
-  type="button"
-  data-toggle="collapse"
-  data-target="#navbarNav"
-  aria-controls="navbarNav"
-  aria-expanded="false"
-  aria-label="Toggle navigation"
-  (click)="toggleSidebar()"
->
-  <span class="navbar-toggler-icon"></span>
-</button>
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    (click)="toggleSidebar()"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
@@ -35,7 +34,9 @@
         >
       </li>
       <li class="nav-item" *ngIf="isLoggedIn">
-        <a class="nav-link" id="nav-link" [routerLink]='["/user-homepage"]'>Dashboard</a>
+        <a class="nav-link" id="nav-link" [routerLink]="['/user-homepage']"
+          >Dashboard</a
+        >
       </li>
       <li class="nav-item user-div" *ngIf="isLoggedIn">
         <img
@@ -47,10 +48,14 @@
           currentUser.username
         }}</a>
       </li>
+      <li lass="nav-item" *ngIf="isLoggedIn">
+        <a class="nav-link" id="nav-link">
+          Trial Period {{ trialRemainingDays }}</a
+        >
+      </li>
       <li class="nav-item" *ngIf="isLoggedIn">
         <a class="btn btn-primary" id="nav-btn" (click)="logout()">Log Out</a>
       </li>
     </ul>
   </div>
 </nav>
-
