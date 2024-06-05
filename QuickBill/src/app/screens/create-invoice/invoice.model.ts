@@ -28,7 +28,7 @@ export class InvoiceDataModel {
   clientGst: string = '';
   invoiceNo: string = '';
   orderNo: string = '';
-  // date: string = '';
+  date: string = '';
   itemDescription1: string = '';
   itemCode1: string = '';
   qty1: string = '';

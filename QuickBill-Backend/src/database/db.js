@@ -79,8 +79,9 @@ const pool = mysql.createPool({
     `);
     console.log("Table client created successfully");
 
+    // Create the business table if it doesn't exist
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS business(
+      CREATE TABLE IF NOT EXISTS business (
         id INT NOT NULL AUTO_INCREMENT,
         businessName VARCHAR(50) NOT NULL,
         email VARCHAR(50) NOT NULL,
@@ -101,59 +102,83 @@ const pool = mysql.createPool({
       );
     `);
     console.log("Table business created successfully");
+
+    // Create the invoice table if it doesn't exist
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS invoice (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        businessName VARCHAR(255) NOT NULL,
+        mobileNumber VARCHAR(15) NOT NULL,
+        alternateMobileNumber VARCHAR(15),
+        addressLine1 VARCHAR(255) NOT NULL,
+        addressLine2 VARCHAR(255),
+        businessEmail VARCHAR(255) NOT NULL,
+        clientName VARCHAR(255) NOT NULL,
+        clientAddress TEXT NOT NULL,
+        cityStateZip VARCHAR(255) NOT NULL,
+        clientMobile VARCHAR(15) NOT NULL,
+        clientGst VARCHAR(15),
+        invoiceNo VARCHAR(50) NOT NULL,
+        orderNo VARCHAR(50),
+        gstin VARCHAR(15),
+        pan VARCHAR(15),
+        state VARCHAR(50),
+        amountInWords TEXT,
+        accountNo VARCHAR(50),
+        ifsc VARCHAR(15),
+        termsConditions TEXT,
+        totalTaxAmount DECIMAL(10, 2) DEFAULT NULL,
+        taxableAmountValue VARCHAR(50) DEFAULT NULL,
+        cgstPercentage DECIMAL(5, 2) DEFAULT NULL,
+        cgstAmount DECIMAL(10, 2) DEFAULT NULL,
+        sgstPercentage DECIMAL(5, 2) DEFAULT NULL,
+        sgstAmount DECIMAL(10, 2) DEFAULT NULL,
+        igstPercentage DECIMAL(5, 2) DEFAULT NULL,
+        igstAmount DECIMAL(10, 2) DEFAULT NULL,
+        subTotal DECIMAL(10, 2) DEFAULT NULL,
+        totalDiscount DECIMAL(10, 2) DEFAULT NULL,
+        discountAmount DECIMAL(10, 2) DEFAULT NULL,
+        shippingCharges DECIMAL(10, 2) DEFAULT NULL,
+        totalAmountAfterTax DECIMAL(10, 2) DEFAULT NULL,
+        totalInvoiceAmount DECIMAL(10, 2) DEFAULT NULL,
+        userId INT NOT NULL,
+        FOREIGN KEY (userId) REFERENCES users(id),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      );
+    `);
+    console.log("Table invoice created successfully");
+
+    // Create the invoiceItems table if it doesn't exist
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS invoiceItems (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        invoice_id INT,
+        description VARCHAR(255),
+        code VARCHAR(255),
+        qty INT,
+        amount DECIMAL(10, 2) DEFAULT NULL,
+        unitPrice DECIMAL(10, 2) DEFAULT NULL,
+        totalAmountBT DECIMAL(10, 2) DEFAULT NULL,
+        hsnCode VARCHAR(255),
+        cgst DECIMAL(10, 2) DEFAULT NULL,
+        igst DECIMAL(10, 2) DEFAULT NULL,
+        sgst DECIMAL(10, 2) DEFAULT NULL,
+        totalAmountAT DECIMAL(10, 2) DEFAULT NULL,
+        discount DECIMAL(10, 2) DEFAULT NULL,
+        taxAmount DECIMAL(10, 2) DEFAULT NULL,
+        userId INT,
+        FOREIGN KEY (invoice_id) REFERENCES invoice(id),
+        FOREIGN KEY (userId) REFERENCES users(id),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      );
+    `);
+    console.log("Table invoiceItems created successfully");
+
   } catch (err) {
     console.error("Error creating tables:", err.message);
   }
 })();
 
 module.exports = pool;
-
-// CREATE TABLE IF NOT EXISTS business (
-//   id INT NOT NULL AUTO_INCREMENT,
-//   businessName VARCHAR(50) NOT NULL,
-//   email VARCHAR(50) NOT NULL,
-//   mobile VARCHAR(15) NOT NULL,
-//   alternateMobile VARCHAR(15),
-//   addressLine1 VARCHAR(100) NOT NULL,
-//   pinCode INT,
-//   city VARCHAR(50),
-//   state VARCHAR(50),
-//   gstNo VARCHAR(20),
-//   panNo VARCHAR(20),
-//   bankAccountNo VARCHAR(20),
-//   ifscCode VARCHAR(20),
-//   userId INT NOT NULL,
-// dateRegistered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-//   PRIMARY KEY (id),
-//   FOREIGN KEY (userId) REFERENCES users(id)
-// );
-// CREATE TABLE IF NOT EXISTS client (
-//   id INT NOT NULL AUTO_INCREMENT,
-//   clientName VARCHAR(50) NOT NULL,
-//   email VARCHAR(50) NOT NULL,
-//   phone VARCHAR(15) NOT NULL,
-//   alternatePhone VARCHAR(15),
-//   addressLine1 VARCHAR(100) NOT NULL,
-//   addressLine2 VARCHAR(100),
-//   pinCode INT,
-//   city VARCHAR(50),
-//   state VARCHAR(50),
-//   gstNo VARCHAR(20),
-//   userId INT NOT NULL,
-// dateRegistered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-//   PRIMARY KEY (id),
-//   FOREIGN KEY (userId) REFERENCES users(id)
-// );
-// -- Insert dummy data into business table
-// INSERT INTO business (businessName, email, mobile, alternateMobile, addressLine1, pinCode, city, state, gstNo, panNo, bankAccountNo, ifscCode, userId)
-// VALUES
-//     ('Textile Industry', 'text@g.cocm', '7021684702', '7021684704', 'Babu Bhai Chawl, Poisar, Gaondevi Road, Kandivali (East)', 400101, 'Mumbai', 'Maharashtra', 'AJPTY76786768', 'BUYTPO868778687', '097286232212', '0876275267521', 6),
-//     ('Construction Company', 'construction@g.cocm', '7021684705', '7021684706', '123 Main Street', 123456, 'Anytown', 'AnyState', 'XYZ12345678', 'ABCPQ98765432', '0123456789', 'ZYXW987654321', 7),
-//     ('Retail Store', 'retail@g.cocm', '7021684707', '7021684708', '456 Oak Avenue', 789012, 'Smallville', 'BigState', '78945612300', 'XYVPQ45678901', '9876543210', 'ZYXW987654321', 8);
-
-// -- Insert dummy data into client table
-// INSERT INTO client (clientName, email, phone, alternatePhone, addressLine1, addressLine2, pinCode, city, state, gstNo, userId)
-// VALUES
-//     ('Client A', 'clientA@example.com', '7021684709', '7021684710', '789 Elm Street', 'Apt 101', 567890, 'Metropolis', 'BigState', 'ACME12345678', 6),
-//     ('Client B', 'clientB@example.com', '7021684711', '7021684712', '321 Pine Street', NULL, 543210, 'Gotham', 'BigState', 'XYZ98765432', 7),
-//     ('Client C', 'clientC@example.com', '7021684713', '7021684714', '987 Cedar Avenue', 'Suite 200', 987654, 'Springfield', 'SmallState', 'PQRS45678900', 8);

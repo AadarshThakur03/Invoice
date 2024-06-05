@@ -63,7 +63,7 @@ export class CreateInvoiceComponent {
       // }
     });
 
-    // this.invoiceModel.date = new Date().toISOString().split('T')[0];
+    this.invoiceModel.date = new Date().toISOString().split('T')[0];
   }
   toggle() {
     this.multipleTaxData = !this.multipleTaxData;
