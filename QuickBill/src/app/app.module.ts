@@ -62,6 +62,7 @@ import { ViewHsnCodesComponent } from './screens/manage-hsn-codes/view-hsn-codes
 import { AddHsnCodesComponent } from './screens/manage-hsn-codes/add-hsn-codes/add-hsn-codes.component';
 import { ViewItemsComponent } from './screens/manage-items/view-items/view-items.component';
 import { AddItemsComponent } from './screens/manage-items/add-items/add-items.component';
+import { EditInvoiceComponent } from './screens/manage-invoice/edit-invoice/edit-invoice.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,6 +96,7 @@ import { AddItemsComponent } from './screens/manage-items/add-items/add-items.co
     AddHsnCodesComponent,
     ViewItemsComponent,
     AddItemsComponent,
+    EditInvoiceComponent,
   ],
   imports: [
     BrowserModule,

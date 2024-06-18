@@ -40,7 +40,8 @@ export class SidebarComponent {
       icon: 'fa-solid fa-receipt',
       routes: {
         components: 'create-invoice',
-        path: 'user-homepage/create-invoice',
+        // path: 'user-homepage/create-invoice',
+        path: 'user-homepage/edit-invoice',
       },
     },
     {

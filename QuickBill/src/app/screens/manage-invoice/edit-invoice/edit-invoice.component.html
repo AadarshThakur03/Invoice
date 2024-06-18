@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="header">
+      <h1 class="header-title">Invoice Management</h1>
+      <div class="dropdown">
+        <input
+          type="search"
+          placeholder="Search invoices..."
+          [(ngModel)]="search"
+          class="dropdown-button"
+        />
+        <!-- <div class="dropdown-button" (click)="toggleSortDropdown()">
+          <button class="dropdown-button">Sort by</button>
+          <span>▼</span>
+        </div>
+        <div *ngIf="showSortDropdown" class="dropdown-content">
+          <button (click)="setSort('invoiceNumber', sort.order)">Invoice Number</button>
+          <button (click)="setSort('date', sort.order)">Date</button>
+          <button (click)="setSort('business', sort.order)">Business</button>
+          <button (click)="setSort('client', sort.order)">Client</button>
+          <button (click)="setSort('amount', sort.order)">Amount</button>
+          <hr />
+          <button (click)="setSort(sort.key, 'asc')">Ascending</button>
+          <button (click)="setSort(sort.key, 'desc')">Descending</button>
+        </div> -->
+      </div>
+    </div>
+  
+    <div class="border rounded-lg overflow-hidden">
+      <table class="invoice-table">
+        <thead>
+          <tr>
+            <th>Invoice Number</th>
+            <th>Date</th>
+            <th>Business</th>
+            <th>Client</th>
+            <th class="text-right">Amount</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invoice of filteredInvoices">
+            <td class="font-medium">{{ invoice.invoiceNumber }}</td>
+            <td>{{ invoice.date }}</td>
+            <td>{{ invoice.business }}</td>
+            <td>{{ invoice.client }}</td>
+            <td class="text-right">{{ invoice.amount | currency }}</td>
+            <td class="text-center">
+                <button class="action-button edit-button" >
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-button view-button" >
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-button delete-button" >
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="pagination">
+      <div class="pagination-controls">
+        <span class="pagination-info">Show</span>
+        <select [(ngModel)]="pageSize" class="dropdown-button">
+          <option *ngFor="let size of [10, 20, 50]" [value]="size">{{ size }}</option>
+        </select>
+        <span class="pagination-info">per page</span>
+      </div>
+      <div class="pagination-controls">
+        <button class="page-button" [disabled]="page === 1" (click)="prevPage()">
+          &lt;
+        </button>
+        <span class="pagination-info">Page {{ page }} of {{ totalPages }}</span>
+        <button class="page-button" [disabled]="page === totalPages" (click)="nextPage()">
+          &gt;
+        </button>
+      </div>
+    </div>
+  </div>
+  

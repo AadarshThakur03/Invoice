@@ -21,6 +21,7 @@ import { AddHsnCodesComponent } from './screens/manage-hsn-codes/add-hsn-codes/a
 import { ViewHsnCodesComponent } from './screens/manage-hsn-codes/view-hsn-codes/view-hsn-codes.component';
 import { ViewItemsComponent } from './screens/manage-items/view-items/view-items.component';
 import { AddItemsComponent } from './screens/manage-items/add-items/add-items.component';
+import { EditInvoiceComponent } from './screens/manage-invoice/edit-invoice/edit-invoice.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
       { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
       { path: 'user-dashboard', component: UserDashboardComponent },
       { path: 'create-invoice', component: CreateInvoiceComponent },
+      { path: 'edit-invoice', component: EditInvoiceComponent },
       { path: 'view-invoice', component: ViewInvoiceComponent },
       { path: 'user-profile', component: ProfileComponent },
       { path: 'view-business', component: ViewBusinessComponent },
