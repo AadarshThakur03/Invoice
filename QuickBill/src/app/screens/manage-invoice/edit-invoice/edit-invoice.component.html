@@ -6,7 +6,7 @@
           type="search"
           placeholder="Search invoices..."
           [(ngModel)]="search"
-          class="dropdown-button"
+          class="dropdown-button searchBar"
         />
         <!-- <div class="dropdown-button" (click)="toggleSortDropdown()">
           <button class="dropdown-button">Sort by</button>
@@ -43,10 +43,10 @@
             <td>{{ invoice.date }}</td>
             <td>{{ invoice.business }}</td>
             <td>{{ invoice.client }}</td>
-            <td class="text-right">{{ invoice.amount | currency }}</td>
+            <td class="">{{ invoice.amount | currency: 'INR' }}</td>
             <td class="text-center">
                 <button class="action-button edit-button" >
-                  <i class="fas fa-edit"></i>
+                  <i class="fas fa-edit" (click)="navigateTo(invoice.invoiceNumber)"></i>
                 </button>
                 <button class="action-button view-button" >
                   <i class="fas fa-eye"></i>

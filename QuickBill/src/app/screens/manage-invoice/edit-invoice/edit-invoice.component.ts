@@ -1,45 +1,178 @@
 import { Component } from '@angular/core';
+import { DataService } from '../../../services/data.service';
+
+import { SidebarStateService } from '../../../services/activeScreen.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-invoice',
   templateUrl: './edit-invoice.component.html',
-  styleUrl: './edit-invoice.component.css'
+  styleUrl: './edit-invoice.component.css',
 })
 export class EditInvoiceComponent {
   search: string = '';
-  sort: { key: string, order: string } = { key: 'invoiceNumber', order: 'asc' };
+  sort: { key: string; order: string } = { key: 'invoiceNumber', order: 'asc' };
   page: number = 1;
   pageSize: number = 10;
   showSortDropdown: boolean = false;
   invoices: any[] = [
-    { invoiceNumber: 'INV-001', date: '2023-04-15', business: 'Acme Inc.', client: 'John Doe', amount: 1500.0 },
-    { invoiceNumber: 'INV-002', date: '2023-03-20', business: 'Globex Corp.', client: 'Jane Smith', amount: 2800.75 },
-    { invoiceNumber: 'INV-003', date: '2023-02-05', business: 'Stark Industries', client: 'Tony Stark', amount: 950.0 },
-    { invoiceNumber: 'INV-004', date: '2023-01-30', business: 'Wayne Enterprises', client: 'Bruce Wayne', amount: 3200.5 },
-    { invoiceNumber: 'INV-005', date: '2023-01-15', business: 'Stark Industries', client: 'Pepper Potts', amount: 1200.0 },
-    { invoiceNumber: 'INV-006', date: '2023-01-01', business: 'Acme Inc.', client: 'John Doe', amount: 2500.0 },
-    { invoiceNumber: 'INV-007', date: '2022-12-20', business: 'Globex Corp.', client: 'Jane Smith', amount: 1800.25 },
-    { invoiceNumber: 'INV-008', date: '2022-11-10', business: 'Wayne Enterprises', client: 'Selina Kyle', amount: 1400.0 },
-    { invoiceNumber: 'INV-009', date: '2022-10-25', business: 'Stark Industries', client: 'Natasha Romanoff', amount: 2100.75 },
-    { invoiceNumber: 'INV-010', date: '2022-09-30', business: 'Acme Inc.', client: 'John Doe', amount: 1750.0 },
-    { invoiceNumber: 'INV-005', date: '2023-01-15', business: 'Stark Industries', client: 'Pepper Potts', amount: 1200.0 },
-    { invoiceNumber: 'INV-006', date: '2023-01-01', business: 'Acme Inc.', client: 'John Doe', amount: 2500.0 },
-    { invoiceNumber: 'INV-007', date: '2022-12-20', business: 'Globex Corp.', client: 'Jane Smith', amount: 1800.25 },
-    { invoiceNumber: 'INV-008', date: '2022-11-10', business: 'Wayne Enterprises', client: 'Selina Kyle', amount: 1400.0 },
-    { invoiceNumber: 'INV-009', date: '2022-10-25', business: 'Stark Industries', client: 'Natasha Romanoff', amount: 2100.75 },
-    { invoiceNumber: 'INV-010', date: '2022-09-30', business: 'Acme Inc.', client: 'John Doe', amount: 1750.0 }
+    {
+      invoiceNumber: 'INV-001',
+      date: '2023-04-15',
+      business: 'Acme Inc.',
+      client: 'John Doe',
+      amount: 1500.0,
+    },
+    {
+      invoiceNumber: 'INV-002',
+      date: '2023-03-20',
+      business: 'Globex Corp.',
+      client: 'Jane Smith',
+      amount: 2800.75,
+    },
+    {
+      invoiceNumber: 'INV-003',
+      date: '2023-02-05',
+      business: 'Stark Industries',
+      client: 'Tony Stark',
+      amount: 950.0,
+    },
+    {
+      invoiceNumber: 'INV-004',
+      date: '2023-01-30',
+      business: 'Wayne Enterprises',
+      client: 'Bruce Wayne',
+      amount: 3200.5,
+    },
+    {
+      invoiceNumber: 'INV-005',
+      date: '2023-01-15',
+      business: 'Stark Industries',
+      client: 'Pepper Potts',
+      amount: 1200.0,
+    },
+    {
+      invoiceNumber: 'INV-006',
+      date: '2023-01-01',
+      business: 'Acme Inc.',
+      client: 'John Doe',
+      amount: 2500.0,
+    },
+    {
+      invoiceNumber: 'INV-007',
+      date: '2022-12-20',
+      business: 'Globex Corp.',
+      client: 'Jane Smith',
+      amount: 1800.25,
+    },
+    {
+      invoiceNumber: 'INV-008',
+      date: '2022-11-10',
+      business: 'Wayne Enterprises',
+      client: 'Selina Kyle',
+      amount: 1400.0,
+    },
+    {
+      invoiceNumber: 'INV-009',
+      date: '2022-10-25',
+      business: 'Stark Industries',
+      client: 'Natasha Romanoff',
+      amount: 2100.75,
+    },
+    {
+      invoiceNumber: 'INV-010',
+      date: '2022-09-30',
+      business: 'Acme Inc.',
+      client: 'John Doe',
+      amount: 1750.0,
+    },
+    {
+      invoiceNumber: 'INV-005',
+      date: '2023-01-15',
+      business: 'Stark Industries',
+      client: 'Pepper Potts',
+      amount: 1200.0,
+    },
+    {
+      invoiceNumber: 'INV-006',
+      date: '2023-01-01',
+      business: 'Acme Inc.',
+      client: 'John Doe',
+      amount: 2500.0,
+    },
+    {
+      invoiceNumber: 'INV-007',
+      date: '2022-12-20',
+      business: 'Globex Corp.',
+      client: 'Jane Smith',
+      amount: 1800.25,
+    },
+    {
+      invoiceNumber: 'INV-008',
+      date: '2022-11-10',
+      business: 'Wayne Enterprises',
+      client: 'Selina Kyle',
+      amount: 1400.0,
+    },
+    {
+      invoiceNumber: 'INV-009',
+      date: '2022-10-25',
+      business: 'Stark Industries',
+      client: 'Natasha Romanoff',
+      amount: 2100.75,
+    },
+    {
+      invoiceNumber: 'INV-010',
+      date: '2022-09-30',
+      business: 'Acme Inc.',
+      client: 'John Doe',
+      amount: 1750.0,
+    },
   ];
 
-  constructor() {}
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+    private sidebarStateService: SidebarStateService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataService.getInvoiceByuserId().subscribe((data: any) => {
+      console.log(data.invoices, 'invoice');
+      this.invoices = data.invoices.map((data: any) => {
+        return {
+          invoiceNumber: data.invoiceNo,
+          date: data.created_at.slice(0, 10),
+          business: data.businessName,
+          client: data.clientName,
+          amount: data.totalInvoiceAmount,
+        };
+      });
+      // this.cardsData = data.invoices.map((data: any) => {
+      //   return {
+      //     title: 'Your Last Invoice',
+      //     invoiceDetails: {
+      //       invoiceNo: data.invoiceNo,
+      //       business: data.businessName,
+      //       client: data.clientName,
+      //       invoiceDate: data.created_at.slice(0, 10),
+      //       amount: data.totalInvoiceAmount,
+      //     },
+      //     buttonText: 'Edit Invoice',
+      //   };
+      // });
+    });
+  }
 
   get filteredInvoices(): any[] {
     return this.invoices
-      .filter(invoice =>
-        invoice.invoiceNumber.toLowerCase().includes(this.search.toLowerCase()) ||
-        invoice.business.toLowerCase().includes(this.search.toLowerCase()) ||
-        invoice.client.toLowerCase().includes(this.search.toLowerCase())
+      .filter(
+        (invoice) =>
+          invoice.invoiceNumber
+            .toLowerCase()
+            .includes(this.search.toLowerCase()) ||
+          invoice.business.toLowerCase().includes(this.search.toLowerCase()) ||
+          invoice.client.toLowerCase().includes(this.search.toLowerCase())
       )
       .sort((a, b) => {
         if (this.sort.order === 'asc') {
@@ -75,5 +208,10 @@ export class EditInvoiceComponent {
       this.page++;
     }
   }
-
+  navigateTo(invoiceNo: string) {
+    this.router.navigate(['/user-homepage/create-invoice'], {
+      state: { invoiceNo: invoiceNo, edit: true },
+    });
+    this.sidebarStateService.setActiveScreen('create-invoice');
+  }
 }

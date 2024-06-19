@@ -1,45 +1,133 @@
-<div class="container">
-  <h1>Getting Started</h1>
-  <mat-grid-list cols="3" gutterSize="20px">
-    <mat-grid-tile *ngFor="let card of cardsData">
-      <mat-card class="card">
-        <mat-card-header>
-          <mat-card-title
-            >Invoice No: {{ card.invoiceDetails.invoiceNo }}</mat-card-title
-          >
-        </mat-card-header>
-        <mat-card-content>
-          <div class="details-container">
-            <div class="detail">
-              <p>Business:</p>
-              <p>{{ card.invoiceDetails.business }}</p>
-            </div>
-            <div class="detail">
-              <p>Client:</p>
-              <p>{{ card.invoiceDetails.client }}</p>
-            </div>
-            <div class="detail">
-              <p>Invoice Date:</p>
-              <p>{{ card.invoiceDetails.invoiceDate }}</p>
-            </div>
-            <div class="detail">
-              <p>Total Amount:</p>
-              <p>{{ card.invoiceDetails.amount }}</p>
-            </div>
+<div class="dashboard">
+  <!-- Existing header, progress bar, and cards -->
+  <div class="header">
+    <h1>Dashboard</h1>
+    <div class="header-button">
+      <button class="btn btn-primary">Complete Profile</button>
+    </div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar" style="width: 55%;"></div>
+  </div>
+  
+  <p class="profile-progress-text">Your Profile is 55% Complete</p>
+  
+  <div class="card-container">
+    <!-- Existing cards -->
+    <div class="card">
+      <div class="invoice-card-header">
+        <span>Invoices</span>
+        <i class="fas fa-file-text icon"></i>
+      </div>
+      <div class="card-text">
+        Manage your invoices, track payments, and generate new ones.
+      </div>
+      <div class="card-link">
+        <a href="#" class="card-link-text">View Invoices</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="invoice-card-header">
+        <span>Business</span>
+        <i class="fas fa-cog icon"></i>
+      </div>
+      <div class="card-text">
+        Configure your business details, settings, and preferences.
+      </div>
+      <div class="card-link">
+        <a href="#" class="card-link-text">Manage Business</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="invoice-card-header">
+        <span>Clients</span>
+        <i class="fas fa-users icon"></i>
+      </div>
+      <div class="card-text">
+        Keep track of your clients, their contact information, and invoices.
+      </div>
+      <div class="card-link">
+        <a href="#" class="card-link-text">View Clients</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="invoice-card-header">
+        <span>Products</span>
+        <i class="fas fa-box icon"></i>
+      </div>
+      <div class="card-text">
+        Manage the products and services you offer to your clients.
+      </div>
+      <div class="card-link">
+        <a href="#" class="card-link-text">View Products</a>
+      </div>
+    </div>
+    
+    <!-- New cards -->
+   
+  </div>
+  <div class="card-container overview-container">
+    <div class="card overview-card">
+      <div class="invoice-card-header">
+        <span>Last Invoice</span>
+        <a href="#" class="card-link-text">View Invoice</a>
+      </div>
+      <div class="card-data">
+        <div class="card-row">
+          <div class="col-6">
+            <span class="card-label">Invoice No</span>
+            <span class="card-value">12345</span>
           </div>
-        </mat-card-content>
-        <mat-card-actions>
-          <button
-            mat-button
-            class="card-button"
-            (click)="navigateTo(card.invoiceDetails.invoiceNo)"
-            color="primary"
-          >
-            <i class="fa-solid fa-plus"></i>
-            {{ card.buttonText }}
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+          <div class="col-6">
+            <span class="card-label">Date</span>
+            <span class="card-value">2024-06-19</span>
+          </div>
+        </div>
+        <div class="card-row">
+          <div class="col-6">
+            <span class="card-label">Client</span>
+            <span class="card-value">Client Name</span>
+          </div>
+          <div class="col-6">
+            <span class="card-label">Amount</span>
+            <span class="card-value">$500.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="card overview-card">
+      <div class="invoice-card-header">
+        <span>Overview</span>
+      </div>
+      <div class="card-data">
+        <div class="card-row">
+          <div class="col-6">
+            <span class="card-label">Invoice:</span>
+            <span class="card-value number">12</span>
+          </div>
+          <div class="col-6">
+            <span class="card-label">Business</span>
+            <span class="card-value number">2</span>
+          </div>
+        </div>
+        <div class="card-row">
+          <div class="col-6">
+            <span class="card-label">Client</span>
+            <span class="card-value number">8</span>
+          </div>
+          <div class="col-6">
+            <span class="card-label">Product</span>
+            <span class="card-value number">6</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
 </div>
