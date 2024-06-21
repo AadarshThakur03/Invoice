@@ -20,6 +20,7 @@ async function getItems() {
 
 async function addItem(itemData, userId) {
   const item = new ItemDataModel(itemData);
+  console.log(item);
 
   // Check if the item description and HSN code are missing
   if (!item.itemDescription) {
@@ -37,7 +38,7 @@ async function addItem(itemData, userId) {
 
   if (!item.unitPrice === " ") {
     return {
-      message: "Item description is required",
+      message: "Item unit price is required",
       status: "error",
     };
   }
@@ -56,8 +57,17 @@ async function addItem(itemData, userId) {
   try {
     // Insert item into the database
     const result = await pool.query(
-      "INSERT INTO items (itemDescription, unitPrice, hsnCode, hsnId, userId) VALUES (?, ?, ?, ?, ?)",
-      [item.itemDescription, item.unitPrice, item.hsnCode, item.hsnId, userId]
+      "INSERT INTO items (itemDescription, unitPrice, hsnCode,hsn_description,cgst_rate,sgst_rate,igst_rate, userId) VALUES (?, ?, ?, ?, ?,?,?,?)",
+      [
+        item.itemDescription,
+        item.unitPrice,
+        item.hsnCode,
+        item.hsnDescription,
+        item.cgst,
+        item.sgst,
+        item.igst,
+        userId,
+      ]
     );
     return {
       message: "Item added successfully",

@@ -3,4 +3,8 @@ export class ItemDataModel {
   unitPrice: string = '';
   hsnCode: string = '';
   hsnId: string = '';
+  hsnDescription:string='';
+  cgst:number;
+  sgst:number;
+  igst:number
 }

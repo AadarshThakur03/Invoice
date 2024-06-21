@@ -1,6 +1,6 @@
 .dashboard {
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  /* font-family: 'Helvetica', 'Arial', 'Georgia', 'Tahoma', 'Roboto', sans-serif; */
 }
 
 .header {
@@ -44,7 +44,7 @@
 }
 
 .progress-bar {
-  height: 8px; /* Increased height */
+  height: 6px; /* Increased height */
   width: 100%; /* Initial width, will be overridden by [style.width.%] binding */
   background-color: #002347; /* Primary color */
   border-radius: 4px;
@@ -89,8 +89,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 20px; /* Increased font size for header */
-  font-weight: bold;
+  font-size: 21px; /* Increased font size for header */
+  font-weight: 500;
   margin-bottom: 10px;
   color: #09090B; /* Dark text color */
 }
@@ -113,7 +113,7 @@
 }
 
 .card-link-text {
-  font-size: 12px; /* Adjusted font size */
+  font-size: 13px; /* Adjusted font size */
   color: #000; /* Black text color */
   text-decoration: none;
   transition: color 0.3s ease;
@@ -167,14 +167,14 @@
 }
 
 .card-label {
-  font-size: 12px; /* Label font size */
+  font-size: 14px; /* Label font size */
   color: #666; /* Label color */
   margin-bottom: 2px;
   /* Bold font weight */
 }
 
 .card-value {
-  font-size: 14px; /* Value font size */
+  font-size: 16px; /* Value font size */
   color: #09090B; /* Value color */
   font-weight: 500;
 }

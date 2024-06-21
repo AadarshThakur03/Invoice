@@ -40,6 +40,37 @@ export class UserDashboardComponent {
     //   buttonText: 'Pay Invoice',
     // },
   ];
+  cards = [
+    {
+      title: 'Invoices',
+      icon: 'fa-solid fa-file-invoice-dollar',
+      text: 'Manage your invoices, track payments, and generate new ones.',
+      linkText: 'View Invoices',
+      link: '#'
+    },
+    {
+      title: 'Business',
+      icon: 'fa-solid fa-building',
+      text: 'Configure your business details, settings, and preferences.',
+      linkText: 'Manage Business',
+      link: '#'
+    },
+    {
+      title: 'Clients',
+      icon: 'fa-solid fa-users',
+      text: 'Keep track of your clients, their contact information, and invoices.',
+      linkText: 'View Clients',
+      link: '#'
+    },
+    {
+      title: 'Items',
+      icon: 'fa-solid fa-store',
+      text: 'Manage the items and services you offer to your clients.',
+      linkText: 'View Items',
+      link: '#'
+    }
+  ];
+
 
   constructor(
     private router: Router,
