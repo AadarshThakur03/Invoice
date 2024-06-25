@@ -44,16 +44,19 @@ const pool = mysql.createPool({
     // Create the items table if it doesn't exist
     await pool.query(`
       CREATE TABLE IF NOT EXISTS items (
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        itemDescription VARCHAR(255) NOT NULL,
-        unitPrice DECIMAL(10, 2) DEFAULT NULL,
-        hsnCode VARCHAR(50) NOT NULL,
-        hsnId VARCHAR(50) NOT NULL,
-        userId INT NOT NULL,
-        FOREIGN KEY (userId) REFERENCES users(id),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-      );
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  itemDescription VARCHAR(255) NOT NULL,
+  unitPrice DECIMAL(10, 2) DEFAULT NULL,
+  hsnCode VARCHAR(50) NOT NULL,
+	hsn_description TEXT,
+    cgst_rate DECIMAL(5,2)DEFAULT NULL,
+    sgst_rate DECIMAL(5,2)DEFAULT NULL,
+    igst_rate DECIMAL(5,2) DEFAULT NULL,
+  userId INT NOT NULL,
+  FOREIGN KEY (userId) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
     `);
     console.log("Table items created successfully");
 

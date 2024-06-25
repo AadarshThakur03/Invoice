@@ -427,6 +427,7 @@ const updateInvoice = async (invoiceData, userId) => {
 
 const saveInvoice = async (invoiceData, userId) => {
   const invoice = new InvoiceDataModel(invoiceData);
+  console.log(invoice,'invoice');
 
   // Generate a new invoice number if not provided
   if (!invoice.invoiceNo) {
@@ -489,16 +490,19 @@ const saveInvoice = async (invoiceData, userId) => {
 };
 
 const saveInvoiceItem = async (invoiceId, itemData, userId) => {
+  console.log(itemData,'1111');
   const item = new ItemDataModel(itemData);
+
+  console.log(item,'item11122');
 
   const itemResult = await pool.query(
     `INSERT INTO invoiceItems 
-       (invoice_id, description, code, qty, amount, unitPrice, totalAmountBT, hsnCode, 
-        cgst, igst, sgst, totalAmountAT, discount, taxAmount, userId) 
+       (invoice_id, description, code, qty, amount, unitPrice, totalAmountBT, hsn_code, 
+        cgst_rate, igst_rate, sgst_rate, totalAmountAT, discount, taxAmount, userId) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       invoiceId,
-      item.description,
+      item.itemDescription,
       item.code,
       item.qty,
       item.amount,

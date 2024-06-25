@@ -13,8 +13,6 @@
 
   <p class="profile-progress-text">Your Profile is 55% Complete</p>
 
- 
-
   <div class="card-container overview-container">
     <div class="card overview-card">
       <div class="invoice-card-header">
@@ -25,21 +23,29 @@
         <div class="card-row">
           <div class="col-6">
             <span class="card-label">Invoice No</span>
-            <span class="card-value">12345</span>
+            <span class="card-value">{{
+              cardsData[0].invoiceDetails.invoiceNo
+            }}</span>
           </div>
           <div class="col-6">
             <span class="card-label">Date</span>
-            <span class="card-value">2024-06-19</span>
+            <span class="card-value">{{
+              cardsData[0].invoiceDetails.invoiceDate
+            }}</span>
           </div>
         </div>
         <div class="card-row">
           <div class="col-6">
             <span class="card-label">Client</span>
-            <span class="card-value">Client Name</span>
+            <span class="card-value">{{
+              cardsData[0].invoiceDetails.client
+            }}</span>
           </div>
           <div class="col-6">
             <span class="card-label">Amount</span>
-            <span class="card-value">$500.00</span>
+            <span class="card-value">{{
+              cardsData[0].invoiceDetails.amount | currency : "INR"
+            }}</span>
           </div>
         </div>
       </div>
@@ -53,21 +59,21 @@
         <div class="card-row">
           <div class="col-6">
             <span class="card-label">Invoices</span>
-            <span class="card-value number">12</span>
+            <span class="card-value number">{{ invoiceCount }}</span>
           </div>
           <div class="col-6">
             <span class="card-label">Businesses</span>
-            <span class="card-value number">2</span>
+            <span class="card-value number">{{ businessCount }}</span>
           </div>
         </div>
         <div class="card-row">
           <div class="col-6">
             <span class="card-label">Clients</span>
-            <span class="card-value number">8</span>
+            <span class="card-value number">{{ clientsCount }}</span>
           </div>
           <div class="col-6">
             <span class="card-label">Items</span>
-            <span class="card-value number">6</span>
+            <span class="card-value number">{{ itemCount }}</span>
           </div>
         </div>
       </div>
@@ -82,7 +88,9 @@
           {{ card.text }}
         </div>
         <div class="card-link">
-          <a [href]="card.link" class="card-link-text">{{ card.linkText }}</a>
+          <a [routerLink]="[card.link]" class="card-link-text">{{
+            card.linkText
+          }}</a>
         </div>
       </div>
     </div>

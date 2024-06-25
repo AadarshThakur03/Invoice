@@ -35,7 +35,10 @@ export class CreateInvoiceComponent {
           console.log(data, 'data from in');
           this.invoiceModel = data.invoices[0];
           this.invoiceModel.date = data.invoices[0].created_at.slice(0, 10);
-          this.invoiceModel.items.forEach((item, index) => {
+          this.invoiceModel.items.forEach((item:any, index) => {
+            console.log(item, 'it');
+            this.invoiceModel.items[index].itemDescription = item.description;
+
             this.calculateTotal(index);
           });
         });
@@ -75,13 +78,13 @@ export class CreateInvoiceComponent {
 
   addItem() {
     this.invoiceModel.items.push({
-      description: '',
+      itemDescription: '',
       code: '',
       qty: 1,
       amount: 0,
       unitPrice: '',
       totalAmountBT: 0,
-      hsnCode: '',
+      hsn_code: '',
       cgst: '',
       igst: '',
       sgst: '',
@@ -119,17 +122,22 @@ export class CreateInvoiceComponent {
     console.log(data, i);
 
     this.invoiceModel.items[i].unitPrice = data.unitPrice;
-    this.invoiceModel.items[i].description = data.itemDescription;
-    this.dataService
-      .getHsnCodeByNameAndId(data.hsnCode, data.hsnId)
-      .subscribe((data: any) => {
-        this.invoiceModel.items[i].hsnCode = data.hsnCode.hsn_code;
-        this.invoiceModel.items[i].igst = data.hsnCode.igst_rate;
-        this.invoiceModel.items[i].cgst = data.hsnCode.cgst_rate;
-        this.invoiceModel.items[i].sgst = data.hsnCode.sgst_rate;
-        console.log(data);
-        this.calculateTotal(i);
-      });
+    this.invoiceModel.items[i].itemDescription = data.itemDescription;
+    this.invoiceModel.items[i].hsn_code = data.hsn_code;
+    this.invoiceModel.items[i].igst = data.igst_rate;
+    this.invoiceModel.items[i].cgst = data.cgst_rate;
+    this.invoiceModel.items[i].sgst = data.sgst_rate;
+    this.calculateTotal(i);
+    // this.dataService
+    //   .getHsnCodeByNameAndId(data.hsnCode, data.hsnId)
+    //   .subscribe((data: any) => {
+    //     this.invoiceModel.items[i].hsnCode = data.hsnCode.hsn_code;
+    //     this.invoiceModel.items[i].igst = data.hsnCode.igst_rate;
+    //     this.invoiceModel.items[i].cgst = data.hsnCode.cgst_rate;
+    //     this.invoiceModel.items[i].sgst = data.hsnCode.sgst_rate;
+    //     console.log(data);
+    //     this.calculateTotal(i);
+    //   });
   }
 
   convertToNumber(value: string | undefined): number | undefined {
@@ -331,7 +339,7 @@ export class CreateInvoiceComponent {
   }
   addInvoiceDetails() {
     console.log(this.invoiceModel);
-    
+
     this.dataService.addInvoice(this.invoiceModel).subscribe((data) => {
       console.log(data);
       this.invoiceModel.invoiceNo = data.invoiceNo;

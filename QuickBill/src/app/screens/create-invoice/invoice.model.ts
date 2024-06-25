@@ -1,11 +1,11 @@
 export interface Item {
-  description: string;
+  itemDescription: string;
   code: string;
   qty: number | 1;
   amount: number | null;
   unitPrice: string;
   totalAmountBT: number | null;
-  hsnCode: string;
+  hsn_code: string;
   cgst: string;
   igst: string;
   sgst: string;
@@ -56,13 +56,13 @@ export class InvoiceDataModel {
   totalInvoiceAmount: number | null = null;
   items: Item[] = [
     {
-      description: '',
+      itemDescription: '',
       code: '',
       qty: 1,
       amount: null,
       unitPrice: '',
       totalAmountBT: null,
-      hsnCode: '',
+      hsn_code: '',
       cgst: '',
       igst: '',
       sgst: '',

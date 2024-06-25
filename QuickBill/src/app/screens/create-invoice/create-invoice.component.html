@@ -235,7 +235,7 @@
                 [required]="false"
                 [placeholder]="'Item Description'"
                 [options]="itemOptions"
-                [value]="invoiceModel.items[i].description"
+                [value]="invoiceModel.items[i].itemDescription"
                 name="itemDescription"
                 (selectedOptions)="selectItem($event, i)"
                 ngDefaultControl
@@ -245,7 +245,7 @@
               <td class="item-td col-code">
                 <app-custom-input-box
                   [placeholder]="'HSN Code'"
-                  [value]="invoiceModel.items[i].hsnCode"
+                  [value]="invoiceModel.items[i].hsn_code"
                   [disable]="true"
                   [onlyInput]="true"
                   [inputClass]="'custom-input section-input invoice-input'"

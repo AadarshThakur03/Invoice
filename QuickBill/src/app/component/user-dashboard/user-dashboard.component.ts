@@ -9,6 +9,10 @@ import { DataService } from '../../services/data.service';
   styleUrl: './user-dashboard.component.css',
 })
 export class UserDashboardComponent {
+  businessCount: number;
+  clientsCount: number;
+  invoiceCount: number;
+  itemCount: number;
   cardsData = [
     {
       title: 'Your Last Invoice',
@@ -46,39 +50,54 @@ export class UserDashboardComponent {
       icon: 'fa-solid fa-file-invoice-dollar',
       text: 'Manage your invoices, track payments, and generate new ones.',
       linkText: 'View Invoices',
-      link: '#'
+      link: '/user-homepage/edit-invoice',
     },
     {
       title: 'Business',
       icon: 'fa-solid fa-building',
       text: 'Configure your business details, settings, and preferences.',
       linkText: 'Manage Business',
-      link: '#'
+      link: '/user-homepage/view-business',
     },
     {
       title: 'Clients',
       icon: 'fa-solid fa-users',
       text: 'Keep track of your clients, their contact information, and invoices.',
       linkText: 'View Clients',
-      link: '#'
+      link: '/user-homepage/view-client',
     },
     {
       title: 'Items',
       icon: 'fa-solid fa-store',
       text: 'Manage the items and services you offer to your clients.',
       linkText: 'View Items',
-      link: '#'
-    }
+      link: '/user-homepage/view-items',
+    },
   ];
-
 
   constructor(
     private router: Router,
     private sidebarStateService: SidebarStateService,
     private dataService: DataService
   ) {
+    this.dataService.getBusinessByUserId().subscribe((data: any) => {
+      console.log(data.business.length);
+      this.businessCount = data.business.length;
+      // console.log(this.businessOptions);
+    });
+    this.dataService.getClientByUserId().subscribe((data: any) => {
+      console.log(data, 'create');
+
+      this.clientsCount = data.client.length;
+    });
+    this.dataService.getItemByUserId().subscribe((data: any) => {
+      console.log(data, 'create');
+      this.itemCount = data.item.length;
+    });
     this.dataService.getInvoiceByuserId().subscribe((data: any) => {
-      console.log(data.invoices, 'invoice');
+      console.log(data.invoices.length > 0, 'invoice');
+      // if (data.invoices.length >0) {
+      this.invoiceCount = data.invoices.length;
       this.cardsData = data.invoices.map((data: any) => {
         return {
           title: 'Your Last Invoice',
@@ -92,7 +111,15 @@ export class UserDashboardComponent {
           buttonText: 'Edit Invoice',
         };
       });
+      //   this.invoiceModel.items.forEach((item, index) => {
+      //     this.calculateTotal(index);
+      //   });
+      // }
     });
+    // this.dataService.getInvoiceByuserId().subscribe((data: any) => {
+    //   console.log(data.invoices, 'invoice');
+     
+    // });
   }
 
   createNewInvoice() {

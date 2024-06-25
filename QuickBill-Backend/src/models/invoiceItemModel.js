@@ -1,6 +1,6 @@
 class InvoiceItem {
     constructor(data) {
-      this.description = data.description || "";
+      this.itemDescription = data.itemDescription || "";
       this.code = data.code || "";
       this.qty = data.qty || null;
       this.amount = data.amount || null;
