@@ -119,3 +119,208 @@ SELECT * FROM users ;
 
 select * from business where userId="1";
 
+
+use info;
+drop table invoice;
+CREATE TABLE invoice (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    businessName VARCHAR(255) NOT NULL,
+    mobileNumber VARCHAR(15) NOT NULL,
+    alternateMobileNumber VARCHAR(15),
+    addressLine1 VARCHAR(255) NOT NULL,
+    addressLine2 VARCHAR(255),
+    businessEmail VARCHAR(255) NOT NULL,
+    clientName VARCHAR(255) NOT NULL,
+    clientAddress TEXT NOT NULL,
+    cityStateZip VARCHAR(255) NOT NULL,
+    clientMobile VARCHAR(15) NOT NULL,
+    clientGst VARCHAR(15),
+    invoiceNo VARCHAR(50) NOT NULL,
+    orderNo VARCHAR(50),
+    
+    gstin VARCHAR(15),
+    pan VARCHAR(15),
+    state VARCHAR(50),
+    amountInWords TEXT,
+    accountNo VARCHAR(50),
+    ifsc VARCHAR(15),
+    termsConditions TEXT,
+    totalTaxAmount DECIMAL(10, 2) DEFAULT NULL,
+    taxableAmountValue VARCHAR(50)DEFAULT NULL,
+    cgstPercentage DECIMAL(5, 2)DEFAULT NULL,
+    cgstAmount DECIMAL(10, 2)DEFAULT NULL,
+    sgstPercentage DECIMAL(5, 2)DEFAULT NULL,
+    sgstAmount DECIMAL(10, 2)DEFAULT NULL,
+    igstPercentage DECIMAL(5, 2) DEFAULT NULL,
+    igstAmount DECIMAL(10, 2)DEFAULT NULL,
+    subTotal DECIMAL(10, 2)DEFAULT NULL,
+    totalDiscount DECIMAL(10, 2)DEFAULT NULL,
+    discountAmount DECIMAL(10, 2)DEFAULT NULL,
+    shippingCharges DECIMAL(10, 2) DEFAULT NULL,
+    totalAmountAfterTax DECIMAL(10, 2)DEFAULT NULL,
+    totalInvoiceAmount DECIMAL(10, 2) DEFAULT NULL,
+     userId INTEGER REFERENCES users(id),
+    FOREIGN KEY (userId) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+CREATE TABLE invoiceItems (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    invoice_id INT,
+    description VARCHAR(255),
+    code VARCHAR(255),
+    qty INT,
+    amount DECIMAL(10, 2)DEFAULT NULL,
+    unitPrice DECIMAL(10, 2) DEFAULT NULL,
+    totalAmountBT DECIMAL(10, 2)DEFAULT NULL,
+    hsn_code VARCHAR(10) NOT NULL,
+    hsn_description TEXT,
+    cgst_rate DECIMAL(5,2)DEFAULT NULL,
+    sgst_rate DECIMAL(5,2)DEFAULT NULL,
+    igst_rate DECIMAL(5,2) DEFAULT NULL,
+    totalAmountAT DECIMAL(10, 2)DEFAULT NULL,
+    discount DECIMAL(10, 2)DEFAULT NULL,
+    taxAmount DECIMAL(10, 2)DEFAULT NULL,
+    userId INT,
+    FOREIGN KEY (invoice_id) REFERENCES invoice(id),
+    FOREIGN KEY (userId) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+drop table invoice;
+drop table invoiceItems;
+
+drop table invoiceItems;
+
+ALTER TABLE invoiceItems DROP FOREIGN KEY invoiceItems_ibfk_1;
+SELECT * FROM invoice WHERE invoiceNo="INV00002" AND userId = "6"
+
+
+
+select * from invoice;
+select * from invoiceItems;
+TRUNCATE TABLE invoiceItems;
+
+create table business(
+id int not null,
+name varchar(20),
+email varchar(30),
+phone int(13),
+alternatePhone int(13),
+addressLine1 varchar(40),
+pinCode int(6),
+city varchar(20),
+state varchar(20),
+gstNo varchar(30),
+userId int,
+primary key(id),
+foreign key (userId) references users(id)
+);
+
+CREATE TABLE business (
+    id INT NOT NULL AUTO_INCREMENT,
+    businessName VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    mobile VARCHAR(15) NOT NULL,
+    alternateMobile VARCHAR(15),
+    addressLine1 VARCHAR(100) NOT NULL,
+    pinCode INT,
+    city VARCHAR(50),
+    state VARCHAR(50),
+    gstNo VARCHAR(20),
+    panNo VARCHAR(20),
+    bankAccountNo VARCHAR(20),
+    ifscCode VARCHAR(20),
+    userId INT NOT NULL,
+	dateRegistered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (userId) REFERENCES users(id)
+);
+CREATE TABLE client (
+    id INT NOT NULL AUTO_INCREMENT,
+    clientName VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    alternatePhone VARCHAR(15),
+    addressLine1 VARCHAR(100) NOT NULL,
+    addressLine2 VARCHAR(100),
+    pinCode INT,
+    city VARCHAR(50),
+    state VARCHAR(50),
+    gstNo VARCHAR(20),
+    userId INT NOT NULL,
+	dateRegistered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (userId) REFERENCES users(id)
+);
+CREATE TABLE hsn_codes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    hsn_code VARCHAR(10) NOT NULL,
+    description TEXT,
+    cgst_rate DECIMAL(5,2)DEFAULT NULL,
+    sgst_rate DECIMAL(5,2)DEFAULT NULL,
+    igst_rate DECIMAL(5,2) DEFAULT NULL,
+    userId INT NOT NULL,
+    FOREIGN KEY (userId) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE items (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  itemDescription VARCHAR(255) NOT NULL,
+  unitPrice DECIMAL(10, 2) DEFAULT NULL,
+  hsnCode VARCHAR(50) NOT NULL,
+	hsn_description TEXT,
+    cgst_rate DECIMAL(5,2)DEFAULT NULL,
+    sgst_rate DECIMAL(5,2)DEFAULT NULL,
+    igst_rate DECIMAL(5,2) DEFAULT NULL,
+  userId INT NOT NULL,
+  FOREIGN KEY (userId) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+select*from items;
+drop table items
+
+
+INSERT INTO hsn_codes (hsn_code, description, cgst_rate, sgst_rate, igst_rate,userId)
+VALUES
+('1234', 'Product A', '9.00', '9.00', '18.00',6),
+('5678', 'Product B', NULL, '5.00', '10.00',6),
+('9101', 'Product C', '6.00', NULL, NULL,6),
+('1122', 'Product D', NULL, NULL, '15.00',6),
+('3344', 'Product E', NULL, NULL, NULL,6);
+
+select * from hsn_codes
+INSERT INTO client (clientName, email, phone, addressLine1, city, state, userId, dateRegistered)
+VALUES 
+('Corporation1232', 'abc@example.com', '+1234567890', '123 Main Street', 'City1', 'State1', 1, CURRENT_TIMESTAMP),
+('Enterprises1221', 'xyz@example.com', '+9876543210', '456 Elm Street', 'City2', 'State2', 2, CURRENT_TIMESTAMP),
+('Industries1221', 'pqr@example.com', '+1112223333', '789 Oak Street', 'City3', 'State3', 3, CURRENT_TIMESTAMP);
+
+select * from business WHERE name="ABC Corporation" and userId=1;
+
+drop table hsn_codes
+ALTER TABLE client
+CHANGE COLUMN email email VARCHAR(50) NOT NULL,
+CHANGE COLUMN phone mobile VARCHAR(15) NOT NULL,
+CHANGE COLUMN alternatePhone alternateMobile VARCHAR(15),
+CHANGE COLUMN addressLine1 addressLine1 VARCHAR(100) NOT NULL,
+CHANGE COLUMN addressLine2 addressLine2 VARCHAR(100),
+CHANGE COLUMN pinCode pinCode INT,
+CHANGE COLUMN city city VARCHAR(50),
+CHANGE COLUMN state state VARCHAR(50),
+CHANGE COLUMN gstNo gstNo VARCHAR(20);
+
+
+select * from client;
+
+drop table business;
+
+SELECT * FROM users ;
+
+select * from business where userId="1";
+
+
