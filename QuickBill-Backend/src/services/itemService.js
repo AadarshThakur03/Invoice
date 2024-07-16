@@ -29,7 +29,7 @@ async function addItem(itemData, userId) {
       status: "error",
     };
   }
-  if (!item.hsnCode) {
+  if (!item.hsn_code) {
     return {
       message: "HSN code is required",
       status: "error",
@@ -57,11 +57,11 @@ async function addItem(itemData, userId) {
   try {
     // Insert item into the database
     const result = await pool.query(
-      "INSERT INTO items (itemDescription, unitPrice, hsnCode,hsn_description,cgst_rate,sgst_rate,igst_rate, userId) VALUES (?, ?, ?, ?, ?,?,?,?)",
+      "INSERT INTO items (itemDescription, unitPrice, hsn_code,hsn_description,cgst_rate,sgst_rate,igst_rate, userId) VALUES (?, ?, ?, ?, ?,?,?,?)",
       [
         item.itemDescription,
         item.unitPrice,
-        item.hsnCode,
+        item.hsn_code,
         item.hsnDescription,
         item.cgst,
         item.sgst,

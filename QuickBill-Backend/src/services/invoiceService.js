@@ -508,7 +508,7 @@ const saveInvoiceItem = async (invoiceId, itemData, userId) => {
       item.amount,
       item.unitPrice,
       item.totalAmountBT,
-      item.hsnCode,
+      item.hsn_code,
       item.cgst,
       item.igst,
       item.sgst,

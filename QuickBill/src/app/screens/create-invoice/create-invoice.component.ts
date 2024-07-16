@@ -38,6 +38,7 @@ export class CreateInvoiceComponent {
           this.invoiceModel.items.forEach((item:any, index) => {
             console.log(item, 'it');
             this.invoiceModel.items[index].itemDescription = item.description;
+            this.invoiceModel.items[index].hsn_code=item.hsn_code
 
             this.calculateTotal(index);
           });
@@ -127,14 +128,16 @@ export class CreateInvoiceComponent {
     this.invoiceModel.items[i].igst = data.igst_rate;
     this.invoiceModel.items[i].cgst = data.cgst_rate;
     this.invoiceModel.items[i].sgst = data.sgst_rate;
+    
+
     this.calculateTotal(i);
     // this.dataService
-    //   .getHsnCodeByNameAndId(data.hsnCode, data.hsnId)
+    //   .gethsn_codeByNameAndId(data.hsn_code, data.hsnId)
     //   .subscribe((data: any) => {
-    //     this.invoiceModel.items[i].hsnCode = data.hsnCode.hsn_code;
-    //     this.invoiceModel.items[i].igst = data.hsnCode.igst_rate;
-    //     this.invoiceModel.items[i].cgst = data.hsnCode.cgst_rate;
-    //     this.invoiceModel.items[i].sgst = data.hsnCode.sgst_rate;
+    //     this.invoiceModel.items[i].hsn_code = data.hsn_code.hsn_code;
+    //     this.invoiceModel.items[i].igst = data.hsn_code.igst_rate;
+    //     this.invoiceModel.items[i].cgst = data.hsn_code.cgst_rate;
+    //     this.invoiceModel.items[i].sgst = data.hsn_code.sgst_rate;
     //     console.log(data);
     //     this.calculateTotal(i);
     //   });

@@ -1,7 +1,7 @@
 export class ItemDataModel {
   itemDescription: string = '';
   unitPrice: string = '';
-  hsnCode: string = '';
+  hsn_code: string = '';
   hsnId: string = '';
   hsnDescription:string='';
   cgst:number;

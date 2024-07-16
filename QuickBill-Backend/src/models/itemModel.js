@@ -6,7 +6,7 @@ class ItemDataModel {
       this.amount = data.amount || null;
       this.unitPrice = data.unitPrice || null;
       this.totalAmountBT = data.totalAmountBT || 0;
-      this.hsnCode = data.hsnCode || "";
+      this.hsn_code = data.hsn_code || "";
       this.hsnDescription = data.hsnDescription || "";
       this.cgst = data.cgst || null;
       this.igst = data.igst || null;

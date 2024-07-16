@@ -83,7 +83,7 @@ export class CustomTypeheadDropdownComponent implements OnInit, OnChanges {
   }
 
   public getDisplayName(option: Option): string {
-    return option.businessName || option.clientName || option.hsn_code ||option.itemDescription|| '';
+    return option.businessName || option.clientName || option.itemDescription|| '';
   }
 
   clearInput(): void {

@@ -30,6 +30,7 @@ async function getInvoicesByInvoiceNo(req, res) {
 
 async function addInvoice(req, res) {
   const invoiceData = req.body;
+  console.log(invoiceData,'invvvvvvvvvvvvvvvvvvvv');
   if (!req.userId) {
     return res.json({ error: "Invalid User" });
   }

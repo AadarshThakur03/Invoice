@@ -9,16 +9,16 @@ import { ItemDataModel } from '../../../models/itemData.model';
 })
 export class AddItemsComponent {
   itemDataModel: ItemDataModel = new ItemDataModel();
-  hsnCode: any = [];
+  // hsnCode: any = [];
   constructor(private dataService: DataService) {
-    this.dataService.getHsnCodeByUserId().subscribe((data: any) => {
-      console.log(data, 'hsn');
-      this.hsnCode = data.hsnCode;
-    });
+    // this.dataService.getHsnCodeByUserId().subscribe((data: any) => {
+    //   console.log(data, 'hsn');
+    //   this.hsnCode = data.hsnCode;
+    // });
   }
   selectedHsnCode(data: any) {
     console.log(data);
-    this.itemDataModel.hsnCode = data.hsn_code;
+    this.itemDataModel.hsn_code = data.hsn_code;
     this.itemDataModel.hsnId = data.id;
   }
 
