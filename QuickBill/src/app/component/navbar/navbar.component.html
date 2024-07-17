@@ -2,7 +2,7 @@
   <div (click)="sideNavToggled1()" class="menu-bar">
     <i class="fa-solid fa-bars text-light"></i>
   </div>
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" routerLink="/">
     <h1 class="nav-title">QuickBill</h1>
   </a>
   <button
@@ -19,40 +19,29 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" id="nav-link" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item" *ngIf="!isLoggedIn">
-        <a class="nav-link" id="nav-link" routerLink="/login">Login</a>
-      </li>
-      <li class="nav-item" *ngIf="!isLoggedIn">
-        <a class="btn btn-primary" id="nav-btn" routerLink="/register"
-          >Register</a
-        >
-      </li>
       <li class="nav-item" *ngIf="isLoggedIn">
-        <a class="nav-link" id="nav-link" [routerLink]="['/user-homepage']"
-          >Dashboard</a
-        >
+        <button class="upgrade-button">Your trial period is expiring in {{trialRemainingDays}} days</button>
+      </li>
+      <li class="nav-item" [class.active]="isActive('/home')">
+        <a class="nav-link" routerLink="/home">Home</a>
+      </li>
+      <li class="nav-item" [class.active]="isActive('/pricing')">
+        <a class="nav-link" routerLink="/pricing">Pricing</a>
+      </li>
+      <li class="nav-item" *ngIf="!isLoggedIn">
+        <a class="nav-link" [class.active]="isActive('/login')" routerLink="/login">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="!isLoggedIn">
+        <a class="btn btn-primary" id="nav-btn" routerLink="/register">Register</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn" [class.active]="isActive('/user-homepage')">
+        <a class="nav-link" routerLink="/user-homepage">Dashboard</a>
       </li>
       <li class="nav-item user-div" *ngIf="isLoggedIn">
-        <img
-          class="user-image"
-          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-          alt="User Image"
-        />
-        <a class="nav-link" id="nav-link" href="#">{{
-          currentUser.username
-        }}</a>
+        <img class="user-image" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Image"/>
+        <a class="nav-link" [class.active]="isActive('/user-profile')" routerLink="/user-profile">{{ currentUser.username }}</a>
       </li>
-      <li lass="nav-item" *ngIf="isLoggedIn">
-        <a class="nav-link" id="nav-link">
-          Trial Period {{ trialRemainingDays }}</a
-        >
-      </li>
+      
       <li class="nav-item" *ngIf="isLoggedIn">
         <a class="btn btn-primary" id="nav-btn" (click)="logout()">Log Out</a>
       </li>

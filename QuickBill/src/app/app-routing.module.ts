@@ -22,6 +22,7 @@ import { ViewHsnCodesComponent } from './screens/manage-hsn-codes/view-hsn-codes
 import { ViewItemsComponent } from './screens/manage-items/view-items/view-items.component';
 import { AddItemsComponent } from './screens/manage-items/add-items/add-items.component';
 import { EditInvoiceComponent } from './screens/manage-invoice/edit-invoice/edit-invoice.component';
+import { PricingComponent } from './screens/pricing/pricing.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
       // Add more child routes as needed
     ],
   },
+  { path: 'pricing', component: PricingComponent },
 
   { path: '', component: HomePageComponent }, // Default route
   { path: '**', redirectTo: '' }, // Redirect to default route for any unknown paths

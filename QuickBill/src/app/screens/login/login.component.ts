@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { SidebarStateService } from '../../services/activeScreen.service';
+import { ModalComponent } from '../../component/modal/modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +12,17 @@ import { SidebarStateService } from '../../services/activeScreen.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(private http: HttpClient, private authService: AuthService,private router:Router,private sidebarStateService: SidebarStateService) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router,
+    private sidebarStateService: SidebarStateService,
+    private dialog: MatDialog
+  ) {}
 
   successMessage: String = '';
   isSuccess: boolean = false;
-
+  currentUser: any;
 
   onClose() {
     this.successMessage = '';
@@ -27,6 +35,7 @@ export class LoginComponent {
       if (data.status === 'success') {
         this.authService.setLoggedIn(true);
         localStorage.setItem('token', data.token);
+        localStorage.setItem('showModal', 'true');
         this.router.navigate(['/user-homepage']);
         this.sidebarStateService.setActiveScreen('user-dashboard');
       }

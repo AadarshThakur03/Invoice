@@ -6,55 +6,55 @@ import { SidebarStateService } from '../../services/activeScreen.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  @Output() sideNavToggled = new EventEmitter<boolean>();
+  menuStatus: boolean = true;
+  trialRemainingDays: number = 0;
+  currentUser: any;
+  isSidebarCollapsed: boolean = true;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private sidebarStateService: SidebarStateService
   ) {}
 
-  @Output() sideNavToggled = new EventEmitter<boolean>();
-  menuStatus: boolean = true;
-  trialRemainingDays: number;
+  ngOnInit(): void {
+    this.authService.getUserDetails().subscribe((user) => {
+      this.currentUser = user.user;
+    });
 
-  sideNavToggled1() {
+    this.authService.getTrialRemainingDays().subscribe((user: any) => {
+      this.trialRemainingDays = user.remainingDays.days_remaining;
+    });
+
+    this.sidebarStateService.activeScreen$.subscribe((screen) => {
+      // Handle active screen changes if needed
+    });
+  }
+
+  sideNavToggled1(): void {
     this.menuStatus = !this.menuStatus;
     this.sideNavToggled.emit(this.menuStatus);
   }
 
-  // private isLoggedIn:boolean=false;
-  currentUser: any;
-  ngOnInit(): void {
-    this.authService.getUserDetails().subscribe((user) => {
-      this.currentUser = user.user;
-      console.log(this.currentUser);
-    });
-    this.authService.getTrialRemainingDays().subscribe((user:any) => {
-      console.log(user.remainingDays.days_remaining, 'getTrialRemainingDays');
-      this.trialRemainingDays=user.remainingDays.days_remaining
-    });
-    this.sidebarStateService.activeScreen$.subscribe((screen) => {});
-  }
-
-  navigateToRegister() {
-    this.router.navigate(['/register']);
-  }
-  isSidebarCollapsed: boolean = true;
-
-  toggleSidebar() {
+  toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
-  navigateToLogin() {
-    this.router.navigate(['/login']);
-  }
-  get isLoggedIn() {
+  get isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
-  logout() {
+
+  isActive(route: string): boolean {
+    return this.router.isActive(route, true);
+  }
+
+  logout(): void {
     this.authService.logout();
     this.sidebarStateService.setActiveScreen('');
+    this.router.navigate(['/login']);  // Redirect to login after logout
   }
 }

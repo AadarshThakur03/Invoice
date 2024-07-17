@@ -1,0 +1,71 @@
+<!-- <div class="pricing-header">
+    <h1>Choose Your Right Plan!</h1>
+    <p>Select from the best plans, ensuring a perfect match. Need more or less? Customize your subscription for a seamless fit!</p>
+    <p class="trial-notice">Your trial period is expiring in {{ trialDaysLeft }} days. Subscribe to continue using the application.</p>
+    <div class="toggle-container">
+      <button class="toggle-button">Monthly</button>
+      <button class="toggle-button">Quarterly (save 10%)</button>
+    </div>
+  </div>
+  
+  <div class="pricing-container">
+    <div class="plan" [ngClass]="{'popular': plan.popular}" *ngFor="let plan of plans">
+      <h2>{{ plan.name }}</h2>
+      <p class="price">
+        <span class="old-price">{{ plan.oldPrice }}</span>
+        <span class="new-price">{{ plan.newPrice }}</span>
+      </p>
+      <ul>
+        <li *ngFor="let benefit of plan.benefits">
+          <i [class]="benefit.icon"></i> {{ benefit.text }}
+        </li>
+      </ul>
+      <button class="subscribe-button">{{ plan.buttonText }}</button>
+    </div>
+  </div>
+   -->
+
+<!-- <nav class="navbar">
+      <div class="logo">
+        Acme Cloud Solutions
+      </div>
+      <div class="nav-links">
+        <a href="#">Explore Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+      </div>
+      <button class="upgrade-button">Upgrade your plan to unlock more features</button>
+    </nav> -->
+
+<app-navbar *ngIf="pricingScreen"></app-navbar>
+<div class="container">
+  <div class="pricing-header" *ngIf="pricingScreen">
+    <h1>Pricing that scales with your business</h1>
+    <p>Choose the plan that's right for you. No hidden fees, no surprises.</p>
+  </div>
+
+  <div
+    class="pricing-container"
+    [ngClass]="!pricingScreen ? 'pricing-container-width' : ''"
+  >
+    <div
+      class="plan"
+      [ngClass]="{ popular: plan.popular }"
+      *ngFor="let plan of plans"
+    >
+      <h2>{{ plan.name }}</h2>
+      <p class="price">
+        <span class="old-price">{{ plan.oldPrice }}</span>
+        <span class="new-price">{{ plan.newPrice }}</span>/month
+      </p>
+      <!-- <p>{{ plan.description }}</p> -->
+      <ul>
+        <li *ngFor="let benefit of plan.benefits">
+          <i [class]="benefit.icon"></i> {{ benefit.text }}
+        </li>
+      </ul>
+      <button class="subscribe-button">{{ plan.buttonText }}</button>
+    </div>
+  </div>
+</div>

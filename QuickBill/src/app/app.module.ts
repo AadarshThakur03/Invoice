@@ -63,6 +63,10 @@ import { AddHsnCodesComponent } from './screens/manage-hsn-codes/add-hsn-codes/a
 import { ViewItemsComponent } from './screens/manage-items/view-items/view-items.component';
 import { AddItemsComponent } from './screens/manage-items/add-items/add-items.component';
 import { EditInvoiceComponent } from './screens/manage-invoice/edit-invoice/edit-invoice.component';
+import { PricingComponent } from './screens/pricing/pricing.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalComponent } from './component/modal/modal.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,6 +101,8 @@ import { EditInvoiceComponent } from './screens/manage-invoice/edit-invoice/edit
     ViewItemsComponent,
     AddItemsComponent,
     EditInvoiceComponent,
+    PricingComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,7 +118,9 @@ import { EditInvoiceComponent } from './screens/manage-invoice/edit-invoice/edit
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    CommonModule
+    CommonModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [
     provideClientHydration(),
