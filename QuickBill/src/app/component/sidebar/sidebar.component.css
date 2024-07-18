@@ -1,6 +1,9 @@
 .border-black{
   /* border: 1px solid black; */
 }
+::ng-deep .side-nav-content::-webkit-scrollbar{
+  display: none;
+}
 .side-nav-content{
   width: 230px;
   margin-left: 10px;

@@ -49,12 +49,17 @@ export class NavbarComponent implements OnInit {
   }
 
   isActive(route: string): boolean {
-    return this.router.isActive(route, true);
+    console.log(route, 'rout');
+    if (route === '/') {
+      return this.router.url === route;
+    }
+
+    return this.router.url.includes(route);
   }
 
   logout(): void {
     this.authService.logout();
     this.sidebarStateService.setActiveScreen('');
-    this.router.navigate(['/login']);  // Redirect to login after logout
+    this.router.navigate(['/login']); // Redirect to login after logout
   }
 }

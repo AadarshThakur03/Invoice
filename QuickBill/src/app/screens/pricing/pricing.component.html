@@ -38,17 +38,23 @@
       <button class="upgrade-button">Upgrade your plan to unlock more features</button>
     </nav> -->
 
-<app-navbar *ngIf="pricingScreen"></app-navbar>
+<!-- <app-navbar *ngIf="pricingScreen"></app-navbar> -->
 <div class="container">
   <div class="pricing-header" *ngIf="pricingScreen">
     <h1>Pricing that scales with your business</h1>
     <p>Choose the plan that's right for you. No hidden fees, no surprises.</p>
+  </div>
+  <div class="pricing-header" *ngIf="!pricingScreen">
+    <h1>Your trial period is expiring soon.</h1>
+    <p>Upgrade your plan to unlock more features</p>
   </div>
 
   <div
     class="pricing-container"
     [ngClass]="!pricingScreen ? 'pricing-container-width' : ''"
   >
+    <!-- <p>Choose the plan that's right for you. No hidden fees, no surprises.</p> -->
+
     <div
       class="plan"
       [ngClass]="{ popular: plan.popular }"
@@ -57,7 +63,7 @@
       <h2>{{ plan.name }}</h2>
       <p class="price">
         <span class="old-price">{{ plan.oldPrice }}</span>
-        <span class="new-price">{{ plan.newPrice }}</span>/month
+        <span class="new-price">{{ plan.newPrice }}</span> <span style="font-size: 15px;">/month</span>
       </p>
       <!-- <p>{{ plan.description }}</p> -->
       <ul>

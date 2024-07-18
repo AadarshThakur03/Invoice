@@ -22,7 +22,7 @@
       <li class="nav-item" *ngIf="isLoggedIn">
         <button class="upgrade-button">Your trial period is expiring in {{trialRemainingDays}} days</button>
       </li>
-      <li class="nav-item" [class.active]="isActive('/home')">
+      <li class="nav-item" [class.active]="isActive('/')">
         <a class="nav-link" routerLink="/home">Home</a>
       </li>
       <li class="nav-item" [class.active]="isActive('/pricing')">

@@ -51,13 +51,14 @@
   
   .pricing-header {
     text-align: center;
-    padding: 40px 20px;
+    padding: 20px 20px 10px 20px;
   }
   
   .pricing-header h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
     font-weight: bold;
+    color: black;
   }
   
   .pricing-header p {
@@ -68,22 +69,23 @@
   .pricing-container {
     display: flex;
     justify-content: space-between;
-    margin: 40px 0;
+    margin: 30px 0;
   }
   .pricing-container-width{
     margin: 10px 0;
   }
   
   .plan {
-    border: 1px solid var(--primary-color);
+    border: 1px solid #f2f2f2;
     padding: 30px 20px;
     border-radius: 10px;
     text-align: center;
     width: 30%;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* border-radius: 8px; */
     position: relative;
-    min-height: 600px;
+    /* min-height: 400px; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -96,6 +98,7 @@
   .plan h2 {
     font-size: 1.8em;
     font-weight: bold;
+    color: black;
   }
   
   .price {
@@ -126,6 +129,7 @@
   li {
     margin: 15px 0;
     font-size: 16px;
+    color: black;
   }
   
   li i {
@@ -157,7 +161,7 @@
   }
   
   .plan.popular::before {
-    content: 'Popular';
+    /* content: 'Recommended';
     color: #fff;
     background-color: var(--secondary-color);
     padding: 5px 10px;
@@ -165,6 +169,16 @@
     position: absolute;
     top: -10px;
     left: 50%;
+    transform: translateX(-50%); */
+    content: "Recommended";
+    color: #fff;
+    background-color: var(--secondary-color);
+    padding: 3px 11px;
+    border-radius: 5px;
+    position: absolute;
+    top: -16px;
+    left: 50%;
     transform: translateX(-50%);
+    font-size: 12px;
   }
   

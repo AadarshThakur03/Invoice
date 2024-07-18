@@ -14,7 +14,7 @@ body {
     display: flex;
     flex: 1;
     overflow-y: auto; /* Make main content scrollable vertically */
-    padding-top: 64px; /* Adjust to match navbar height */
+    /* padding-top: 64px; Adjust to match navbar height */
   }
   
   .display-area {
@@ -39,6 +39,9 @@ app-sidebar{
     overflow-x: hidden;
     white-space: nowrap;
     transition: width 250ms ease-in;
+}
+app-sidebar::-webkit-scrollbar{
+  display: none;
 }
 .black-border{
     /* border: 1px solid black; */
