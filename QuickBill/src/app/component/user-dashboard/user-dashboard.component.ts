@@ -1,19 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidebarStateService } from '../../services/activeScreen.service';
 import { DataService } from '../../services/data.service';
+import { ProfileCompletion } from '../../services/profileCompletion.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
-  styleUrl: './user-dashboard.component.css',
+  styleUrls: ['./user-dashboard.component.css'],
 })
-export class UserDashboardComponent {
-  businessCount: number;
-  clientsCount: number;
-  invoiceCount: number;
-  itemCount: number;
-  cardsData = [
+export class UserDashboardComponent implements OnInit {
+  businessCount: number = 0;
+  clientsCount: number = 0;
+  invoiceCount: number = 0;
+  itemCount: number = 0;
+  completionPercentage: number = 0;
+  cardsData: any[] = [
     {
       title: 'Your Last Invoice',
       invoiceDetails: {
@@ -25,24 +28,6 @@ export class UserDashboardComponent {
       },
       buttonText: 'Create New Invoice',
     },
-    // {
-    //   title: 'Card 2',
-    //   invoiceDetails: {
-    //     billedTo: 'Jane Smith',
-    //     invoiceDate: '2024-03-20',
-    //     amount: 150,
-    //   },
-    //   buttonText: 'Pay Invoice',
-    // },
-    // {
-    //   title: 'Card 3',
-    //   invoiceDetails: {
-    //     billedTo: 'Alice Johnson',
-    //     invoiceDate: '2024-03-21',
-    //     amount: 200,
-    //   },
-    //   buttonText: 'Pay Invoice',
-    // },
   ];
   cards = [
     {
@@ -78,57 +63,67 @@ export class UserDashboardComponent {
   constructor(
     private router: Router,
     private sidebarStateService: SidebarStateService,
-    private dataService: DataService
-  ) {
-    this.dataService.getBusinessByUserId().subscribe((data: any) => {
-      console.log(data.business.length);
-      this.businessCount = data.business.length;
-      // console.log(this.businessOptions);
-    });
-    this.dataService.getClientByUserId().subscribe((data: any) => {
-      console.log(data, 'create');
+    private dataService: DataService,
+    private profileCompletion: ProfileCompletion
+  ) {}
 
-      this.clientsCount = data.client.length;
+  ngOnInit() {
+    this.profileCompletion.setIncompleteItems(['business', 'client', 'item']);
+    
+    this.dataService.getBusinessByUserId().subscribe((data: any) => {
+      this.businessCount = data?.business?.length ?? 0;
+      if (this.businessCount > 1) {
+        this.profileCompletion.updateProfileCompletion('business', true);
+      }
+      this.updateCompletionPercentage();
     });
+    
+    this.dataService.getClientByUserId().subscribe((data: any) => {
+      this.clientsCount = data?.client?.length ?? 0;
+      if (this.clientsCount > 1) {
+        this.profileCompletion.updateProfileCompletion('client', false);
+      }
+      this.updateCompletionPercentage();
+    });
+    
     this.dataService.getItemByUserId().subscribe((data: any) => {
-      console.log(data, 'create');
-      this.itemCount = data.item.length;
+      this.itemCount = data?.item?.length ?? 0;
+      if (this.itemCount > 1) {
+        this.profileCompletion.updateProfileCompletion('item', true);
+      }
+      this.updateCompletionPercentage();
     });
+    
     this.dataService.getInvoiceByuserId().subscribe((data: any) => {
-      console.log(data.invoices.length > 0, 'invoice');
-      // if (data.invoices.length >0) {
-      this.invoiceCount = data.invoices.length;
-      this.cardsData = data.invoices.map((data: any) => {
-        return {
-          title: 'Your Last Invoice',
-          invoiceDetails: {
-            invoiceNo: data.invoiceNo,
-            business: data.businessName,
-            client: data.clientName,
-            invoiceDate: data.created_at.slice(0, 10),
-            amount: data.totalInvoiceAmount,
-          },
-          buttonText: 'Edit Invoice',
-        };
-      });
-      //   this.invoiceModel.items.forEach((item, index) => {
-      //     this.calculateTotal(index);
-      //   });
-      // }
+      const invoices = data?.invoices ?? [];
+      this.invoiceCount = invoices.length;
+      
+      this.cardsData = invoices.map((invoice: any) => ({
+        title: 'Your Last Invoice',
+        invoiceDetails: {
+          invoiceNo: invoice?.invoiceNo ?? 'N/A',
+          business: invoice?.businessName ?? 'N/A',
+          client: invoice?.clientName ?? 'N/A',
+          invoiceDate: invoice?.created_at?.slice(0, 10) ?? 'N/A',
+          amount: invoice?.totalInvoiceAmount ?? 0,
+        },
+        buttonText: 'Edit Invoice',
+      }));
     });
-    // this.dataService.getInvoiceByuserId().subscribe((data: any) => {
-    //   console.log(data.invoices, 'invoice');
-     
-    // });
+  }
+
+  private updateCompletionPercentage() {
+    this.completionPercentage = this.profileCompletion.getCompletionPercentage() ?? 0;
+    console.log('Completion Percentage:', this.completionPercentage);
   }
 
   createNewInvoice() {
-    // Add logic to create a new invoice
     console.log('Creating a new invoice');
   }
+
   navigateTo(invoiceNo: string) {
     this.router.navigate(['/user-homepage/create-invoice'], {
-      state: { invoiceNo: invoiceNo, edit: true },
+      state: { invoiceNo, edit: true },
     });
     this.sidebarStateService.setActiveScreen('create-invoice');
   }

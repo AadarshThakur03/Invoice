@@ -47,7 +47,7 @@ const pool = mysql.createPool({
   id INT PRIMARY KEY AUTO_INCREMENT,
   itemDescription VARCHAR(255) NOT NULL,
   unitPrice DECIMAL(10, 2) DEFAULT NULL,
-  hsnCode VARCHAR(50) NOT NULL,
+  hsn_code VARCHAR(50) NOT NULL,
 	hsn_description TEXT,
     cgst_rate DECIMAL(5,2)DEFAULT NULL,
     sgst_rate DECIMAL(5,2)DEFAULT NULL,
@@ -154,28 +154,29 @@ const pool = mysql.createPool({
 
     // Create the invoiceItems table if it doesn't exist
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS invoiceItems (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        invoice_id INT,
-        description VARCHAR(255),
-        code VARCHAR(255),
-        qty INT,
-        amount DECIMAL(10, 2) DEFAULT NULL,
-        unitPrice DECIMAL(10, 2) DEFAULT NULL,
-        totalAmountBT DECIMAL(10, 2) DEFAULT NULL,
-        hsnCode VARCHAR(255),
-        cgst DECIMAL(10, 2) DEFAULT NULL,
-        igst DECIMAL(10, 2) DEFAULT NULL,
-        sgst DECIMAL(10, 2) DEFAULT NULL,
-        totalAmountAT DECIMAL(10, 2) DEFAULT NULL,
-        discount DECIMAL(10, 2) DEFAULT NULL,
-        taxAmount DECIMAL(10, 2) DEFAULT NULL,
-        userId INT,
-        FOREIGN KEY (invoice_id) REFERENCES invoice(id),
-        FOREIGN KEY (userId) REFERENCES users(id),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-      );
+     CREATE TABLE IF NOT EXISTS invoiceItems (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    invoice_id INT,
+    description VARCHAR(255),
+    code VARCHAR(255),
+    qty INT,
+    amount DECIMAL(10, 2)DEFAULT NULL,
+    unitPrice DECIMAL(10, 2) DEFAULT NULL,
+    totalAmountBT DECIMAL(10, 2)DEFAULT NULL,
+    hsn_code VARCHAR(10) NOT NULL,
+    hsn_description TEXT,
+    cgst_rate DECIMAL(5,2)DEFAULT NULL,
+    sgst_rate DECIMAL(5,2)DEFAULT NULL,
+    igst_rate DECIMAL(5,2) DEFAULT NULL,
+    totalAmountAT DECIMAL(10, 2)DEFAULT NULL,
+    discount DECIMAL(10, 2)DEFAULT NULL,
+    taxAmount DECIMAL(10, 2)DEFAULT NULL,
+    userId INT,
+    FOREIGN KEY (invoice_id) REFERENCES invoice(id),
+    FOREIGN KEY (userId) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
     `);
     console.log("Table invoiceItems created successfully");
 

@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
   @Output() sideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = true;
   trialRemainingDays: number = 0;
-  currentUser: any;
+  currentUser: any = null;
   isSidebarCollapsed: boolean = true;
 
   constructor(
@@ -23,11 +23,11 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getUserDetails().subscribe((user) => {
-      this.currentUser = user.user;
+      this.currentUser = user?.user ?? null; // Handle potential null values
     });
 
     this.authService.getTrialRemainingDays().subscribe((user: any) => {
-      this.trialRemainingDays = user.remainingDays.days_remaining;
+      this.trialRemainingDays = user?.remainingDays?.days_remaining ?? 0; // Handle potential null values
     });
 
     this.sidebarStateService.activeScreen$.subscribe((screen) => {
@@ -49,7 +49,6 @@ export class NavbarComponent implements OnInit {
   }
 
   isActive(route: string): boolean {
-    console.log(route, 'rout');
     if (route === '/') {
       return this.router.url === route;
     }

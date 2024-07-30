@@ -8,13 +8,13 @@
   </div>
 
   <div class="progress-bar-container">
-    <div class="progress-bar" style="width: 55%"></div>
+    <div class="progress-bar" [style.width.%]="completionPercentage"></div>
   </div>
 
-  <p class="profile-progress-text">Your Profile is 55% Complete</p>
+  <p class="profile-progress-text">Your Profile is {{completionPercentage}}% Complete</p>
 
   <div class="card-container overview-container">
-    <div class="card overview-card">
+    <div class="card overview-card" >
       <div class="invoice-card-header">
         <span>Last Invoice</span>
         <a href="#" class="card-link-text">View Invoice</a>
@@ -24,13 +24,13 @@
           <div class="col-6">
             <span class="card-label">Invoice No</span>
             <span class="card-value">{{
-              cardsData[0].invoiceDetails.invoiceNo
+              cardsData[0]?.invoiceDetails?.invoiceNo || 'N/A'
             }}</span>
           </div>
           <div class="col-6">
             <span class="card-label">Date</span>
             <span class="card-value">{{
-              cardsData[0].invoiceDetails.invoiceDate
+              cardsData[0]?.invoiceDetails?.invoiceDate || 'N/A'
             }}</span>
           </div>
         </div>
@@ -38,13 +38,13 @@
           <div class="col-6">
             <span class="card-label">Client</span>
             <span class="card-value">{{
-              cardsData[0].invoiceDetails.client
+              cardsData[0]?.invoiceDetails?.client || 'N/A'
             }}</span>
           </div>
           <div class="col-6">
             <span class="card-label">Amount</span>
             <span class="card-value">{{
-              cardsData[0].invoiceDetails.amount | currency : "INR"
+              cardsData[0]?.invoiceDetails?.amount || 0 | currency : "INR"
             }}</span>
           </div>
         </div>
@@ -59,25 +59,26 @@
         <div class="card-row">
           <div class="col-6">
             <span class="card-label">Invoices</span>
-            <span class="card-value number">{{ invoiceCount }}</span>
+            <span class="card-value number">{{ invoiceCount || 0 }}</span>
           </div>
           <div class="col-6">
             <span class="card-label">Businesses</span>
-            <span class="card-value number">{{ businessCount }}</span>
+            <span class="card-value number">{{ businessCount || 0 }}</span>
           </div>
         </div>
         <div class="card-row">
           <div class="col-6">
             <span class="card-label">Clients</span>
-            <span class="card-value number">{{ clientsCount }}</span>
+            <span class="card-value number">{{ clientsCount || 0 }}</span>
           </div>
           <div class="col-6">
             <span class="card-label">Items</span>
-            <span class="card-value number">{{ itemCount }}</span>
+            <span class="card-value number">{{ itemCount || 0 }}</span>
           </div>
         </div>
       </div>
     </div>
+
     <div class="card-container">
       <div *ngFor="let card of cards" class="card">
         <div class="invoice-card-header">

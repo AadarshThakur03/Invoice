@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+declare var Razorpay: any; 
 @Component({
   selector: 'app-pricing',
   templateUrl: './pricing.component.html',
@@ -8,6 +9,39 @@ import { Component, Input } from '@angular/core';
 export class PricingComponent {
   trialDaysLeft = 5; // Example trial period days left
   @Input() pricingScreen: boolean = true;
+  payNow() {
+    const RozarpayOptions = {
+      description: 'Sample Razorpay demo',
+      currency: 'INR',
+      amount: 100000,
+      name: 'Sai',
+      key: 'rzp_test_ub9SQ6yNcg45qb',
+      image: 'https://i.imgur.com/FApqk3D.jpeg',
+      prefill: {
+        name: 'sai kumar',
+        email: 'sai@gmail.com',
+        phone: '9898989898'
+      },
+      theme: {
+        color: '#6466e3'
+      },
+      modal: {
+        ondismiss:  () => {
+          console.log('dismissed')
+        }
+      }
+    }
+
+    const successCallback = (paymentid: any) => {
+      console.log(paymentid);
+    }
+
+    const failureCallback = (e: any) => {
+      console.log(e);
+    }
+
+    Razorpay.open(RozarpayOptions,successCallback, failureCallback)
+  }
   plans = [
     {
       name: 'Basic',

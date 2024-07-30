@@ -71,7 +71,7 @@
           <i [class]="benefit.icon"></i> {{ benefit.text }}
         </li>
       </ul>
-      <button class="subscribe-button">{{ plan.buttonText }}</button>
+      <button class="subscribe-button" (click)="payNow()">{{ plan.buttonText }}</button>
     </div>
   </div>
 </div>

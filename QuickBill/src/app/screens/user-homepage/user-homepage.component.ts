@@ -42,7 +42,7 @@ export class UserHomepageComponent implements OnInit {
       this.trialRemainingDays = user.remainingDays.days_remaining;
 
       this.showModal = localStorage.getItem('showModal');
-      if (this.showModal == 'true' && this.trialRemainingDays <= 0) {
+      if (this.showModal == 'true' && this.trialRemainingDays <= 15) {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.width = '90vw'; // 90% of the viewport width
         dialogConfig.height = '95vh'; // 90% of the viewport height

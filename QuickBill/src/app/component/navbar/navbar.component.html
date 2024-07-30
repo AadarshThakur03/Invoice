@@ -20,7 +20,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" *ngIf="isLoggedIn">
-        <button class="upgrade-button">Your trial period is expiring in {{trialRemainingDays}} days</button>
+        <button class="upgrade-button">Your trial period is expiring in {{ trialRemainingDays }} days</button>
       </li>
       <li class="nav-item" [class.active]="isActive('/')">
         <a class="nav-link" routerLink="/home">Home</a>
@@ -39,9 +39,8 @@
       </li>
       <li class="nav-item user-div" *ngIf="isLoggedIn">
         <img class="user-image" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Image"/>
-        <a class="nav-link" [class.active]="isActive('/user-profile')" routerLink="/user-profile">{{ currentUser.username }}</a>
+        <a class="nav-link" [class.active]="isActive('/user-profile')" routerLink="/user-profile">{{ currentUser?.username }}</a>
       </li>
-      
       <li class="nav-item" *ngIf="isLoggedIn">
         <a class="btn btn-primary" id="nav-btn" (click)="logout()">Log Out</a>
       </li>
