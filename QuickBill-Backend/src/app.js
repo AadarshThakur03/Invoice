@@ -7,6 +7,7 @@ const itemRouter = require("./routes/itemRoutes");
 const invoiceRouter = require("./routes/invoiceRoutes");
 const { pool } = require("./database/db");
 const cors = require("cors");
+const paymentRoutes = require('./routes/paymentRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ app.use("/business", businessRouter);
 app.use("/client", clientRouter);
 app.use("/item", itemRouter);
 app.use("/invoice", invoiceRouter);
+app.use('/payments', paymentRoutes);
 
 pool.getConnection((err, connection) => {
   if (err) {

@@ -1,47 +1,83 @@
 import { Component, Input } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-declare var Razorpay: any; 
+declare var Razorpay: any;
+
 @Component({
   selector: 'app-pricing',
   templateUrl: './pricing.component.html',
-  styleUrls: ['./pricing.component.css'],
+  styleUrls: ['./pricing.component.css']
 })
 export class PricingComponent {
-  trialDaysLeft = 5; // Example trial period days left
+  trialDaysLeft = 5;
   @Input() pricingScreen: boolean = true;
-  payNow() {
-    const RozarpayOptions = {
-      description: 'Sample Razorpay demo',
+
+  constructor(private http: HttpClient) {}
+
+  payNow(plan: any) {
+    const amountInPaise = this.convertPriceToPaise(plan.newPrice);
+
+    this.http.post('http://localhost:3000/payments/orders', {
+      amount: amountInPaise,
       currency: 'INR',
-      amount: 100000,
-      name: 'Sai',
-      key: 'rzp_test_ub9SQ6yNcg45qb',
-      image: 'https://i.imgur.com/FApqk3D.jpeg',
-      prefill: {
-        name: 'sai kumar',
-        email: 'sai@gmail.com',
-        phone: '9898989898'
-      },
-      theme: {
-        color: '#6466e3'
-      },
-      modal: {
-        ondismiss:  () => {
-          console.log('dismissed')
+      receipt: 'receipt#' + new Date().getTime() // Generate a unique receipt ID
+    }).subscribe((order: any) => {
+      const options = {
+        key: 'rzp_test_haw8OcRjxUYwuw', // Replace with your Razorpay Key ID
+        amount: order.amount,
+        currency: order.currency,
+        name: 'Your Company Name',
+        description: 'Test Transaction',
+        order_id: order.id,
+        handler: (response: any) => {
+          this.verifyPayment(response);
+        },
+        prefill: {
+          name: 'User Name',
+          email: 'user@example.com',
+          phone: '9999999999'
+        },
+        theme: {
+          color: '#6466e3'
+        },
+        modal: {
+          ondismiss: () => {
+            console.log('Payment modal was closed by the user');
+            // Show a message or handle modal close
+            alert('Payment process was cancelled.');
+          }
         }
-      }
-    }
+      };
 
-    const successCallback = (paymentid: any) => {
-      console.log(paymentid);
-    }
-
-    const failureCallback = (e: any) => {
-      console.log(e);
-    }
-
-    Razorpay.open(RozarpayOptions,successCallback, failureCallback)
+      const rzp = new Razorpay(options);
+      rzp.open();
+    }, error => {
+      console.error('Error creating order:', error);
+      // Handle error creating order
+    });
   }
+
+  verifyPayment(paymentResponse: any) {
+    this.http.post('http://localhost:3000/payments/verify-payment', {
+      orderId: paymentResponse.razorpay_order_id,
+      paymentId: paymentResponse.razorpay_payment_id,
+      signature: paymentResponse.razorpay_signature
+    }).subscribe(response => {
+      console.log('Payment verified:', response);
+      // Handle successful payment verification
+      alert('Payment verified successfully!');
+    }, error => {
+      console.error('Payment verification failed:', error);
+      // Handle payment verification failure
+      alert('Payment verification failed. Please try again.');
+    });
+  }
+
+  convertPriceToPaise(price: string): number {
+    const numericPrice = parseFloat(price.replace('$', ''));
+    return Math.round(numericPrice * 100); // Convert to paise
+  }
+
   plans = [
     {
       name: 'Basic',
