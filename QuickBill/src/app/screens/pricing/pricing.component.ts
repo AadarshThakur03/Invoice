@@ -17,7 +17,7 @@ export class PricingComponent {
   payNow(plan: any) {
     const amountInPaise = this.convertPriceToPaise(plan.newPrice);
 
-    this.http.post('http://localhost:3000/payments/orders', {
+    this.http.post('https://e793-205-254-166-87.ngrok-free.app/payments/orders', {
       amount: amountInPaise,
       currency: 'INR',
       receipt: 'receipt#' + new Date().getTime() // Generate a unique receipt ID
@@ -58,7 +58,9 @@ export class PricingComponent {
   }
 
   verifyPayment(paymentResponse: any) {
-    this.http.post('http://localhost:3000/payments/verify-payment', {
+    console.log(paymentResponse, 'fromReact');
+
+    this.http.post('https://e793-205-254-166-87.ngrok-free.app/payments/verify-payment', {
       orderId: paymentResponse.razorpay_order_id,
       paymentId: paymentResponse.razorpay_payment_id,
       signature: paymentResponse.razorpay_signature
