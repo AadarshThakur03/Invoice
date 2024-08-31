@@ -4,142 +4,133 @@ const pool = require("../database/db"); // Ensure you have a MySQL connection se
 
 // Handle order creation
 exports.createOrder = async (req, res) => {
-  const { amount, receipt, currency } = req.body;
+  const { amount, receipt, planName } = req.body;
+  console.log(req.body);
 
   try {
+    // Validate userId
+    console.log(req.userId);
+
+    if (!req.userId) {
+      return res.status(400).json({ error: "Invalid User" });
+    }
+
+    // Reuse existing order if it exists with status 'initiated'
+    // Uncomment if needed
+    /*
+    const [existingOrders] = await pool.query(
+      "SELECT * FROM transactions WHERE userId = ? AND status = 'initiated'",
+      [req.userId]
+    );
+
+    if (existingOrders.length > 0) {
+      const activeOrderId = existingOrders[0].order_id;
+      console.log('Reusing existing order ID:', activeOrderId);
+
+      // Return existing order details
+      return res.json({ id: activeOrderId, amount: existingOrders[0].amount, currency: 'INR', receipt });
+    }
+    */
+
+    // Create a new order
     const order = await razorpay.orders.create({
       amount: amount * 100, // amount in paise
-      currency: currency,
+      currency: 'INR',
       receipt: receipt,
     });
 
-    const [existingUser] = await pool.query(
-      "SELECT * FROM transactions where userId=? and transaction_status=?",
-      [1, "initated"]
-    );
-    console.log(existingUser);
-
-    if (existingUser.length > 0) {
-      const activeOrderId = existingUser[0].order_id;
-     
-      order.id = activeOrderId;
-      console.log(order);
-      return res.json(order);
-    }
-
     // Save the transaction record with status 'initiated'
     await pool.query(
-      "INSERT INTO transactions (order_id, userId,  transaction_status) VALUES (?, ?, ?)",
-      [order.id, 1, "initated"]
+      "INSERT INTO transactions (order_id, userId, amount, status, plan_name) VALUES (?, ?, ?, ?, ?)",
+      [order.id, req.userId, amount, 'initiated', planName] // Save amount in paise
     );
-    console.log(order, "from createOrder");
 
     res.json(order); // Return the order as JSON
   } catch (error) {
     console.error("Error creating order:", error);
-    res.status(500).json({ error: "Error creating order" }); // Return error as JSON
+    res.status(500).json({ error: error.message || "Error creating order" });
   }
 };
 
-// Verify payment
 // Verify payment
 exports.verifyPayment = async (req, res) => {
   const { orderId, paymentId, signature } = req.body;
-  console.log(orderId);
+  const razorpaySecret = process.env.RAZORPAY_SECRET || 'gMGzXheCbvCf22Ll3qqTf0SP'; // Use environment variable
 
-  const generatedSignature = crypto
-    .createHmac("sha256", "gMGzXheCbvCf22Ll3qqTf0SP")
-    .update(`${orderId}|${paymentId}`)
-    .digest("hex");
+  try {
+    // Generate the signature
+    const generatedSignature = crypto
+      .createHmac("sha256", razorpaySecret)
+      .update(`${orderId}|${paymentId}`)
+      .digest("hex");
 
-  console.log(generatedSignature === signature);
+    // Check if the generated signature matches the provided signature
+    if (generatedSignature === signature) {
+      // Update the transaction record to mark the payment as successful
+      await pool.query(
+        "UPDATE transactions SET payment_id = ?, status = ? WHERE order_id = ?",
+        [paymentId, 'success', orderId]
+      );
 
-  if (generatedSignature === signature) {
-    await pool.query(
-      "UPDATE transactions SET payment_id = ?, transaction_status = ? WHERE order_id = ?",
-      [paymentId, "success", orderId]
-    );
-    // Payment is verified
-    res.json({
-      success: true,
-      message: "Payment verified successfully",
-      data: req.body,
-    });
-
-    
-  } else {
-    res.status(400).json({ error: "Payment verification failed" });
+      res.json({
+        success: true,
+        message: "Payment verified successfully",
+        data: req.body,
+      });
+    } else {
+      res.status(400).json({ error: "Payment verification failed" });
+    }
+  } catch (error) {
+    console.error("Error verifying payment:", error);
+    res.status(500).json({ error: error.message || "Error verifying payment" });
   }
 };
-// Handle Razorpay webhooks
+
 // Handle Razorpay webhooks
 exports.webhookHandler = async (req, res) => {
-  const webhookSecret = '!!!@@@###$$$567890'; // Replace with your actual webhook secret
+  const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET || '!!!@@@###$$$567890'; // Use environment variable
   const receivedSignature = req.headers['x-razorpay-signature'];
-  // console.log('Received webhook request');
-  // console.log('Request Headers:', req.headers);
-  // console.log('Request Body:', req.body)
 
-  // Generate expected signature
-  const expectedSignature = crypto.createHmac('sha256', webhookSecret)
-    .update(JSON.stringify(req.body))
-    .digest('hex');
+  try {
+    // Parse the request body as raw buffer
+    const body = JSON.stringify(req.body);
 
-  if (expectedSignature === receivedSignature) {
-    const event = req.body.event;
+    // Generate expected signature
+    const expectedSignature = crypto.createHmac('sha256', webhookSecret)
+      .update(body)
+      .digest('hex');
 
-    console.log(req.body.payload.payment.entity,'captured');
-    switch (event) {
-      case 'payment.captured':
-        console.log(req.body.payload.payment.entity,'captured');
-        
-        const capturedPayment = req.body.payload.payment.entity;
-        const { order_id: capturedOrderId, payment_id: capturedPaymentId } = capturedPayment;
-        console.log('Payment captured for Order ID:', capturedOrderId);
-        console.log('Payment ID:', capturedPaymentId);
+    if (expectedSignature === receivedSignature) {
+      const event = req.body.event;
+      const paymentDetails = req.body.payload.payment.entity;
 
-        // Update transaction status to 'success'
-        await pool.query(
-          'UPDATE transactions SET payment_id = ?, transaction_status = ? WHERE order_id = ?',
-          [capturedPaymentId, 'success', capturedOrderId]
-        );
-        break;
+      switch (event) {
+        case 'payment.captured':
+        case 'payment.failed':
+        case 'payment.pending':
+          const { order_id, payment_id, amount, method, fee, status } = paymentDetails;
+          console.log(paymentDetails, 'Payment details from webhook');
 
-      case 'payment.failed':
-        const failedPayment = req.body.payload.payment.entity;
-        const { order_id: failedOrderId, error_code, error_description } = failedPayment;
-        console.log('Payment failed for Order ID:', failedOrderId);
-        console.log('Error Code:', error_code);
-        console.log('Error Description:', error_description);
+          // Update transaction record
+          await pool.query(
+            `UPDATE transactions 
+             SET payment_id = ?, amount = ?, method = ?, fee = ?, status = ?
+             WHERE order_id = ?`,
+            [payment_id, amount/100, method, fee/100, status, order_id] // amount and fee should be in paise
+          );
+          break;
 
-        // Update transaction status to 'failed'
-        await pool.query(
-          'UPDATE transactions SET transaction_status = ? WHERE order_id = ?',
-          ['failed', failedOrderId]
-        );
-        break;
+        default:
+          console.log('Unhandled event:', event);
+          break;
+      }
 
-      case 'payment.pending':
-        const pendingPayment = req.body.payload.payment.entity;
-        const { order_id: pendingOrderId } = pendingPayment;
-        console.log('Payment pending for Order ID:', pendingOrderId);
-
-        // Optionally, update transaction status to 'pending'
-        await pool.query(
-          'UPDATE transactions SET transaction_status = ? WHERE order_id = ?',
-          ['pending', pendingOrderId]
-        );
-        break;
-
-      // Handle other events as needed
-
-      default:
-        console.log('Unhandled event:', event);
-        break;
+      res.json({ status: 'ok' });
+    } else {
+      res.status(400).json({ status: 'invalid signature' });
     }
-
-    res.json({ status: 'ok' });
-  } else {
-    res.status(400).json({ status: 'invalid signature' });
+  } catch (error) {
+    console.error("Error handling webhook:", error);
+    res.status(500).json({ status: 'error', message: error.message || "Error handling webhook" });
   }
 };
