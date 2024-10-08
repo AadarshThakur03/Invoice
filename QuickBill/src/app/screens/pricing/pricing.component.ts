@@ -28,7 +28,7 @@ export class PricingComponent {
   payNow(plan: any) {
     const amountInPaise = this.convertPriceToPaise(plan.newPrice);
   
-    this.http.post('https://d832-205-254-166-87.ngrok-free.app/payments/orders', {
+    this.http.post('https://5908-202-173-126-110.ngrok-free.app/payments/orders', {
       amount: amountInPaise,
       currency: 'INR',
       planName: plan.name,
@@ -83,7 +83,7 @@ export class PricingComponent {
   verifyPayment(paymentResponse: any) {
     console.log(paymentResponse, 'fromReact');
 
-    this.http.post('https://d832-205-254-166-87.ngrok-free.app/payments/verify-payment', {
+    this.http.post('https://5908-202-173-126-110.ngrok-free.app/payments/verify-payment', {
       orderId: paymentResponse.razorpay_order_id,
       paymentId: paymentResponse.razorpay_payment_id,
       signature: paymentResponse.razorpay_signature
